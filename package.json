@@ -5,7 +5,7 @@
   "name": "btd6paragoncalculator",
   "version": "1.0.0",
   "description": "Simple web app to calculate paragon level in BTD6",
-  "main": "index.html",
+  "main": "./project/index.html",
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
