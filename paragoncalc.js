@@ -42,7 +42,7 @@ class paragonCalc extends LitElement {
         .tooltip {
             position: relative;
             display: inline-block;
-            border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+            border-bottom: 1px dotted black;
           }
           
           /* Tooltip text */
@@ -79,7 +79,7 @@ class paragonCalc extends LitElement {
             border-color: #555 transparent transparent transparent;
           }
           
-          /* Show the tooltip text when you mouse over the tooltip container */
+          /* Makes tooltip visible on mouse hover */
           .tooltip:hover .tooltiptext {
             visibility: visible;
             opacity: 1;
