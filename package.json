@@ -1,0 +1,28 @@
+{
+  "dependencies": {
+    "wrangler": "^3.1.1"
+  },
+  "name": "btd6paragoncalculator",
+  "version": "1.0.0",
+  "description": "Simple web app to calculate paragon level in BTD6",
+  "main": "index.html",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kaister300/BTD6ParagonCalculator.git"
+  },
+  "keywords": [
+    "BTD6",
+    "Paragon",
+    "Calculator"
+  ],
+  "author": "Kaister300",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Kaister300/BTD6ParagonCalculator/issues"
+  },
+  "homepage": "https://github.com/Kaister300/BTD6ParagonCalculator#readme"
+}
