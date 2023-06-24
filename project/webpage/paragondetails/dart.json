@@ -1,11 +1,13 @@
 {
     "paragon": {
         "name": "Apex Plasma Master",
-        "damage": "20",
-        "ceramic": "30",
-        "boss": "100",
-        "elite": "200",
-        "pierce": "200",
-        "speed": "0.35"
+        "damage": 20,
+        "ceramic": 30,
+        "moab": 0,
+        "boss": 60,
+        "elite": 200,
+        "pierce": 200,
+        "speed": 0.35,
+        "cooldown": 0
     }
 }
