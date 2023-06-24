@@ -50,7 +50,8 @@ class paragonDamage extends LitElement {
             this.setDefault();
         }
         else {
-            fetch(`${window.location.href}paragondetails/${e.target.value}.json`)
+            let arr = e.target.value.split(";");
+            fetch(`${window.location.href}paragondetails/${arr[0]}/${arr[1]}.json`)
             .then(response => response.json())
             .then(data => this._paragon = data.paragon)
             .then(data => console.log(this._paragon));
@@ -146,11 +147,11 @@ class paragonDamage extends LitElement {
             <select id="paragon" @change=${this._grabSelected}>
                 <option value="">Please choose an option</option>
                 <optgroup label="Primary">
-                    <option value="dart">Dart Monkey</option>
-                    <option value="boomerang">Boomerang Monkey</option>
+                    <option value="primary;dart">Dart Monkey</option>
+                    <option value="primary;boomerang">Boomerang Monkey</option>
                 </optgroup>
                 <optgroup label="Magic">
-                    <option value="ninja">Ninja Monkey</option>
+                    <option value="magic;ninja">Ninja Monkey</option>
                 </optgroup>
             </select>
         </div>
