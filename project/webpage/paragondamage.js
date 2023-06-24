@@ -51,6 +51,7 @@ class paragonDamage extends LitElement {
         }
         else {
             let arr = e.target.value.split(";");
+            console.log(`${window.location.href}paragondetails/${arr[0]}/${arr[1]}.json`);
             fetch(`${window.location.href}paragondetails/${arr[0]}/${arr[1]}.json`)
             .then(response => response.json())
             .then(data => this._paragon = data.paragon)
@@ -148,10 +149,18 @@ class paragonDamage extends LitElement {
                 <option value="">Please choose an option</option>
                 <optgroup label="Primary">
                     <option value="primary;dart">Dart Monkey</option>
-                    <option value="primary;boomerang">Boomerang Monkey</option>
+                    <option value="primary;boomerangm">Boomerang Monkey</option>
+                </optgroup>
+                <optgroup label="Military">
+                    <option value="military;buccaneer">Monkey Buccaneer</option>
+                    <option value="military;ace">Monkey Ace</option>
                 </optgroup>
                 <optgroup label="Magic">
                     <option value="magic;ninja">Ninja Monkey</option>
+                    <option value="magic;wizard">Wizard Monkey</option>
+                </optgroup>
+                <optgroup label="Support">
+                    <option value="support;engineer">Engineer Monkey</option>
                 </optgroup>
             </select>
         </div>
