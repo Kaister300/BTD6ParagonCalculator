@@ -39,6 +39,10 @@ class paragonCalc extends LitElement {
             margin: 4px;
         }
 
+        /*
+            Tooltip CSS from W3Schools
+            - Slightly modified to fit page
+        */
         .tooltip {
             position: relative;
             display: inline-block;
@@ -84,11 +88,18 @@ class paragonCalc extends LitElement {
             visibility: visible;
             opacity: 1;
           }
+        /*
+          End of Tooltip Snippet
+        */
     `;
 
     constructor() {
         super();
+
+        // Saves Paragon Power Levels
         this.paragonLevelsGenerator();
+
+        // Initialising All Form Variables
         this.currDegree = 0;
         this.tierfives = 0;
         this.upgrades = 0;
