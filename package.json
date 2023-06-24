@@ -1,12 +1,12 @@
 {
   "dependencies": {
+    "express": "^4.18.2",
     "wrangler": "^3.1.1"
   },
   "name": "btd6paragoncalculator",
   "version": "1.0.0",
   "description": "Simple web app to calculate paragon level in BTD6",
   "main": "./project/index.html",
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -91,7 +91,7 @@ class paragonCalc extends LitElement {
         this.paragonLevelsGenerator();
         this.currDegree = 0;
         this.tierfives = 0;
-        this.upgrades = 1200;
+        this.upgrades = 0;
         this.spent = 0;
         this.pops = 0;
         this.income = 0;
@@ -123,7 +123,7 @@ class paragonCalc extends LitElement {
             if(this.basePower < this.paragonLevels[i]) {
                 this.currDegree = i;
                 this.nextDegree = i+1;
-                return i;
+                return null;
             }
         }
         this.currDegree = 100;
@@ -139,10 +139,6 @@ class paragonCalc extends LitElement {
             // Cleaning input
             curr.value = curr.value.replace('-', '');
             curr.value = curr.value.replace('.', '');
-
-            if(curr.value === '') {
-                curr.value = curr.min;
-            }
 
             // Checking Integer Values
             if(parseInt(curr.value) > parseInt(curr.max)) {
@@ -213,16 +209,16 @@ class paragonCalc extends LitElement {
                 <input type="number" id="tier5" min=0 max=9 value=0 @input=${this._validate} @change=${this._tierfiveupdate}>
 
                 <label for="towerupgrades"><span class="tooltip">Non-Tier 5 Upgrades:<span class="tooltiptext">This includes all upgrade tiers spent on towers excluding any Tier 5 upgrades. Max is 100.</span></span></label>
-                <input type="number" id="towerupgrades" min=0 max=100 value=12 @input=${this._validate} @change=${this._upgradeupdate}>
+                <input type="number" id="towerupgrades" min=0 max=100 value=0 step=4 @input=${this._validate} @change=${this._upgradeupdate}>
 
-                <label for="moneyspent"><span class="tooltip">Money Spent (excluding initial 3):<span class="tooltiptext">Total amount spent on towers excluding T5s. Max is $25k.</span></span></label>
-                <input type="number" id="moneyspent" min=0 max=250000 value=0 @input=${this._validate} @change=${this._spentupdate}>
+                <label for="moneyspent"><span class="tooltip">Money Spent (excluding initial 3):<span class="tooltiptext">Total amount spent on towers excluding T5s. Max is $250k.</span></span></label>
+                <input type="number" id="moneyspent" min=0 max=250000 value=0 step=500 @input=${this._validate} @change=${this._spentupdate}>
 
                 <label for="popcount"><span class="tooltip">Bloons Popped:<span class="tooltiptext">Includes Bloons popped from every tower of the paragon type. Max is 16.2M.</span></span></label>
-                <input type="number" id="popcount" min=0 max=16200000 value=0 @input=${this._validate} @change=${this._popupdate}>
+                <input type="number" id="popcount" min=0 max=16200000 value=0 step=5000 @input=${this._validate} @change=${this._popupdate}>
 
-                <label for="incomegenerated"><span class="tooltip">Cash Generated:<span class="tooltiptext">Only applies to xx3+ Monkey Buccaneer. Shares same internal power limit as pops. Max is $4.05M.</span></span></label>
-                <input type="number" id="incomegenerated" min=0 max=4050000 value=0 @input=${this._validate} @change=${this._incomeupdate}>
+                <label for="incomegenerated"><span class="tooltip">Cash Generated:<span class="tooltiptext">Applies to Buccaneer & Engineer. Shares same internal power limit as pops. Max is $4.05M.</span></span></label>
+                <input type="number" id="incomegenerated" min=0 max=4050000 value=0 step=1000 @input=${this._validate} @change=${this._incomeupdate}>
 
                 <label for="paragontotems"><span class="tooltip">Geraldo Paragon Power Totems:<span class="tooltiptext">Has no max cap to increase paragon power.</span></span></label>
                 <input type="number" id="paragontotems" min=0 value=0 @input=${this._validate} @change=${this._totemupdate}>
