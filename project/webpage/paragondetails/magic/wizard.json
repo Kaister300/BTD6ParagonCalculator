@@ -1,13 +1,67 @@
 {
     "paragon": {
         "name": "Magus Perfectus",
-        "damage": 20,
-        "ceramic": 30,
-        "moab": 0,
-        "boss": 60,
-        "elite": 200,
-        "pierce": 200,
-        "speed": 0.35,
-        "cooldown": 0
+        "attacks" : [
+            {
+                "name": "Radial Darts",
+                "isdot": false,
+                "damage": 200,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 0,
+                "elite": 400,
+                "pierce": 50,
+                "speed": 0.66,
+                "cooldown": 0
+            },
+            {
+                "name": "Seeking Missiles",
+                "isdot": false,
+                "damage": 200,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 0,
+                "elite": 400,
+                "pierce": 1,
+                "speed": 0.66,
+                "cooldown": 0
+            },
+            {
+                "name": "Seeking Missiles Explosion",
+                "isdot": false,
+                "damage": 200,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 0,
+                "elite": 400,
+                "pierce": 50,
+                "speed": 0.66,
+                "cooldown": 0
+            },
+            {
+                "name": "Forward Firing Darts",
+                "isdot": false,
+                "damage": 300,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 0,
+                "elite": 600,
+                "pierce": 50,
+                "speed": 0.11,
+                "cooldown": 0
+            },
+            {
+                "name": "Carpet Bomb",
+                "isdot": false,
+                "damage": 20000,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 0,
+                "elite": 40000,
+                "pierce": 150,
+                "speed": 0,
+                "cooldown": 40
+            }
+        ]
     }
 }

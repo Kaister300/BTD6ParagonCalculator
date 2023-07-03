@@ -1,13 +1,55 @@
 {
     "paragon": {
         "name": "Navarch of the Seas",
-        "damage": 20,
-        "ceramic": 30,
-        "moab": 0,
-        "boss": 60,
-        "elite": 200,
-        "pierce": 200,
-        "speed": 0.35,
-        "cooldown": 0
+        "attacks" : [
+            {
+                "name": "Main Turret",
+                "isdot": false,
+                "damage": 60,
+                "ceramic": 0,
+                "moab": 60,
+                "boss": 60,
+                "elite": 180,
+                "pierce": 28,
+                "speed": 0.429,
+                "cooldown": 0
+            },
+            {
+                "name": "Grape Shot Turret",
+                "isdot": false,
+                "damage": 25,
+                "ceramic": 0,
+                "moab": 30,
+                "boss": 5,
+                "elite": 85,
+                "pierce": 10,
+                "speed": 0.429,
+                "cooldown": 0
+            },
+            {
+                "name": "Dart Plane",
+                "isdot": false,
+                "damage": 44,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 0,
+                "elite": 88,
+                "pierce": 18,
+                "speed": 0.15,
+                "cooldown": 0
+            },
+            {
+                "name": "MOAB Missile Plane",
+                "isdot": false,
+                "damage": 200,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 0,
+                "elite": 400,
+                "pierce": 10,
+                "speed": 1.5,
+                "cooldown": 0
+            }
+        ]
     }
 }

@@ -1,13 +1,19 @@
 {
     "paragon": {
         "name": "Template",
-        "damage": 20,
-        "ceramic": 30,
-        "moab": 0,
-        "boss": 60,
-        "elite": 200,
-        "pierce": 200,
-        "speed": 0.35,
-        "cooldown": 0
+        "attacks" : [
+            {
+                "name": "Attack",
+                "isdot": false,
+                "damage": 20,
+                "ceramic": 30,
+                "moab": 0,
+                "boss": 60,
+                "elite": 200,
+                "pierce": 200,
+                "speed": 0.35,
+                "cooldown": 0
+            }
+        ]
     }
 }

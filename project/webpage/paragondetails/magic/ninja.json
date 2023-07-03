@@ -1,13 +1,67 @@
 {
     "paragon": {
         "name": "Ascended Shadow",
-        "damage": 20,
-        "ceramic": 30,
-        "moab": 0,
-        "boss": 60,
-        "elite": 200,
-        "pierce": 200,
-        "speed": 0.35,
-        "cooldown": 0
+        "attacks" : [
+            {
+                "name" : "Main Shuriken",
+                "isdot" : false, 
+                "damage": 32,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 0,
+                "elite": 64,
+                "pierce": 4,
+                "speed": 0.217,
+                "cooldown": 0
+            },
+            {
+                "name" : "Flash Bomb",
+                "isdot" : false, 
+                "damage": 96,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 0,
+                "elite": 192,
+                "pierce": 50,
+                "speed": 1.5,
+                "cooldown": 0
+            },
+            {
+                "name" : "Blue Shuriken",
+                "isdot" : false, 
+                "damage": 80,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 0,
+                "elite": 160,
+                "pierce": 20,
+                "speed": 1.5,
+                "cooldown": 0
+            },
+            {
+                "name" : "Sticky Bomb Direct Impact",
+                "isdot" : false, 
+                "damage": 16000,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 16000,
+                "elite": 96000,
+                "pierce": 1,
+                "speed": 5.3,
+                "cooldown": 0
+            },
+            {
+                "name" : "Sticky Bomb AoE",
+                "isdot" : false, 
+                "damage": 3500,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 0,
+                "elite": 4900,
+                "pierce": 10,
+                "speed": 8.5,
+                "cooldown": 0
+            }
+        ]
     }
 }

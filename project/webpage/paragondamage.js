@@ -1,4 +1,5 @@
 import {LitElement, html, css,} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import { attackComp } from './paragondetails/attackcomp.js';
 
 class paragonDamage extends LitElement {
     static properties = {
@@ -23,6 +24,12 @@ class paragonDamage extends LitElement {
         h1 {
             margin: 0;
         }
+
+        .warning {
+            display: block;
+            margin-top: 0.5rem;
+            color: red;
+        }
     `;
 
     constructor() {
@@ -33,22 +40,23 @@ class paragonDamage extends LitElement {
     }
 
     setDefault() {
+        // Resets paragon json data
         this._paragon = void 1;
+
+        // Resets Paragon Name
         this.name = "--------"
-        this.damage = "N/A";
-        this.ceramic = "N/A";
-        this.moab = "N/A";
-        this.boss = "N/A";
-        this.elite = "N/A";
-        this.pierce = "N/A";
-        this.speed = "N/A";
-        this.cooldown = "N/A";
+
+        // Resets attacks of paragon
+        this.attacks = [];
     }
 
     _grabSelected(e) {
+        // Resets paragon data
         if(e.target.value === "") {
             this.setDefault();
         }
+
+        // Fetches paragon data
         else {
             let arr = e.target.value.split(";");
             console.log(`${window.location.href}paragondetails/${arr[0]}/${arr[1]}.json`);
@@ -60,81 +68,15 @@ class paragonDamage extends LitElement {
     }
 
     _damageComputation() {
+        // Sets name of paragon
         this.name = this._paragon.name;
-        let gamma = 1+0.01*(this.degree-1);
-        this._baseDamage(gamma);
-        this.ceramic = this.damage + this._specialDamage(this._paragon.ceramic, gamma);
-        this.moab = this.damage + this._specialDamage(this._paragon.moab, gamma);
-        this._bossDamage(gamma);
-        this._eliteDamage(gamma);
-        this._pierceDamage(gamma);
-        this._attackSpeed();
-    }
 
-    _baseDamage(gamma) {
-        if(this.degree === 1) {
-            this.damage = this._paragon.damage;
-        }
-        else if(this.degree === 100) {
-            this.damage = 2*this._paragon.damage + 10;
-        }
-        else {
-            this.damage = this._paragon.damage*gamma + (this.degree/10) - 1;
-        }
-    }
+        // Resets Attack Array
+        this.attacks = [];
 
-    /*
-        This includes Ceramics, MOABs and Fortified bonus damage.
-        returns: bonus damage that is applied ontop of base damage
-    */
-    _specialDamage(special, gamma) {
-        if(this.degree === 1) {
-            return special;
-        }
-        else if(this.degree === 100) {
-            return 2*special;
-        }
-        else {
-            return special*gamma;
-        }
-    }
-
-    // Calculates Boss Bloon Damage. Returns nothing
-    _bossDamage(gamma) {
-        if(this.degree === 1) {
-            this.boss = this.damage + this.moab + this._paragon.boss;
-        }
-        else {
-            let extra = this._paragon.boss*gamma;
-            //let x = this.damage + this.moab + 2*extra;
-            //let y = 1+0.2*(this.degree/20);
-            //this.boss = x*y - extra;
-            this.boss = (this.damage + this.moab + 2*extra)*(1+0.2*(this.degree/20)) - extra;
-        }
-    }
-
-    _eliteDamage() {
-        this.elite = 2*this.boss;
-    }
-
-    _pierceDamage(gamma) {
-        if(this.degree === 1) {
-            this.pierce = this._paragon.pierce;
-        }
-        else if(this.degree === 100) {
-            this.pierce = 2*this._paragon.pierce + 100
-        }
-        else {
-            this.pierce = this._paragon.pierce*gamma + (this.degree-1);
-        }
-    }
-
-    _attackSpeed() {
-        if(this.degree === 1) {
-            this.speed = this._paragon.speed;
-        }
-        else {
-            this.speed = this._paragon.speed / (1+0.01*Math.sqrt(50*this.degree - 50));
+        // Sets damage
+        for(const { name, isdot, damage, ceramic, moab, boss, elite, pierce, speed, cooldown} of this._paragon.attacks) {
+            this.attacks.push(new attackComp(this.degree, name, isdot, damage, ceramic, moab, boss, elite, pierce, speed, cooldown));
         }
     }
 
@@ -162,18 +104,28 @@ class paragonDamage extends LitElement {
                 <optgroup label="Support">
                     <option value="support;engineer">Engineer Monkey</option>
                 </optgroup>
-            </select>
+            </select><br>
+            <span class="warning"><strong>NOTE:</strong> The numbers below are most likely inaccurate due to missing/incomplete data from the wiki.</span>
         </div>
         <div>
             <h2>${this.name}</h2>
             <h3>Degree ${this.degree}</h3>
-            <p>Base Damage: ${this.damage}</p>
-            <p>Ceramic Damage: ${this.ceramic}</p>
-            <p>MOAB Damage: ${this.moab}</p>
-            <p>Boss Bloon Damage: ${this.boss}</p>
-            <p>Elite Boss Bloon Damage: ${this.elite}</p>
-            <p>Pierce: ${this.pierce}</p>
-            <p>Attack Speed: ${this.speed}</p>
+        ${this.attacks.map(attack => {return html`
+            <section>
+                <h4>${attack.name}</h4>
+                <p>Damage over Time: ${attack.isdot}</p>
+                <p>Base Damage: ${attack.damage}</p>
+                <p>Ceramic Damage: ${attack.ceramic}</p>
+                <p>MOAB Damage: ${attack.moab}</p>
+                <p>Boss Bloon Damage: ${attack.boss}</p>
+                <p>Elite Boss Bloon Damage: ${attack.elite}</p>
+                <p>Pierce: ${attack.pierce}</p>
+                ${!attack.isdot
+                    ? html`<p>Attack Speed: ${attack.speed}</p>`
+                    : html`<p>Time Lasting: ${attack.speed}s</p>`
+                }
+            </section>`
+        })}
         </div>
         `;
     }
