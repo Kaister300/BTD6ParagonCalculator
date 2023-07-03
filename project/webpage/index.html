@@ -3,17 +3,26 @@
     <head>
         <title>BTD6 Paragon Calculator</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,400;1,300;1,400&display=swap');
-            /* font-family: 'Mulish', sans-serif; */
-            html {
-                font-family: 'Mulish', sans-serif;
-            }
-        </style>
+        <link rel="stylesheet" href="./style.css">
         <script type="module" src="./scripts.js"></script>
     </head>
-    <body>
-        <top-header></top-header>
-        <paragon-calc></paragon-calc>
+    <body style="display:none;">
+        <header>
+            <h1>BTD6 Paragon Tools</h1>
+            <p>Still Under Construction</p>
+        </header>
+        
+        <div>
+            <custom-header heading="BTD6 Paragon Calculator"></custom-header>
+            <paragon-calc></paragon-calc>
+
+            <paragon-damage></paragon-damage>
+        </div>
+
+        <footer>
+            <h3>Created by Kaister3000</h3>
+            <p>Paragon Formula & Attack Data from <a href="https://bloons.fandom.com/wiki/Paragons">Bloons Fandom Wiki</a></p>
+            <p><a href="https://github.com/Kaister300/BTD6ParagonCalculator">GitHub Page</a></p>
+        </footer>
     </body>
 </html>

@@ -1,0 +1,19 @@
+{
+    "paragon": {
+        "name": "Goliath Doomship",
+        "attacks" : [
+            {
+                "name": "--------",
+                "isdot": false,
+                "damage": 1,
+                "ceramic": 0,
+                "moab": 0,
+                "boss": 0,
+                "elite": 0,
+                "pierce": 1,
+                "speed": 1,
+                "cooldown": 0
+            }
+        ]
+    }
+}

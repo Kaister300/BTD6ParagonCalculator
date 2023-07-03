@@ -4,6 +4,7 @@ class paragonCalc extends LitElement {
     static properties = {
         currDegree: {type: Number},
         nextDegree: {type: Number},
+        sentDegree: {type: Number},
         paragonLevels: {type: Array},
         tierfives: {state: true},
         upgrades: {state: true},
@@ -101,6 +102,7 @@ class paragonCalc extends LitElement {
 
         // Initialising All Form Variables
         this.currDegree = 0;
+        this.sentDegree = 0;
         this.tierfives = 0;
         this.upgrades = 0;
         this.spent = 0;
@@ -126,7 +128,6 @@ class paragonCalc extends LitElement {
     paragonLevelsGenerator() {
         let levels = Array.from({length: 100}, (_, i) => i + 1);
         this.paragonLevels = levels.map(this.paragonFunction);
-        console.log(this.paragonLevels);
     }
 
     _degreeCalc() {
@@ -134,11 +135,22 @@ class paragonCalc extends LitElement {
             if(this.basePower < this.paragonLevels[i]) {
                 this.currDegree = i;
                 this.nextDegree = i+1;
+                this._eventDegree();
                 return null;
             }
         }
         this.currDegree = 100;
         this.nextDegree = "MAX";
+        this._eventDegree();
+    }
+
+    // Sends updated degree level to paragon damage
+    _eventDegree() {
+        if(!(this.currDegree === this.sentDegree)) {
+            this.sentDegree = this.currDegree;
+            let e = new CustomEvent("degree", { detail: {currDegree: `${this.currDegree}`}});
+            window.dispatchEvent(e);
+        }
     }
 
     // Form Validation
@@ -241,7 +253,8 @@ class paragonCalc extends LitElement {
             html`<p>Progress to Next Milestone: (${this.basePower-this.paragonLevels[this.currDegree-1]} / ${this.paragonLevels[this.currDegree] - this.paragonLevels[this.currDegree-1]})</p>`
             : html`<p>Paragon has reached max level and can not be leveled up further.</p>`
             }
-        </div>`;
+        </div>
+        `;
     }
 }
 
