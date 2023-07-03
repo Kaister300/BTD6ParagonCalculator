@@ -1,0 +1,2 @@
+Use following command from GitHub project root to deploy through Cloudflare pages:
+npx wrangler pages deploy project/webpage
