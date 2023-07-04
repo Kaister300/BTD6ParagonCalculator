@@ -3,7 +3,7 @@
         "name": "Apex Plasma Master",
         "attacks" : [
         {
-            "name" : "main",
+            "name" : "Main",
             "isdot" : false,
             "damage": 20,
             "ceramic": 30,
