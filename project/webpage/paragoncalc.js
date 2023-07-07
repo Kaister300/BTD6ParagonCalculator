@@ -6,13 +6,7 @@ class paragonCalc extends LitElement {
         nextDegree: {type: Number},
         sentDegree: {type: Number},
         paragonLevels: {type: Array},
-        tierfives: {state: true},
-        upgrades: {state: true},
-        spent: {state: true},
-        pops: {state: true},
-        income: {state: true},
-        totems: {state: true},
-        basePower: {state: true},
+        power: {state: true},
     };
 
     static styles = css`
@@ -100,18 +94,17 @@ class paragonCalc extends LitElement {
         // Saves Paragon Power Levels
         this.paragonLevelsGenerator();
 
-        // Initialising All Form Variables
+        // Initialising All Variables
         this.currDegree = 0;
         this.sentDegree = 0;
-        this.tierfives = 0;
-        this.upgrades = 0;
-        this.spent = 0;
-        this.pops = 0;
-        this.income = 0;
-        this.totems = 0;
+        this.power = 0;
     }
 
-    // Paragon Power Levels
+    /**
+     * Returns paragon power needed to hit specified degree.
+     * @param {Number} degree Paragon Degree
+     * @returns {Number} Power that is required
+     */
     paragonFunction(degree) {
         if(degree === 1) {
             return 0;
@@ -125,14 +118,22 @@ class paragonCalc extends LitElement {
         }
     }
 
+    /**
+     * Generates an array that contains each level needed to
+     * reach that paragon degree. Saves it in `this.paragonLevels`
+     */
     paragonLevelsGenerator() {
         let levels = Array.from({length: 100}, (_, i) => i + 1);
         this.paragonLevels = levels.map(this.paragonFunction);
     }
 
+    /**
+     * Calculates current degree from power and dispatchs event
+     * @returns 
+     */
     _degreeCalc() {
         for(let i = 0; i < this.paragonLevels.length; i++) {
-            if(this.basePower < this.paragonLevels[i]) {
+            if(this.power < this.paragonLevels[i]) {
                 this.currDegree = i;
                 this.nextDegree = i+1;
                 this._eventDegree();
@@ -144,7 +145,9 @@ class paragonCalc extends LitElement {
         this._eventDegree();
     }
 
-    // Sends updated degree level to paragon damage
+    /** 
+     * Sends updated degree level to paragon damage
+    */ 
     _eventDegree() {
         if(!(this.currDegree === this.sentDegree)) {
             this.sentDegree = this.currDegree;
@@ -153,104 +156,94 @@ class paragonCalc extends LitElement {
         }
     }
 
-    // Form Validation
-    _validate() {
-        let formDoc = document.querySelector('paragon-calc').shadowRoot.querySelector('form');
-        for(let i = 0; i < formDoc.length; i++) {
-            let curr = formDoc[i];
+    /**
+     * Validates user input from form. Clears input if browser sends 
+     * true for invalid input.
+     * @param {event} event The event from the form
+    */
+    _validate(e) {
+        // Gets input element that has been given a user input
+        let curr = e.originalTarget;
 
-            // Cleaning input
-            curr.value = curr.value.replace('-', '');
-            curr.value = curr.value.replace('.', '');
+        // Sets input empty if input is invalid
+        if(curr.value.length === 0) {
+            curr.value = "";
+        }
 
-            // Checking Integer Values
-            if(parseInt(curr.value) > parseInt(curr.max)) {
-                curr.value = curr.max;
-            }
-            else if(parseInt(curr.value) < parseInt(curr.min)) {
-                curr.value = curr.min;
-            }
+        // Checking Integer Values
+        if(parseInt(curr.value) > parseInt(curr.max)) {
+            curr.value = curr.max;
+        }
+        else if(parseInt(curr.value) < parseInt(curr.min)) {
+            curr.value = curr.min;
         }
     }
 
-    // Form Updates
-    _tierfiveupdate(e) {
-        this.tierfives = e.target.value*10000;
-    }
-    _upgradeupdate(e) {
-        this.upgrades = e.target.value*100;
-    }
-    _spentupdate(e) {
-        this.spent = Math.floor(e.target.value/25);
-    }
-    _popupdate(e) {
-        this.pops = Math.floor(e.target.value/180);
-    }
-    _incomeupdate(e) {
-        this.income = Math.floor(e.target.value/45);
-    }
-    _totemupdate(e) {
-        this.totems = e.target.value*2000;
-    }
+    /**
+     * Calculates current power from form values
+     * @param {event} event Form event from updating values 
+     */
+    _formUpdate(e) {
+        // Saves Form Element
+        let form = e.currentTarget;
 
-    // Calculates power from inputs
-    _powerComputation() {
-        // Zero power initially
-        this.basePower =  0
-        
+        // Zero Power Initially
+        this.power = 0;
+
         // Tier5s
-        this.basePower += this.tierfives;
+        this.power += form.tier5.value*10000;
 
         // Upgrades
-        this.basePower += this.upgrades;
+        this.power += form.towerupgrades.value*100;
 
         // Money Spent
-        this.basePower += this.spent;
+        this.power += Math.floor(form.moneyspent.value/25);
 
         // Pops or Income
-        let temp = this.pops + this.income
+        let temp = Math.floor(form.popcount.value/180);
+        temp += Math.floor(form.incomegenerated.value/45);
         if(temp > 90000) {
             temp = 90000;
         }
-        this.basePower += temp;
-       
-        // Totems
-        this.basePower += this.totems;
+        this.power += temp;
 
-        if(this.basePower > 200000) {
-            this.basePower = 200000
+        // Totems
+        this.power += form.paragontotems.value*2000;
+
+        // Capping Max Power
+        if(this.power > 200000) {
+            this.power = 200000;
         }
     }
 
     render() {
-        this._powerComputation();
         this._degreeCalc();
         return html`
         <div>
-            <form id="calc">
+            <form id="calc" @input=${this._validate} @change=${this._formUpdate}>
                 <label for="tier5">Tier 5 Towers (excluding initial 3):</label>
-                <input type="number" id="tier5" min=0 max=9 value=0 @input=${this._validate} @change=${this._tierfiveupdate}>
+                <input type="number" id="tier5" min=0 max=9 value=0>
 
                 <label for="towerupgrades"><span class="tooltip">Non-Tier 5 Upgrades:<span class="tooltiptext">This includes all upgrade tiers spent on towers excluding any Tier 5 upgrades. Max is 100.</span></span></label>
-                <input type="number" id="towerupgrades" min=0 max=100 value=0 step=4 @input=${this._validate} @change=${this._upgradeupdate}>
+                <input type="number" id="towerupgrades" min=0 max=100 value=0 step=4>
 
                 <label for="moneyspent"><span class="tooltip">Money Spent (excluding initial 3):<span class="tooltiptext">Total amount spent on towers excluding T5s. Max is $250k.</span></span></label>
-                <input type="number" id="moneyspent" min=0 max=250000 value=0 step=500 @input=${this._validate} @change=${this._spentupdate}>
+                <input type="number" id="moneyspent" min=0 max=250000 value=0 step=500>
 
                 <label for="popcount"><span class="tooltip">Bloons Popped:<span class="tooltiptext">Includes Bloons popped from every tower of the paragon type. Max is 16.2M.</span></span></label>
-                <input type="number" id="popcount" min=0 max=16200000 value=0 step=5000 @input=${this._validate} @change=${this._popupdate}>
+                <input type="number" id="popcount" min=0 max=16200000 value=0 step=5000>
 
                 <label for="incomegenerated"><span class="tooltip">Cash Generated:<span class="tooltiptext">Applies to Buccaneer & Engineer. Shares same internal power limit as pops. Max is $4.05M.</span></span></label>
-                <input type="number" id="incomegenerated" min=0 max=4050000 value=0 step=1000 @input=${this._validate} @change=${this._incomeupdate}>
+                <input type="number" id="incomegenerated" min=0 max=4050000 value=0 step=1000>
 
                 <label for="paragontotems"><span class="tooltip">Geraldo Paragon Power Totems:<span class="tooltiptext">Has no max cap to increase paragon power.</span></span></label>
-                <input type="number" id="paragontotems" min=0 value=0 @input=${this._validate} @change=${this._totemupdate}>
+                <input type="number" id="paragontotems" min=0 value=0>
             </form>
             <p>Current Degree: ${this.currDegree}</p>
-            <p>Current Power: ${this.basePower}</p>
+            <p>Current Power: ${this.power}</p>
             ${
                 this.currDegree < 100 ?
-            html`<p>Progress to Next Milestone: (${this.basePower-this.paragonLevels[this.currDegree-1]} / ${this.paragonLevels[this.currDegree] - this.paragonLevels[this.currDegree-1]})</p>`
+            html`<p>Progress to Next Milestone: (${this.power-this.paragonLevels[this.currDegree-1]} / ${this.paragonLevels[this.currDegree] - this.paragonLevels[this.currDegree-1]})</p>`
             : html`<p>Paragon has reached max level and can not be leveled up further.</p>`
             }
         </div>
