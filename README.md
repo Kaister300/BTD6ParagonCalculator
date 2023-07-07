@@ -27,3 +27,8 @@ OR
 ```bash
 node project/app.mjs
 ```
+
+Building the website requires Python3 and the `python-dotenv` package from pip. The build script can be run using:
+```bash
+python3 project/make.py
+```
