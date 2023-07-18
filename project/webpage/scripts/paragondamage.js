@@ -1,5 +1,5 @@
 import {LitElement, html, css,} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
-import { attackComp } from './paragondetails/attackcomp.js';
+import { attackComp } from './attackcomp.js';
 
 class paragonDamage extends LitElement {
     static properties = {

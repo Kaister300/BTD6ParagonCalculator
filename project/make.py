@@ -2,9 +2,8 @@ import os, shutil
 from dotenv import load_dotenv
 
 
-def _buildHeaders(dir, subdomain):
+def _buildHeaders(dir, website):
     fileExtensions = ["js", "json", "css"]
-    website = f"https://{subdomain}.pages.dev/"
     robotTag = "    X-Robots-Tag: noindex\n"
 
     with open(f"{dir}_headers", "w") as file:
@@ -33,6 +32,16 @@ def _buildBingAuth(dir, auth):
         file.write("</users>")
 
 
+def _buildRobotsTxt(dir):
+    with open(f"{dir}robots.txt") as file:
+        file.write("User-agent: *\n")
+        file.write("Disallow: /*.css\n")
+        file.write("Disallow: /scripts\n")
+        file.write("Disallow: /paragondetails\n")
+        if(not (os.getenv("WEBSITE"))):
+            file.write(f"Sitemap: {os.getenv('WEBSITE')}sitemap.xml")
+
+
 def _buildWebsite(rootDir):
     print(rootDir)
     srcDir = rootDir + splitSymbol + "webpage" + splitSymbol
@@ -41,10 +50,13 @@ def _buildWebsite(rootDir):
     shutil.copytree(srcDir, buildDir, dirs_exist_ok=True)
     print("Copied Webpage Folder")
     
-    subdomain = os.getenv("CLOUDFLARE_PAGES_SUBDOMAIN")
-    if(not (len(subdomain) == 0)):
-        _buildHeaders(buildDir, subdomain)
-        print("_headers Build")
+    _buildRobotsTxt(buildDir)
+    print("Robots.txt Built")
+
+    website = os.getenv("WEBSITE")
+    if(not (len(website) == 0)):
+        _buildHeaders(buildDir, website)
+        print("_headers Built")
     else:
         print("Skipped _headers file")
 
