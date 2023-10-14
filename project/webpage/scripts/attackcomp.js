@@ -3,6 +3,7 @@
  * @author Kaister300
  * @param {Number} degree - Degree of paragon
  * @param {String} name - Name of attack
+ * @param {String} type - Attack Type
  * @param {Boolean} isdot - Boolean value if attack is damage over time
  * @param {Number} ceramic - Bonus ceramic damage at degree 1
  * @param {Number} moab - Bonus moab damage at degree 1
@@ -14,10 +15,11 @@
  */
 export class attackComp {
 
-    constructor(degree, name, isdot, damage, ceramic, moab, boss, elite, pierce, speed, cooldown) {
+    constructor(degree, name, type, isdot, damage, ceramic, moab, boss, elite, pierce, speed, cooldown) {
         // Sets basic information of attack class
         this.degree = degree;
         this.name = name;
+        this.type = type;
         this.isdot = isdot;
 
         // Sets gamma value used in damage computation

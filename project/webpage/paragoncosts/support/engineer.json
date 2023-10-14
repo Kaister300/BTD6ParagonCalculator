@@ -1,0 +1,11 @@
+{
+    "paragoncost": {
+        "name": "Master Builder",
+        "prices": {
+            "easy": 552500,
+            "medium": 650000,
+            "hard": 702000,
+            "impoppable": 780000
+        }
+    }
+}

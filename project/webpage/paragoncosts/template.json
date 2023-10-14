@@ -1,0 +1,11 @@
+{
+    "paragoncost": {
+        "name": "Template",
+        "prices": {
+            "easy": 20,
+            "medium": 30,
+            "hard": 50,
+            "impoppable": 70
+        }
+    }
+}

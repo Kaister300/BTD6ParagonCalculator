@@ -1,0 +1,11 @@
+{
+    "paragoncost": {
+        "name": "Navarch of the Seas",
+        "prices": {
+            "easy": 467500,
+            "medium": 550000,
+            "hard": 594000,
+            "impoppable": 660000
+        }
+    }
+}

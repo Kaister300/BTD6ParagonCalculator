@@ -1,0 +1,11 @@
+{
+    "paragoncost": {
+        "name": "Ascended Shadow",
+        "prices": {
+            "easy": 425000,
+            "medium": 500000,
+            "hard": 540000,
+            "impoppable": 600000
+        }
+    }
+}

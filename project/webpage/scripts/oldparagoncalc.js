@@ -1,15 +1,12 @@
-import {LitElement, html, css} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import {LitElement, html, css,} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
 
-class paragonCalc extends LitElement {
+class oldparagonCalc extends LitElement {
     static properties = {
         currDegree: {type: Number},
         nextDegree: {type: Number},
         sentDegree: {type: Number},
         paragonLevels: {type: Array},
-        paragoncost: {type: Number},
-        selector: {type: String},
         power: {state: true},
-        _paragon: {state: true}
     };
 
     static styles = css`
@@ -26,8 +23,7 @@ class paragonCalc extends LitElement {
             background-color: #C9F0FF;
             display: flex;
             padding: 1rem;
-            border-radius: 1rem 1rem 0 0;
-            border-bottom: 2px solid black;
+            border-radius: 1rem;
         }
         header > h1 {
             display: inline;
@@ -43,16 +39,6 @@ class paragonCalc extends LitElement {
             padding: 1rem;
         }
 
-        #cost {
-            margin: 5px;
-        }
-        #cost label {
-            margin: 4px;
-        }
-        #cost select {
-            margin: 4px;
-        }
-
         #calc {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -66,12 +52,6 @@ class paragonCalc extends LitElement {
         #calc input {
             max-width: 15rem;
             margin: 4px;
-        }
-
-        .warning {
-            display: block;
-            margin-top: 0.5rem;
-            color: red;
         }
 
         /*
@@ -132,7 +112,7 @@ class paragonCalc extends LitElement {
         super();
 
         // Sets up drop down menu
-        this.hidden = false;
+        this.hidden = true;
 
         // Saves Paragon Power Levels
         this.paragonLevelsGenerator();
@@ -141,7 +121,6 @@ class paragonCalc extends LitElement {
         this.currDegree = 0;
         this.sentDegree = 0;
         this.power = 0;
-        this.paragoncost = 0;
     }
 
     /**
@@ -195,7 +174,7 @@ class paragonCalc extends LitElement {
     _eventDegree() {
         if(!(this.currDegree === this.sentDegree)) {
             this.sentDegree = this.currDegree;
-            let e = new CustomEvent("degree", { detail: {currDegree: `${this.currDegree}`}});
+            let e = new CustomEvent("olddegree", { detail: {currDegree: `${this.currDegree}`}});
             window.dispatchEvent(e);
         }
     }
@@ -224,63 +203,26 @@ class paragonCalc extends LitElement {
     }
 
     /**
-     * Sets up data for the Money Spent power calculations
-     * $(Paragon Price)/20000 spent = 1 power
-     * @param {event} e Form event from updating values 
-     */
-    async _paragonFormUpdate(e) {
-        let form = e.currentTarget;
-
-        // Resets paragon json data
-        if(form.paragon.value === "") {
-            this._paragon = void 1;
-            this.paragoncost = 0;
-        }
-        else {
-            // Fetches paragon data
-            if(!this._paragon || !(this._paragon.selector === form.paragon.value)) {
-                let arr = form.paragon.value.split(";");
-                console.log(`${window.location.href}paragoncosts/${arr[0]}/${arr[1]}.json`);
-                await fetch(`${window.location.href}paragoncosts/${arr[0]}/${arr[1]}.json`)
-                .then(response => response.json())
-                .then(data => this._paragon = data.paragoncost)
-                .then(() => console.log(this._paragon));
-                this._paragon.selector = form.paragon.value;
-            }
-            this.paragoncost = this._paragon.prices[form.difficulty.value];
-        }
-    }
-
-    /**
      * Calculates current power from form values
      * @param {event} event Form event from updating values 
      */
-    _degreeFormUpdate(e) {
+    _formUpdate(e) {
         // Saves Form Element
         let form = e.currentTarget;
 
         // Zero Power Initially
         this.power = 0;
 
-        // Tier5s. Max is 50,000 power
-        this.power += form.tier5.value*6000;
-        if(this.power > 50000) {
-            this.power = 50000;
-        }
+        // Tier5s
+        this.power += form.tier5.value*10000;
 
-        // Upgrades. Max is 10,000 power
+        // Upgrades
         this.power += form.towerupgrades.value*100;
 
-        // Money Spent. Max is 60,000 power
-        if(!(this.paragoncost === 0)) {
-            let spentratio = this.paragoncost/20000
-            this.power += Math.floor(form.moneyspent.value/spentratio);
-            if(this.power > 60000) {
-                this.power = 60000;
-            }
-        }
+        // Money Spent
+        this.power += Math.floor(form.moneyspent.value/25);
 
-        // Pops or Income. Max is 90,000 power
+        // Pops or Income
         let temp = Math.floor(form.popcount.value/180);
         temp += Math.floor(form.incomegenerated.value/45);
         if(temp > 90000) {
@@ -288,10 +230,10 @@ class paragonCalc extends LitElement {
         }
         this.power += temp;
 
-        // Totems. No Max
+        // Totems
         this.power += form.paragontotems.value*2000;
 
-        // Capping Total Max Power
+        // Capping Max Power
         if(this.power > 200000) {
             this.power = 200000;
         }
@@ -323,49 +265,19 @@ class paragonCalc extends LitElement {
         this._degreeCalc();
         return html`
         <header>
-            <h1>Paragon Degree Calculator (Post 39.0)</h1>
-            <button @click=${this.hideWidget}>Close</button>
+            <h1>Paragon Degree Calculator (Pre 39.0)</h1>
+            <button @click=${this.hideWidget}>Open</button>
         </header>
-        <div>
-            <form id="cost" @change=${this._paragonFormUpdate}>
-                <label for="paragon">Choose Paragon: </label>
-                <select id="paragon">
-                    <option value="">Please choose an option</option>
-                    <optgroup label="Primary">
-                        <option value="primary;dart">Dart Monkey</option>
-                        <option value="primary;boomerangm">Boomerang Monkey</option>
-                    </optgroup>
-                    <optgroup label="Military">
-                        <option value="military;buccaneer">Monkey Buccaneer</option>
-                        <option value="military;ace">Monkey Ace</option>
-                    </optgroup>
-                    <optgroup label="Magic">
-                        <option value="magic;ninja">Ninja Monkey</option>
-                        <option value="magic;wizard">Wizard Monkey</option>
-                    </optgroup>
-                    <optgroup label="Support">
-                        <option value="support;engineer">Engineer Monkey</option>
-                    </optgroup>
-                </select><br>
-
-                <label for="difficulty">Choose Difficulty: </label>
-                <select id="difficulty">
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                    <option value="impoppable">Impoppable</option>
-                </select>
-            </form>
-
-            <form id="calc" @input=${this._validate} @change=${this._degreeFormUpdate}>
+        <div hidden>
+            <form id="calc" @input=${this._validate} @change=${this._formUpdate}>
                 <label for="tier5">Tier 5 Towers (excluding initial 3):</label>
                 <input type="number" id="tier5" min=0 max=9 value=0>
 
                 <label for="towerupgrades"><span class="tooltip">Non-Tier 5 Upgrades:<span class="tooltiptext">This includes all upgrade tiers spent on towers excluding any Tier 5 upgrades. Max is 100.</span></span></label>
                 <input type="number" id="towerupgrades" min=0 max=100 value=0 step=4>
 
-                <label for="moneyspent"><span class="tooltip">Money Spent (excluding initial 3):<span class="tooltiptext">Total amount spent on towers excluding T5s. Max is $${3*this.paragoncost}.</span></span></label>
-                <input type="number" id="moneyspent" min=0 max=${3*this.paragoncost} value=0 step=500>
+                <label for="moneyspent"><span class="tooltip">Money Spent (excluding initial 3):<span class="tooltiptext">Total amount spent on towers excluding T5s. Max is $250k.</span></span></label>
+                <input type="number" id="moneyspent" min=0 max=250000 value=0 step=500>
 
                 <label for="popcount"><span class="tooltip">Bloons Popped:<span class="tooltiptext">Includes Bloons popped from every tower of the paragon type. Max is 16.2M.</span></span></label>
                 <input type="number" id="popcount" min=0 max=16200000 value=0 step=5000>
@@ -383,10 +295,9 @@ class paragonCalc extends LitElement {
             html`<p>Progress to Next Milestone: (${this.power-this.paragonLevels[this.currDegree-1]} / ${this.paragonLevels[this.currDegree] - this.paragonLevels[this.currDegree-1]})</p>`
             : html`<p>Paragon has reached max level and can not be leveled up further.</p>`
             }
-            <span class="warning"><strong>NOTE:</strong> This does not include the cash injection calculations.</span>
         </div>
         `;
     }
 }
 
-customElements.define("paragon-calc", paragonCalc);
+customElements.define("oldparagon-calc", oldparagonCalc);

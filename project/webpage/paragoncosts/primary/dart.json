@@ -1,0 +1,11 @@
+{
+    "paragoncost": {
+        "name": "Apex Plasma Master",
+        "prices": {
+            "easy": 127500,
+            "medium": 150000,
+            "hard": 162000,
+            "impoppable": 180000
+        }
+    }
+}

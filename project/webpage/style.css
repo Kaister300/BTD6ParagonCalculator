@@ -3,6 +3,8 @@
 
 html {
     font-family: 'Mulish', sans-serif;
+    width: 100vw;
+    overflow-x: hidden;
 }
 
 body {

@@ -1,4 +1,4 @@
-import {LitElement, html, css,} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import {LitElement, html, css} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
 import { attackComp } from './attackcomp.js';
 
 class paragonDamage extends LitElement {
@@ -33,18 +33,42 @@ class paragonDamage extends LitElement {
             cursor: pointer;
         }
 
-        h1 {
+        h1, h2, h3 {
             margin: 0;
+        }
+        h3 {
+            font-weight: 400;
+            font-style: italic;
         }
 
         div {
             padding: 1rem;
+        }
+        div > div {
+            padding: 1rem 0;
         }
 
         .warning {
             display: block;
             margin-top: 0.5rem;
             color: red;
+        }
+
+        section {
+            padding: 5px;
+            margin: 0.5rem 0;
+        }
+        section h4 {
+            margin: 0.5rem 0;
+            font-size: larger;
+        }
+        section p {
+            margin: 0.5rem 0;
+        }
+
+        section.normal {
+            background-color: rgba(128, 0, 128, 0.6);
+            border-bottom: purple solid;
         }
     `;
 
@@ -64,7 +88,7 @@ class paragonDamage extends LitElement {
         this.name = "--------"
 
         // Resets attacks of paragon
-        this.attacks = [];
+        this.fullattacks = [];
     }
 
     _grabSelected(e) {
@@ -89,11 +113,19 @@ class paragonDamage extends LitElement {
         this.name = this._paragon.name;
 
         // Resets Attack Array
-        this.attacks = [];
+        this.fullattacks = [];
 
         // Sets damage
-        for(const { name, isdot, damage, ceramic, moab, boss, elite, pierce, speed, cooldown} of this._paragon.attacks) {
-            this.attacks.push(new attackComp(this.degree, name, isdot, damage, ceramic, moab, boss, elite, pierce, speed, cooldown));
+        for(const x of this._paragon.fullattacks) {
+            let entry = {};
+            entry.name = x.name;
+            entry.attacks = [];
+
+            for(const { name, type="normal", isdot, damage, ceramic, moab, boss, elite, pierce, speed, cooldown} of x.attacks) {
+                entry.attacks.push(new attackComp(this.degree, name, type, isdot, damage, ceramic, moab, boss, elite, pierce, speed, cooldown));
+            }
+
+            this.fullattacks.push(entry)
         }
     }
 
@@ -154,22 +186,30 @@ class paragonDamage extends LitElement {
             <div>
                 <h2>${this.name}</h2>
                 <h3>Degree ${this.degree}</h3>
-            ${this.attacks.map(attack => {return html`
-                <section>
-                    <h4>${attack.name}</h4>
-                    <p>Damage over Time: ${attack.isdot}</p>
-                    <p>Base Damage: ${attack.damage}</p>
-                    <p>Ceramic Damage: ${attack.ceramic}</p>
-                    <p>MOAB Damage: ${attack.moab}</p>
-                    <p>Boss Bloon Damage: ${attack.boss}</p>
-                    <p>Elite Boss Bloon Damage: ${attack.elite}</p>
-                    <p>Pierce: ${attack.pierce}</p>
-                    ${!attack.isdot
-                        ? html`<p>Attack Speed: ${attack.speed}</p>`
-                        : html`<p>Time Lasting: ${attack.speed}s</p>`
-                    }
-                </section>`
+                <div id="fullattacks">
+            ${this.fullattacks.map(fullatk => {return html`
+                    <div>
+                    <h3>${fullatk.name}</h3>
+                    ${fullatk.attacks.map(attack => {return html`
+                        <section class="${attack.type}">
+                            <h4>${attack.name}</h4>
+                            <p>Damage over Time: ${attack.isdot}</p>
+                            <p>Base Damage: ${attack.damage}</p>
+                            <p>Ceramic Damage: ${attack.ceramic}</p>
+                            <p>MOAB Damage: ${attack.moab}</p>
+                            <p>Boss Bloon Damage: ${attack.boss}</p>
+                            <p>Elite Boss Bloon Damage: ${attack.elite}</p>
+                            <p>Pierce: ${attack.pierce}</p>
+                            ${!attack.isdot
+                                ? html`<p>Attack Speed: ${attack.speed}</p>`
+                                : html`<p>Time Lasting: ${attack.speed}s</p>`
+                            }
+                        </section>`
+                    })}
+
+                    </div>`
             })}
+                </div>
             </div>
         </div>
         `;
