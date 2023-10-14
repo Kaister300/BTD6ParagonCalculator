@@ -3,6 +3,8 @@ from pathlib import Path
 from datetime import datetime
 from dotenv import load_dotenv
 
+# Loads .env file
+load_dotenv()
 
 class terminalColours:
     OK = '\033[92m'
@@ -101,8 +103,9 @@ def _buildWebsite(rootDir):
 
     print(f"{terminalColours.BOLD}Build Finished{terminalColours.END}")    
 
+def main():
+    global splitSymbol
 
-if(__name__ == "__main__"):
     # Gets working directory
     workingDir = os.getcwd()
 
@@ -114,12 +117,12 @@ if(__name__ == "__main__"):
 
     # Checks if build script is running in root of Git project
     if(workingDir.split(splitSymbol)[-1] == "BTD6ParagonCalculator"):
-        # Loads env file
-        load_dotenv(dotenv_path=(f"{workingDir}{splitSymbol}.env"))
-
         workingDir += f"{splitSymbol}project"
         print(f"{terminalColours.BOLD}Build Initiated{terminalColours.END}")
         _buildWebsite(workingDir)
     else:
         print(f"{terminalColours.WARN}Please open build file from root directory of the Git project{terminalColours.END}")
     input(f"{terminalColours.BOLD}Press enter to close{terminalColours.END}")
+
+if(__name__ == "__main__"):
+    main()
