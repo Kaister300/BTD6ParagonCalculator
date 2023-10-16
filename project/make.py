@@ -37,10 +37,12 @@ def _buildSitemap(dir, website, projectDir):
 
     with open(f"{dir}sitemap.xml", "w") as file:
         file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-        file.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n<url>\n')
-        file.write(f"<loc>{website}</loc>\n")
-        file.write(f"<lastmod>{modTime}</lastmod>\n")
-        file.write("</url>\n</urlset>")
+        file.write('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n')
+        file.write('    <url>\n')
+        file.write(f'       <loc>{website}</loc>\n')
+        file.write(f'       <lastmod>{modTime}</lastmod>\n')
+        file.write('    </url>\n')
+        file.write('</urlset>')
 
 
 def _buildGoogleAuth(dir, auth):
@@ -62,13 +64,14 @@ def _buildRobotsTxt(dir):
         file.write("Disallow: /*.css\n")
         file.write("Disallow: /scripts\n")
         file.write("Disallow: /paragondetails\n")
+        file.write("Disallow: /paragoncosts\n")
         if(os.getenv("WEBSITE")):
             file.write(f"Sitemap: {os.getenv('WEBSITE')}sitemap.xml")
 
 
-def _buildWebsite(rootDir):
-    srcDir = f"{rootDir}{splitSymbol}webpage{splitSymbol}"
-    buildDir = f"{rootDir}{splitSymbol}output{splitSymbol}"
+def _buildWebsite():
+    srcDir = "project/webpage/"
+    buildDir = "project/output/"
 
     shutil.copytree(srcDir, buildDir, dirs_exist_ok=True)
     print(f"{terminalColours.OK}Copied Webpage Folder{terminalColours.END}")
@@ -104,8 +107,6 @@ def _buildWebsite(rootDir):
     print(f"{terminalColours.BOLD}Build Finished{terminalColours.END}")    
 
 def main():
-    global splitSymbol
-
     # Gets working directory
     workingDir = os.getcwd()
 
@@ -119,7 +120,7 @@ def main():
     if(workingDir.split(splitSymbol)[-1] == "BTD6ParagonCalculator"):
         workingDir += f"{splitSymbol}project"
         print(f"{terminalColours.BOLD}Build Initiated{terminalColours.END}")
-        _buildWebsite(workingDir)
+        _buildWebsite()
     else:
         print(f"{terminalColours.WARN}Please open build file from root directory of the Git project{terminalColours.END}")
     input(f"{terminalColours.BOLD}Press enter to close{terminalColours.END}")

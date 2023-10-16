@@ -383,7 +383,10 @@ class paragonCalc extends LitElement {
             html`<p>Progress to Next Milestone: (${this.power-this.paragonLevels[this.currDegree-1]} / ${this.paragonLevels[this.currDegree] - this.paragonLevels[this.currDegree-1]})</p>`
             : html`<p>Paragon has reached max level and can not be leveled up further.</p>`
             }
-            <span class="warning"><strong>NOTE:</strong> This does not include the cash injection calculations.</span>
+            ${this.paragoncost ?
+            html`<span class="warning"><strong>NOTE:</strong> The cash injection is 3.15 times the base paragon cost. This would mean that the total cash injection allowed would be $${Math.round(3.15*this.paragoncost)+1}</span>`
+            : html`<span class="warning"><strong>NOTE:</strong> Please chosse the Paragon and Difficulty first.</span>`
+            }
         </div>
         `;
     }
