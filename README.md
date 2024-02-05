@@ -1,4 +1,7 @@
 # BTD6ParagonCalculator
+
+[![Deploy on push](https://github.com/Kaister300/BTD6ParagonCalculator/actions/workflows/on-push.yaml/badge.svg)](https://github.com/Kaister300/BTD6ParagonCalculator/actions/workflows/on-push.yaml)
+
 ## Overview
 A simple web application to caclulate the approximate power of a BTD6 paragon based on in game factors. 
 The webpage is situated in the project directory under webpage. An express server, `app.mjs`, has been included to run the page locally.
