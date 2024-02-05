@@ -1,0 +1,50 @@
+name: "Deploy Webpage to Cloudflare Pages"
+on:
+    workflow_call:
+        inputs:
+            environment:
+                required: true
+                type: string
+
+jobs:
+    deploy:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v3
+
+            - name: Install Node.js
+              uses: actions/setup-node@v4
+              with:
+                  node-version: "18"
+                  cache: "npm"
+            
+            - name: Install Python
+              uses: actions/setup-python@v4
+              with:
+                  python-version: "3.11"
+                  cache: "pip"
+
+            - name: Install dependencies
+              run: |
+                npm install
+                pip install -r project/requirements.txt
+
+            - name: Create .env file
+              run: |
+                cat <<EOF > .env
+                WEBSITE=${{ vars.CLOUDFLARE_PAGE_URL }}
+                GOOGLE_SEARCHCONSOLE_AUTH=${{ secrets.GOOGLE_SEARCHCONSOLE_AUTH }}
+                BING_WEBMASTER_AUTH=${{ secrets.BING_WEBMASTER_AUTH }}
+                EOF
+            
+            - name: Build static files
+              run: python3 project/make.py
+
+            - name: Deploy to Cloudflare Pages
+              uses: cloudflare/wrangler-action@v3
+              with:
+                  apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+                  accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+                  workingDirectory: "project/output"
+                  command: pages deploy --project-name=${{inputs.environment}}

@@ -60,7 +60,7 @@ def build_headers(dest_dir, website):
             file.write(f"{website}BingSiteAuth.xml\n")
             file.write(robot_tag)
 
-        if google_auth := os.getenv("GOOGLE_SEACHCONSOLE_AUTH"):
+        if google_auth := os.getenv("GOOGLE_SEARCHCONSOLE_AUTH"):
             file.write(f"{website}{google_auth}\n")
             file.write(robot_tag)
 
@@ -174,7 +174,7 @@ def build_website():
         print_terminal("Skipped _headers and Sitemap Files", TerminalColours.NO)
 
     # Adds Google and Bing Auth Files
-    google_auth = os.getenv("GOOGLE_SEACHCONSOLE_AUTH")
+    google_auth = os.getenv("GOOGLE_SEARCHCONSOLE_AUTH")
     if google_auth:
         build_google_auth(build_dir, google_auth)
         print_terminal("Google Auth File Built", TerminalColours.OK)

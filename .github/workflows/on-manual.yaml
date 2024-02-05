@@ -1,0 +1,20 @@
+name: "Manual build"
+on:
+    workflow_dispatch:
+        inputs:
+            environment:
+                description: "Choose an environment to deploy to:"
+                type: choice
+                options:
+                    - "prod"
+                    - "staging"
+                    - "dev"
+                default: "dev"
+
+jobs:
+    deploy-page:
+        name: Deploy page
+        uses: ./.github/workflows/deploy-page.yaml
+        secrets: inherit
+        with:
+            environment: ${{ github.event.inputs.environment }}
