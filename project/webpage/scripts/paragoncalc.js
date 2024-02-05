@@ -338,6 +338,7 @@ class paragonCalc extends LitElement {
                     <optgroup label="Military">
                         <option value="military;buccaneer">Monkey Buccaneer</option>
                         <option value="military;ace">Monkey Ace</option>
+                        <option value="military;sub">Monkey Sub</option>
                     </optgroup>
                     <optgroup label="Magic">
                         <option value="magic;ninja">Ninja Monkey</option>
@@ -384,7 +385,7 @@ class paragonCalc extends LitElement {
             : html`<p>Paragon has reached max level and can not be leveled up further.</p>`
             }
             ${this.paragoncost ?
-            html`<span class="warning"><strong>NOTE:</strong> The cash injection is 3.15 times the base paragon cost. This would mean that the total cash injection allowed would be $${Math.round(3.15*this.paragoncost)+1}</span>`
+            html`<span class="warning"><strong>NOTE:</strong> The cash injection is 3.15 times the base paragon cost. This would mean that the total cash injection allowed would be $${Math.round(3.15*this.paragoncost)}</span>`
             : html`<span class="warning"><strong>NOTE:</strong> Please chosse the Paragon and Difficulty first.</span>`
             }
         </div>

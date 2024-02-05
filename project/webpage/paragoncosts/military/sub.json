@@ -1,0 +1,11 @@
+{
+    "paragoncost": {
+        "name": "Nautic Siege Core",
+        "prices": {
+            "easy": 340000,
+            "medium": 400000,
+            "hard": 432000,
+            "impoppable": 480000
+        }
+    }
+}

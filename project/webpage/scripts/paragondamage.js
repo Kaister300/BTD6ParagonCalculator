@@ -172,6 +172,7 @@ class paragonDamage extends LitElement {
                     <optgroup label="Military">
                         <option value="military;buccaneer">Monkey Buccaneer</option>
                         <option value="military;ace">Monkey Ace</option>
+                        <option value="military;sub">Monkey Sub</option>
                     </optgroup>
                     <optgroup label="Magic">
                         <option value="magic;ninja">Ninja Monkey</option>
