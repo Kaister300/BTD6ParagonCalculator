@@ -274,10 +274,11 @@ class paragonCalc extends LitElement {
         // Money Spent. Max is 60,000 power
         if(!(this.paragoncost === 0)) {
             let spentratio = this.paragoncost/20000
-            this.power += Math.floor(form.moneyspent.value/spentratio);
-            if(this.power > 60000) {
-                this.power = 60000;
+            let costpower = Math.floor(form.moneyspent.value/spentratio);
+            if(costpower > 60000) {
+                costpower = 60000;
             }
+            this.power += costpower;
         }
 
         // Pops or Income. Max is 90,000 power
@@ -386,7 +387,7 @@ class paragonCalc extends LitElement {
             }
             ${this.paragoncost ?
             html`<span class="warning"><strong>NOTE:</strong> The cash injection is 3.15 times the base paragon cost. This would mean that the total cash injection allowed would be $${Math.round(3.15*this.paragoncost)}</span>`
-            : html`<span class="warning"><strong>NOTE:</strong> Please chosse the Paragon and Difficulty first.</span>`
+            : html`<span class="warning"><strong>NOTE:</strong> Please choose the Paragon and Difficulty first.</span>`
             }
         </div>
         `;
