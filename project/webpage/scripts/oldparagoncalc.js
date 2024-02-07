@@ -174,7 +174,7 @@ class oldparagonCalc extends LitElement {
     _eventDegree() {
         if(!(this.currDegree === this.sentDegree)) {
             this.sentDegree = this.currDegree;
-            let e = new CustomEvent("olddegree", { detail: {currDegree: `${this.currDegree}`}});
+            let e = new CustomEvent("old_degree", { detail: {currDegree: `${this.currDegree}`}});
             window.dispatchEvent(e);
         }
     }
