@@ -1,0 +1,30 @@
+{
+    "paragon": {
+        "name": "Nautic Siege Core",
+        "prices": {
+            "easy": 340000,
+            "medium": 400000,
+            "hard": 432000,
+            "impoppable": 480000
+        },
+        "fullattacks": [
+            {
+                "name": "--------",
+                "attacks" : [
+                    {
+                        "name": "Attack",
+                        "isdot": false,
+                        "damage": 20,
+                        "ceramic": 30,
+                        "moab": 0,
+                        "boss": 60,
+                        "elite": 200,
+                        "pierce": 200,
+                        "speed": 0.35,
+                        "cooldown": 0
+                    }
+                ]
+            }
+        ]
+    }
+}

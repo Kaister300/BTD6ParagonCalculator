@@ -1,0 +1,47 @@
+{
+    "paragon": {
+        "name": "Apex Plasma Master",
+        "prices": {
+            "easy": 127500,
+            "medium": 150000,
+            "hard": 162000,
+            "impoppable": 180000
+        },
+        "fullattacks" : [
+            {
+                "name": "Main Attack",
+                "attacks" : [
+                {
+                    "name" : "Dart",
+                    "isdot" : false,
+                    "damage": 20,
+                    "ceramic": 30,
+                    "moab": 0,
+                    "boss": 60,
+                    "elite": 200,
+                    "pierce": 200,
+                    "speed": 0.4,
+                    "cooldown": 0
+                }
+                ]
+            },
+            {
+                "name": "Juggernaut Balls",
+                "attacks": [
+                    {
+                        "name" : "Single Ball",
+                        "isdot" : false,
+                        "damage": 20,
+                        "ceramic": 30,
+                        "moab": 0,
+                        "boss": 60,
+                        "elite": 200,
+                        "pierce": 200,
+                        "speed": 0.4,
+                        "cooldown": 0
+                    }
+                ]
+            }
+        ]
+    }
+}
