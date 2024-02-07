@@ -7,7 +7,6 @@ class paragonCalc extends LitElement {
         sentDegree: {type: Number},
         paragonLevels: {type: Array},
         paragoncost: {type: Number},
-        selector: {type: String},
         power: {state: true},
         _paragon: {state: true}
     };
@@ -41,6 +40,21 @@ class paragonCalc extends LitElement {
 
         div {
             padding: 1rem;
+        }
+
+        #paragon_header {
+            padding: 0rem 0rem 1rem 0rem;
+            text-align: center;
+        }
+
+        #paragon_header > h3 {
+            margin: auto;
+        }
+
+        #paragon_header > h4 {
+            margin: auto;
+            font-weight: 400;
+            font-style: italic;
         }
 
         #cost {
@@ -131,6 +145,20 @@ class paragonCalc extends LitElement {
     constructor() {
         super();
 
+        // Adds event listener for paragon data
+        window.addEventListener(
+            "paragon_data", (e) => {
+                if (e.detail.paragon) {
+                    this._paragon = e.detail.paragon;
+                    this.difficulty = e.detail.difficulty;
+                    this.paragoncost = this._paragon.prices[this.difficulty];
+                }
+                else {
+                    this._paragon = void 1
+                    this.difficulty = ""
+                }
+            });
+
         // Sets up drop down menu
         this.hidden = false;
 
@@ -142,6 +170,7 @@ class paragonCalc extends LitElement {
         this.sentDegree = 0;
         this.power = 0;
         this.paragoncost = 0;
+        this.difficulty = "";
     }
 
     /**
@@ -224,34 +253,6 @@ class paragonCalc extends LitElement {
     }
 
     /**
-     * Sets up data for the Money Spent power calculations
-     * $(Paragon Price)/20000 spent = 1 power
-     * @param {event} e Form event from updating values 
-     */
-    async _paragonFormUpdate(e) {
-        let form = e.currentTarget;
-
-        // Resets paragon json data
-        if(form.paragon.value === "") {
-            this._paragon = void 1;
-            this.paragoncost = 0;
-        }
-        else {
-            // Fetches paragon data
-            if(!this._paragon || !(this._paragon.selector === form.paragon.value)) {
-                let arr = form.paragon.value.split(";");
-                console.log(`${window.location.href}paragoncosts/${arr[0]}/${arr[1]}.json`);
-                await fetch(`${window.location.href}paragoncosts/${arr[0]}/${arr[1]}.json`)
-                .then(response => response.json())
-                .then(data => this._paragon = data.paragoncost)
-                .then(() => console.log(this._paragon));
-                this._paragon.selector = form.paragon.value;
-            }
-            this.paragoncost = this._paragon.prices[form.difficulty.value];
-        }
-    }
-
-    /**
      * Calculates current power from form values
      * @param {event} event Form event from updating values 
      */
@@ -328,36 +329,18 @@ class paragonCalc extends LitElement {
             <button @click=${this.hideWidget}>Close</button>
         </header>
         <div>
-            <form id="cost" @change=${this._paragonFormUpdate}>
-                <label for="paragon">Choose Paragon: </label>
-                <select id="paragon">
-                    <option value="">Please choose an option</option>
-                    <optgroup label="Primary">
-                        <option value="primary;dart">Dart Monkey</option>
-                        <option value="primary;boomerangm">Boomerang Monkey</option>
-                    </optgroup>
-                    <optgroup label="Military">
-                        <option value="military;buccaneer">Monkey Buccaneer</option>
-                        <option value="military;ace">Monkey Ace</option>
-                        <option value="military;sub">Monkey Sub</option>
-                    </optgroup>
-                    <optgroup label="Magic">
-                        <option value="magic;ninja">Ninja Monkey</option>
-                        <option value="magic;wizard">Wizard Monkey</option>
-                    </optgroup>
-                    <optgroup label="Support">
-                        <option value="support;engineer">Engineer Monkey</option>
-                    </optgroup>
-                </select><br>
-
-                <label for="difficulty">Choose Difficulty: </label>
-                <select id="difficulty">
-                    <option value="easy">Easy</option>
-                    <option value="medium">Medium</option>
-                    <option value="hard">Hard</option>
-                    <option value="impoppable">Impoppable</option>
-                </select>
-            </form>
+            <div id="paragon_header">
+                <h3>
+                    ${this._paragon ?
+                    this._paragon.name
+                    : `Please select a Paragon`}
+                </h3>
+                <h4>
+                    ${this.difficulty ?
+                    this.difficulty.charAt(0).toUpperCase() + this.difficulty.slice(1)
+                    : `-----`}
+                </h4>
+            </div>
 
             <form id="calc" @input=${this._validate} @change=${this._degreeFormUpdate}>
                 <label for="tier5">Tier 5 Towers (excluding initial 3):</label>

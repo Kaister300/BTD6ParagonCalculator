@@ -74,7 +74,21 @@ class paragonDamage extends LitElement {
 
     constructor() {
         super();
+
+        // Takes in paragon data from paragon selector
+        window.addEventListener("paragon_data",(e) => {
+            if (e.detail.paragon) {
+                this._paragon = e.detail.paragon;
+            }
+            else {
+                this.setDefault()
+            }
+        });
+
+        // Takes degree from calculator
         window.addEventListener("degree", (e) => this.degree = parseInt(e.detail.currDegree));
+
+        // Initialise All Variables
         this.degree = 1;
         this.hidden = true;
         this.setDefault();
@@ -89,23 +103,6 @@ class paragonDamage extends LitElement {
 
         // Resets attacks of paragon
         this.fullattacks = [];
-    }
-
-    _grabSelected(e) {
-        // Resets paragon data
-        if(e.target.value === "") {
-            this.setDefault();
-        }
-
-        // Fetches paragon data
-        else {
-            let arr = e.target.value.split(";");
-            console.log(`${window.location.href}paragondetails/${arr[0]}/${arr[1]}.json`);
-            fetch(`${window.location.href}paragondetails/${arr[0]}/${arr[1]}.json`)
-            .then(response => response.json())
-            .then(data => this._paragon = data.paragon)
-            .then(data => console.log(this._paragon));
-        }
     }
 
     _damageComputation() {
@@ -162,26 +159,6 @@ class paragonDamage extends LitElement {
         </header>
         <div hidden>
             <div>
-                <label for="paragon">Choose Paragon: </label>
-                <select id="paragon" @change=${this._grabSelected}>
-                    <option value="">Please choose an option</option>
-                    <optgroup label="Primary">
-                        <option value="primary;dart">Dart Monkey</option>
-                        <option value="primary;boomerangm">Boomerang Monkey</option>
-                    </optgroup>
-                    <optgroup label="Military">
-                        <option value="military;buccaneer">Monkey Buccaneer</option>
-                        <option value="military;ace">Monkey Ace</option>
-                        <option value="military;sub">Monkey Sub</option>
-                    </optgroup>
-                    <optgroup label="Magic">
-                        <option value="magic;ninja">Ninja Monkey</option>
-                        <option value="magic;wizard">Wizard Monkey</option>
-                    </optgroup>
-                    <optgroup label="Support">
-                        <option value="support;engineer">Engineer Monkey</option>
-                    </optgroup>
-                </select><br>
                 <span class="warning"><strong>NOTE:</strong> The numbers below are most likely inaccurate due to missing/incomplete data from the wiki.</span>
             </div>
             <div>

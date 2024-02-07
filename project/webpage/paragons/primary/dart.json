@@ -1,9 +1,15 @@
 {
     "paragon": {
         "name": "Apex Plasma Master",
+        "prices": {
+            "easy": 127500,
+            "medium": 150000,
+            "hard": 162000,
+            "impoppable": 180000
+        },
         "fullattacks" : [
             {
-                "name": "Main",
+                "name": "Main Attack",
                 "attacks" : [
                 {
                     "name" : "Dart",
@@ -14,7 +20,7 @@
                     "boss": 60,
                     "elite": 200,
                     "pierce": 200,
-                    "speed": 0.35,
+                    "speed": 0.4,
                     "cooldown": 0
                 }
                 ]
@@ -31,7 +37,7 @@
                         "boss": 60,
                         "elite": 200,
                         "pierce": 200,
-                        "speed": 0.35,
+                        "speed": 0.4,
                         "cooldown": 0
                     }
                 ]

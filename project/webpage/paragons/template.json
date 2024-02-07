@@ -1,9 +1,15 @@
 {
     "paragon": {
-        "name": "Nautic Siege Core",
+        "name": "Template",
+        "prices": {
+            "easy": 20,
+            "medium": 30,
+            "hard": 40,
+            "impoppable": 50
+        },
         "fullattacks": [
             {
-                "name": "--------",
+                "name": "Main",
                 "attacks" : [
                     {
                         "name": "Attack",

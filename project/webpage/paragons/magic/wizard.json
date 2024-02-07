@@ -1,0 +1,87 @@
+{
+    "paragon": {
+        "name": "Magus Perfectus",
+        "prices": {
+            "easy": 637500,
+            "medium": 750000,
+            "hard": 810000,
+            "impoppable": 900000
+        },
+        "fullattacks": [
+            {
+                "name": "Arcane Blast",
+                "attacks" : [
+                    {
+                        "name": "Arcane Blast",
+                        "isdot": false,
+                        "damage": 50,
+                        "ceramic": 0,
+                        "moab": 0,
+                        "boss": 0,
+                        "elite": 450,
+                        "pierce": 25,
+                        "speed": 0.275,
+                        "cooldown": 0
+                    },
+                    {
+                        "name": "Zombie Bloons",
+                        "isdot": false,
+                        "damage": 150,
+                        "ceramic": 0,
+                        "moab": 0,
+                        "boss": 0,
+                        "elite": 300,
+                        "pierce": 50,
+                        "speed": 0,
+                        "cooldown": 0
+                    }
+                ]
+            },
+            {
+                "name": "Drain Beam",
+                "attacks": [
+                    {
+                        "name": "Drain Beam",
+                        "isdot": false,
+                        "damage": 200,
+                        "ceramic": 0,
+                        "moab": 0,
+                        "boss": 0,
+                        "elite": 200,
+                        "pierce": 1,
+                        "speed": 0.05,
+                        "cooldown": 0
+                    }
+                ]
+            },
+            {
+                "name": "Dark Phoenix",
+                "attacks": [
+                    {
+                        "name": "Dark Fireballs",
+                        "isdot": false,
+                        "damage": 400,
+                        "ceramic": 0,
+                        "moab": 0,
+                        "boss": 0,
+                        "elite": 800,
+                        "pierce": 100,
+                        "speed": 2,
+                        "cooldown": 0
+                    },
+                    {
+                        "name": "Dark Flame",
+                        "isdot": false,
+                        "damage": 200,
+                        "ceramic": 0,
+                        "moab": 0,
+                        "boss": 0,
+                        "elite": 250,
+                        "pierce": 100,
+                        "speed": 0.2
+                    }
+                ]
+            }
+        ]
+    }
+}
