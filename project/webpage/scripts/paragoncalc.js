@@ -329,12 +329,13 @@ class ParagonCalc extends LitElement {
 
         // Tier5s. Max is 50,000 power
         if(form.tier5.value) {
-            this.power += form.tier5.value*6000;
-            if(this.power > 50000) this.power = 50000;
+            this.power += Math.min(form.tier5.value*6000, 50000);
         }
         
         // Upgrades. Max is 10,000 power
-        if(form.towerupgrades.value) this.power += form.towerupgrades.value*100;
+        if(form.towerupgrades.value) {
+            this.power += Math.min(form.towerupgrades.value*100, 10000);
+        }
 
         // Money Spent. Max is 60,000 power
         if(this.paragoncost !== 0) {
@@ -352,25 +353,20 @@ class ParagonCalc extends LitElement {
                 costpower += Math.floor(form.cashslider.value/sliderratio);
             }
 
-            if(costpower > 60000) costpower = 60000;
-            this.power += costpower;
+            this.power += Math.min(costpower, 60000);
         }
 
         // Pops or Income. Max is 90,000 power
         let temp = 0;
         if(form.popcount.value) temp += Math.floor(form.popcount.value/180);
         if(form.incomegenerated.value) temp += Math.floor(form.incomegenerated.value/45);
-        if(temp > 90000) temp = 90000;
-        this.power += temp;
-        
+        this.power += Math.min(temp, 90000);
 
         // Totems. No Max
         if(form.paragontotems.value) this.power += form.paragontotems.value*2000;
 
         // Capping Total Max Power
-        if(this.power > 200000) {
-            this.power = 200000;
-        }
+        this.power = Math.min(this.power, 200000);
     }
 
     hideWidget(e) {
