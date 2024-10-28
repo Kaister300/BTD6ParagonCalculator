@@ -92,7 +92,7 @@ def build_bing_auth(dest_dir, auth):
     None
     """
     with open(f"{dest_dir}/BingSiteAuth.xml", "w", encoding="utf-8") as file:
-        file.write('<?xml version="1.0">\n')
+        file.write('<?xml version="1.0"?>\n')
         file.write("<users>\n")
         file.write(f"   <user>{auth}</user>\n")
         file.write("</users>")
