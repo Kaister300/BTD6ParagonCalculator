@@ -1,6 +1,6 @@
 import {LitElement, html, css} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
 
-class paragonCalc extends LitElement {
+class ParagonCalc extends LitElement {
     static properties = {
         currDegree: {type: Number},
         nextDegree: {type: Number},
@@ -82,6 +82,22 @@ class paragonCalc extends LitElement {
             margin: 4px;
         }
 
+        #cashslidercontainer {
+            margin: 4px;
+            max-width: 15rem;
+            border: none;
+            display: flex;
+        }
+
+        #cashslidercontainer input {
+            flex: 1 0 auto;
+            align-self: center;
+        }
+
+        #cashslidercontainer span {
+            align-self: center;
+        }
+
         .warning {
             display: block;
             margin-top: 0.5rem;
@@ -154,8 +170,14 @@ class paragonCalc extends LitElement {
                     this.paragoncost = this._paragon.prices[this.difficulty];
                 }
                 else {
-                    this._paragon = void 1
-                    this.difficulty = ""
+                    this._paragon = void 0;
+                    this.difficulty = "";
+                    this.paragoncost = 0;
+                }
+                this._validateForm();
+                let formEle = document.getElementsByTagName("paragon-calc")[0].shadowRoot.getElementById("calc");
+                if (formEle) {
+                    this._degreeFormUpdate({"currentTarget": formEle});
                 }
             });
 
@@ -205,16 +227,19 @@ class paragonCalc extends LitElement {
      * @returns 
      */
     _degreeCalc() {
+        let found = false;
         for(let i = 0; i < this.paragonLevels.length; i++) {
             if(this.power < this.paragonLevels[i]) {
                 this.currDegree = i;
                 this.nextDegree = i+1;
-                this._eventDegree();
-                return null;
+                found = true;
+                break;
             }
         }
-        this.currDegree = 100;
-        this.nextDegree = "MAX";
+        if (!found) {
+            this.currDegree = 100;
+            this.nextDegree = "MAX";
+        }
         this._eventDegree();
     }
 
@@ -222,7 +247,7 @@ class paragonCalc extends LitElement {
      * Sends updated degree level to paragon damage
     */ 
     _eventDegree() {
-        if(!(this.currDegree === this.sentDegree)) {
+        if(this.currDegree !== this.sentDegree) {
             this.sentDegree = this.currDegree;
             let e = new CustomEvent("degree", { detail: {currDegree: `${this.currDegree}`}});
             window.dispatchEvent(e);
@@ -240,7 +265,8 @@ class paragonCalc extends LitElement {
 
         // Sets input empty if input is invalid
         if(curr.value.length === 0) {
-            curr.value = "";
+            // curr.value = "";
+            return;
         }
 
         // Checking Integer Values
@@ -250,6 +276,44 @@ class paragonCalc extends LitElement {
         else if(parseInt(curr.value) < parseInt(curr.min)) {
             curr.value = curr.min;
         }
+
+        // Cash Slider Check
+        if(curr.id === "cashslider") {
+            this._cash_slider_update(e);
+        }
+    }
+
+    /**
+     * Validates entire form to ensure that all values are valid.
+     */
+    _validateForm() {
+        let calc_form = document.getElementsByTagName("paragon-calc")[0].shadowRoot.getElementById("calc");
+        
+        for(let element of calc_form) {
+            this._validate({"originalTarget": element});
+        }
+    }
+
+    /**
+     * Updates element next to slider with numerical value
+     * @param {event} e 
+     */
+    _cash_slider_update(e) {
+        let slider = e.originalTarget;
+        let slider_p = e.originalTarget.nextElementSibling;
+        let maxSliderValue;
+        if (slider.value > (maxSliderValue = this._maxSliderValue())) {
+            slider.value = maxSliderValue;
+        }
+        slider_p.textContent = slider.value;
+    }
+
+    /**
+     * Calculates the max value for the cash slider
+     * @returns Maximum value for the cash slider as integer
+     */
+    _maxSliderValue() {
+        return Math.round(3.15 * this.paragoncost + 1);
     }
 
     /**
@@ -264,39 +328,45 @@ class paragonCalc extends LitElement {
         this.power = 0;
 
         // Tier5s. Max is 50,000 power
-        this.power += form.tier5.value*6000;
-        if(this.power > 50000) {
-            this.power = 50000;
+        if(form.tier5.value) {
+            this.power += Math.min(form.tier5.value*6000, 50000);
+        }
+        
+        // Upgrades. Max is 10,000 power
+        if(form.towerupgrades.value) {
+            this.power += Math.min(form.towerupgrades.value*100, 10000);
         }
 
-        // Upgrades. Max is 10,000 power
-        this.power += form.towerupgrades.value*100;
-
         // Money Spent. Max is 60,000 power
-        if(!(this.paragoncost === 0)) {
-            let spentratio = this.paragoncost/20000
-            let costpower = Math.floor(form.moneyspent.value/spentratio);
-            if(costpower > 60000) {
-                costpower = 60000;
+        if(this.paragoncost !== 0) {
+            let costpower = 0;
+
+            // Money Spent
+            if(form.moneyspent.value) {
+                let spentratio = this.paragoncost/20000
+                costpower += Math.floor(form.moneyspent.value/spentratio);
             }
-            this.power += costpower;
+
+            // Cash Slider
+            if(form.cashslider.value) {
+                let sliderratio = this.paragoncost*1.05/20000;
+                costpower += Math.floor(form.cashslider.value/sliderratio);
+            }
+
+            this.power += Math.min(costpower, 60000);
         }
 
         // Pops or Income. Max is 90,000 power
-        let temp = Math.floor(form.popcount.value/180);
-        temp += Math.floor(form.incomegenerated.value/45);
-        if(temp > 90000) {
-            temp = 90000;
-        }
-        this.power += temp;
+        let temp = 0;
+        if(form.popcount.value) temp += Math.floor(form.popcount.value/180);
+        if(form.incomegenerated.value) temp += Math.floor(form.incomegenerated.value/45);
+        this.power += Math.min(temp, 90000);
 
         // Totems. No Max
-        this.power += form.paragontotems.value*2000;
+        if(form.paragontotems.value) this.power += form.paragontotems.value*2000;
 
         // Capping Total Max Power
-        if(this.power > 200000) {
-            this.power = 200000;
-        }
+        this.power = Math.min(this.power, 200000);
     }
 
     hideWidget(e) {
@@ -323,6 +393,7 @@ class paragonCalc extends LitElement {
 
     render() {
         this._degreeCalc();
+        const paragonSliderMax = this._maxSliderValue();
         return html`
         <header>
             <h1>Paragon Degree Calculator (Post 39.0)</h1>
@@ -360,6 +431,9 @@ class paragonCalc extends LitElement {
 
                 <label for="paragontotems"><span class="tooltip">Geraldo Paragon Power Totems:<span class="tooltiptext">Has no max cap to increase paragon power.</span></span></label>
                 <input type="number" id="paragontotems" min=0 value=0>
+
+                <label for="cashslider"><span class="tooltip">Cash Injection:<span class="tooltiptext">This is the cash injection that is allowed to be spent on the paragon. This is 3.15 times the base paragon cost. Max is $${paragonSliderMax}.</span></span></label>
+                <span id="cashslidercontainer"><input type="range" id="cashslider" min=0 max=${paragonSliderMax} value=0 step=1 @input=${this._cash_slider_update}><span>0</span></span>
             </form>
             <p>Current Degree: ${this.currDegree}</p>
             <p>Current Power: ${this.power}</p>
@@ -369,12 +443,16 @@ class paragonCalc extends LitElement {
             : html`<p>Paragon has reached max level and can not be leveled up further.</p>`
             }
             ${this.paragoncost ?
-            html`<span class="warning"><strong>NOTE:</strong> The cash injection is 3.15 times the base paragon cost. This would mean that the total cash injection allowed would be $${Math.round(3.15*this.paragoncost)}</span>`
+            html`<span class="warning"><strong>NOTE:</strong> The cash injection is 3.15 times the base paragon cost. This would mean that the total cash injection allowed would be $${paragonSliderMax}</span>`
             : html`<span class="warning"><strong>NOTE:</strong> Please choose the Paragon and Difficulty first.</span>`
             }
         </div>
         `;
     }
+
+    // updated() {
+    //     this._validateForm();
+    // }
 }
 
-customElements.define("paragon-calc", paragonCalc);
+customElements.define("paragon-calc", ParagonCalc);
