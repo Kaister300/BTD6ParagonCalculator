@@ -1,3 +1,4 @@
+import './paragoncommon.js'
 import './customheader.js'
 import './paragonselector.js'
 import './paragoncalc.js'

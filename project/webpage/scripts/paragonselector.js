@@ -1,4 +1,5 @@
 import {LitElement, html, css} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
+import { AVAILABLE_PARAGONS } from "./paragoncommon.js";
 
 class paragonSelector extends LitElement {
     static properties = {
@@ -130,6 +131,18 @@ class paragonSelector extends LitElement {
         this._eventDegree();
     }
 
+    _constructMonkeyOptions() {
+        return html`
+            ${Object.entries(AVAILABLE_PARAGONS).map(([monkey_type, monkey_obj]) => html`
+            <optgroup label="${monkey_type.charAt(0).toUpperCase() + monkey_type.slice(1)}">
+                ${Object.entries(monkey_obj).map(([paragon, paragon_name]) => html`
+                <option value="${monkey_type};${paragon}">${paragon_name}</option>
+                `)}
+            </optgroup>
+            `)}
+        `;
+    }
+
     render() {
         return html`
         <header>
@@ -141,22 +154,7 @@ class paragonSelector extends LitElement {
                 <label for="paragon">Choose Paragon: </label>
                 <select id="paragon">
                     <option value="">Please choose an option</option>
-                    <optgroup label="Primary">
-                        <option value="primary;dart">Dart Monkey</option>
-                        <option value="primary;boomerangm">Boomerang Monkey</option>
-                    </optgroup>
-                    <optgroup label="Military">
-                        <option value="military;buccaneer">Monkey Buccaneer</option>
-                        <option value="military;ace">Monkey Ace</option>
-                        <option value="military;sub">Monkey Sub</option>
-                    </optgroup>
-                    <optgroup label="Magic">
-                        <option value="magic;ninja">Ninja Monkey</option>
-                        <option value="magic;wizard">Wizard Monkey</option>
-                    </optgroup>
-                    <optgroup label="Support">
-                        <option value="support;engineer">Engineer Monkey</option>
-                    </optgroup>
+                    ${this._constructMonkeyOptions()}
                 </select><br>
 
                 <label for="difficulty">Choose Difficulty: </label>
