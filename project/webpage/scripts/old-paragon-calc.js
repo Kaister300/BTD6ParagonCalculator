@@ -1,6 +1,6 @@
 import {LitElement, html, css,} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
 
-class oldparagonCalc extends LitElement {
+class OldParagonCalc extends LitElement {
     static properties = {
         currDegree: {type: Number},
         nextDegree: {type: Number},
@@ -172,7 +172,7 @@ class oldparagonCalc extends LitElement {
      * Sends updated degree level to paragon damage
     */ 
     _eventDegree() {
-        if(!(this.currDegree === this.sentDegree)) {
+        if(this.currDegree !== this.sentDegree) {
             this.sentDegree = this.currDegree;
             let e = new CustomEvent("old_degree", { detail: {currDegree: `${this.currDegree}`}});
             window.dispatchEvent(e);
@@ -300,4 +300,4 @@ class oldparagonCalc extends LitElement {
     }
 }
 
-customElements.define("oldparagon-calc", oldparagonCalc);
+customElements.define("oldparagon-calc", OldParagonCalc);

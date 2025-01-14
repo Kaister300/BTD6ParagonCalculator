@@ -265,7 +265,6 @@ class ParagonCalc extends LitElement {
 
         // Sets input empty if input is invalid
         if(curr.value.length === 0) {
-            // curr.value = "";
             return;
         }
 
