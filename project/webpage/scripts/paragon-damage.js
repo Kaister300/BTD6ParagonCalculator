@@ -1,7 +1,7 @@
 import {LitElement, html, css} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
-import { attackComp } from './attackcomp.js';
+import { AttackComp } from './attack-comp.js';
 
-class paragonDamage extends LitElement {
+class ParagonDamage extends LitElement {
     static properties = {
         degree: {type: Number},
         _paragon: {state: true},
@@ -96,7 +96,7 @@ class paragonDamage extends LitElement {
 
     setDefault() {
         // Resets paragon json data
-        this._paragon = void 1;
+        this._paragon = void 0;
 
         // Resets Paragon Name
         this.name = "--------"
@@ -119,7 +119,7 @@ class paragonDamage extends LitElement {
             entry.attacks = [];
 
             for(const { name, type="normal", isdot, damage, ceramic, moab, boss, elite, pierce, speed, cooldown} of x.attacks) {
-                entry.attacks.push(new attackComp(this.degree, name, type, isdot, damage, ceramic, moab, boss, elite, pierce, speed, cooldown));
+                entry.attacks.push(new AttackComp(this.degree, name, type, isdot, damage, ceramic, moab, boss, elite, pierce, speed, cooldown));
             }
 
             this.fullattacks.push(entry)
@@ -194,4 +194,4 @@ class paragonDamage extends LitElement {
     }
 }
 
-customElements.define("paragon-damage", paragonDamage);
+customElements.define("paragon-damage", ParagonDamage);

@@ -1,7 +1,7 @@
 import {LitElement, html, css} from "https://cdn.jsdelivr.net/gh/lit/dist@2/core/lit-core.min.js";
-import { AVAILABLE_PARAGONS } from "./paragoncommon.js";
+import { AVAILABLE_PARAGONS } from "./paragon-common.js";
 
-class paragonSelector extends LitElement {
+class ParagonSelector extends LitElement {
     static properties = {
         _paragon: {state: true},
         currParagon: {type: String},
@@ -111,19 +111,17 @@ class paragonSelector extends LitElement {
 
         // Resets paragon json data
         if(form.paragon.value === "") {
-            this._paragon = void 1;
+            this._paragon = void 0;
         }
-        else {
-            // Fetches paragon data if not already fetched
-            if(!this._paragon || !(this.currParagon === form.paragon.value)) {
-                let arr = form.paragon.value.split(";");
-                console.log(`${window.location.href}paragons/${arr[0]}/${arr[1]}.json`);
-                await fetch(`${window.location.href}paragons/${arr[0]}/${arr[1]}.json`)
-                .then(response => response.json())
-                .then(data => this._paragon = data.paragon)
-                .then(() => console.log(this._paragon));
-                this.currParagon = form.paragon.value;
-            }
+        // Fetches paragon data if not already fetched
+        else if (!this._paragon || this.currParagon !== form.paragon.value) {
+            let arr = form.paragon.value.split(";");
+            console.log(`${window.location.href}paragons/${arr[0]}/${arr[1]}.json`);
+            await fetch(`${window.location.href}paragons/${arr[0]}/${arr[1]}.json`)
+            .then(response => response.json())
+            .then(data => this._paragon = data.paragon)
+            .then(() => console.log(this._paragon));
+            this.currParagon = form.paragon.value;
         }
 
         // Sets difficulty
@@ -165,9 +163,14 @@ class paragonSelector extends LitElement {
                     <option value="impoppable">Impoppable</option>
                 </select>
             </form>
+            ${!this._paragon ? html`` : html`
+                <div>
+                    <p><strong>Paragon Wiki Entry:</strong> <a href='https://www.bloonswiki.com/${this._paragon.name.replace(/ /g, "_")}'>${this._paragon.name}</a></p>
+                </div>
+                `}
         </div>
         `;
     }
 }
 
-customElements.define("paragon-selector", paragonSelector);
+customElements.define("paragon-selector", ParagonSelector);

@@ -12,8 +12,10 @@
  * @param {Number} pierce - Pierce of attack at degree 1
  * @param {Number} speed - Speed of attack at degree 1
  * @param {Number} cooldown - Cooldown of ability at degree 1
+ * 
+ * TODO: CLEAN THIS UP AND REFACTOR EVERYTHING
  */
-export class attackComp {
+export class AttackComp {
 
     constructor(degree, name, type, isdot, damage, ceramic, moab, boss, elite, pierce, speed, cooldown) {
         // Sets basic information of attack class
