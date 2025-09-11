@@ -3,8 +3,8 @@
 [![Deploy static content to GH Pages](https://github.com/Kaister300/BTD6ParagonCalculator/actions/workflows/deploy-gh-pages.yaml/badge.svg)](https://github.com/Kaister300/BTD6ParagonCalculator/actions/workflows/deploy-gh-pages.yaml)
 
 ## Overview
-A simple web application to caclulate the approximate power of a BTD6 paragon based on in game factors. 
-The webpage is situated in the project directory under webpage. An express server, `app.mjs`, has been included to run the page locally.
+A simple web application to caclulate the approximate power of a BTD6 paragon based on in game factors.
+This uses bun at the development runtime along with the React front-end framework to render and run the main calculation logic. 
 
 ## Webpage Location
 The webpage is being hosted through Github Pages at the following address:
@@ -13,27 +13,26 @@ https://kaister300.github.io/BTD6ParagonCalculator/
 
 
 ## Getting Started
-Node.js will only be used to run the express server.
+This project uses the Bun runtime. In order to install bun please follow the guide [here](https://bun.sh/)
+
+After installing bun, use the following command below to set up the `node_modules` folder:
 
 ```bash
-npm install
+bun install
 ```
 
-Using the following commands will start the server:
+Use the following command to run the application in development mode:
 
 ```bash
-npm start
-```
-
-OR
-
-```bash
-node project/app.mjs
+bun run dev
 ```
 
 
 ## Building Site
-Building the website requires Python3 and the `python-dotenv` package from pip. The build script can be run using:
+Building the site requires running the Vite build script which can be seen below:
+
 ```bash
-py project/make.py
+bun run build
 ```
+
+This will create the static web files at the `./dist` location which are needed for the web page upload.
