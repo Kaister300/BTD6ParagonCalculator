@@ -42,9 +42,19 @@ interface IParagonData {
     attacks: IParagonAttackContainer[]
 }
 
+// TODO: Maybe move into types file
+type GameDifficultyType = "easy" | "medium" | "hard" | "impoppable";
+
+interface IParagonSelectorData {
+    name: string | null;
+    difficulty: GameDifficultyType;
+}
+
 export type {
     IParagonPrices,
     IParagonAttack,
     IParagonAttackContainer,
     IParagonData,
+    IParagonSelectorData,
+    GameDifficultyType
 }
