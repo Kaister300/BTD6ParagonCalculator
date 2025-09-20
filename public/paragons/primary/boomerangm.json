@@ -1,83 +1,81 @@
 {
-    "paragon": {
-        "name": "Glaive Dominus",
-        "prices": {
-            "easy": 233750,
-            "medium": 275000,
-            "hard": 297000,
-            "impoppable": 330000
+    "name": "Glaive Dominus",
+    "prices": {
+        "easy": 233750,
+        "medium": 275000,
+        "hard": 297000,
+        "impoppable": 330000
+    },
+    "attackContainer": [
+        {
+            "name": "Glaives",
+            "attacks" : [
+                {
+                    "name" : "Main Glaive",
+                    "isDot" : false,
+                    "damage": 20,
+                    "ceramic": 0,
+                    "moab": 0,
+                    "boss": 40,
+                    "elite": 80,
+                    "pierce": 100,
+                    "speed": 0.04,
+                    "cooldown": 0
+                },
+                {
+                    "name" : "Orbital Glaive",
+                    "isDot" : false,
+                    "damage": 42,
+                    "ceramic": 20,
+                    "moab": 20,
+                    "boss": 118,
+                    "elite": 444,
+                    "pierce": 1000,
+                    "speed": 0.1,
+                    "cooldown": 0
+                }
+            ]
         },
-        "fullattacks": [
-            {
-                "name": "Glaives",
-                "attacks" : [
-                    {
-                        "name" : "Main Glaive",
-                        "isdot" : false,
-                        "damage": 20,
-                        "ceramic": 0,
-                        "moab": 0,
-                        "boss": 40,
-                        "elite": 80,
-                        "pierce": 100,
-                        "speed": 0.04,
-                        "cooldown": 0
-                    },
-                    {
-                        "name" : "Orbital Glaive",
-                        "isdot" : false,
-                        "damage": 42,
-                        "ceramic": 20,
-                        "moab": 20,
-                        "boss": 118,
-                        "elite": 444,
-                        "pierce": 1000,
-                        "speed": 0.1,
-                        "cooldown": 0
-                    }
-                ]
-            },
-            {
-                "name": "Anti-MOAB Glave",
-                "attacks": [
-                    {
-                        "name" : "Anti-MOAB Glaive",
-                        "isdot" : false,
-                        "damage": 1,
-                        "ceramic": 0,
-                        "moab": 19,
-                        "boss": 0,
-                        "elite": 20,
-                        "pierce": 300,
-                        "speed": 2.5,
-                        "cooldown": 0
-                    },
-                    {
-                        "name" : "Anti-MOAB Glaive Explosion",
-                        "isdot" : false,
-                        "damage": 2500,
-                        "ceramic": 0,
-                        "moab": 0,
-                        "boss": 2500,
-                        "elite": 7500,
-                        "pierce": 20,
-                        "speed": 2.5,
-                        "cooldown": 0
-                    },
-                    {
-                        "name" : "Explosion Burn",
-                        "isdot" : true,
-                        "damage": 500,
-                        "ceramic": 0,
-                        "moab": 0,
-                        "boss": 0,
-                        "elite": 500,
-                        "pierce": 0,
-                        "speed": 4,
-                        "cooldown": 0
-                    }
-                ]
-            }
-        ]
-    }
+        {
+            "name": "Anti-MOAB Glave",
+            "attacks": [
+                {
+                    "name" : "Anti-MOAB Glaive",
+                    "isDot" : false,
+                    "damage": 1,
+                    "ceramic": 0,
+                    "moab": 19,
+                    "boss": 0,
+                    "elite": 20,
+                    "pierce": 300,
+                    "speed": 2.5,
+                    "cooldown": 0
+                },
+                {
+                    "name" : "Anti-MOAB Glaive Explosion",
+                    "isDot" : false,
+                    "damage": 2500,
+                    "ceramic": 0,
+                    "moab": 0,
+                    "boss": 2500,
+                    "elite": 7500,
+                    "pierce": 20,
+                    "speed": 2.5,
+                    "cooldown": 0
+                },
+                {
+                    "name" : "Explosion Burn",
+                    "isDot" : true,
+                    "damage": 500,
+                    "ceramic": 0,
+                    "moab": 0,
+                    "boss": 0,
+                    "elite": 500,
+                    "pierce": 0,
+                    "speed": 4,
+                    "cooldown": 0
+                }
+            ]
+        }
+    ]
 }

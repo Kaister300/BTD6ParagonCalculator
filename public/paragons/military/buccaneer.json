@@ -1,71 +1,69 @@
 {
-    "paragon": {
-        "name": "Navarch of the Seas",
-        "prices": {
-            "easy": 467500,
-            "medium": 550000,
-            "hard": 594000,
-            "impoppable": 660000
+    "name": "Navarch of the Seas",
+    "prices": {
+        "easy": 467500,
+        "medium": 550000,
+        "hard": 594000,
+        "impoppable": 660000
+    },
+    "attackContainer": [
+        {
+            "name": "Turrets",
+            "attacks" : [
+                {
+                    "name": "Main Turret",
+                    "isDot": false,
+                    "damage": 60,
+                    "ceramic": 0,
+                    "moab": 60,
+                    "boss": 60,
+                    "elite": 180,
+                    "pierce": 28,
+                    "speed": 0.429,
+                    "cooldown": 0
+                },
+                {
+                    "name": "Grape Shot Turret",
+                    "isDot": false,
+                    "damage": 25,
+                    "ceramic": 0,
+                    "moab": 30,
+                    "boss": 5,
+                    "elite": 85,
+                    "pierce": 10,
+                    "speed": 0.429,
+                    "cooldown": 0
+                }
+            ]
         },
-        "fullattacks": [
-            {
-                "name": "Turrets",
-                "attacks" : [
-                    {
-                        "name": "Main Turret",
-                        "isdot": false,
-                        "damage": 60,
-                        "ceramic": 0,
-                        "moab": 60,
-                        "boss": 60,
-                        "elite": 180,
-                        "pierce": 28,
-                        "speed": 0.429,
-                        "cooldown": 0
-                    },
-                    {
-                        "name": "Grape Shot Turret",
-                        "isdot": false,
-                        "damage": 25,
-                        "ceramic": 0,
-                        "moab": 30,
-                        "boss": 5,
-                        "elite": 85,
-                        "pierce": 10,
-                        "speed": 0.429,
-                        "cooldown": 0
-                    }
-                ]
-            },
-            {
-                "name": "Fighter Planes",
-                "attacks": [
-                    {
-                        "name": "Dart Plane",
-                        "isdot": false,
-                        "damage": 44,
-                        "ceramic": 0,
-                        "moab": 0,
-                        "boss": 0,
-                        "elite": 88,
-                        "pierce": 18,
-                        "speed": 0.15,
-                        "cooldown": 0
-                    },
-                    {
-                        "name": "MOAB Missile Plane",
-                        "isdot": false,
-                        "damage": 200,
-                        "ceramic": 0,
-                        "moab": 0,
-                        "boss": 0,
-                        "elite": 400,
-                        "pierce": 10,
-                        "speed": 1.5,
-                        "cooldown": 0
-                    }
-                ]
-            }
-        ]
-    }
+        {
+            "name": "Fighter Planes",
+            "attacks": [
+                {
+                    "name": "Dart Plane",
+                    "isDot": false,
+                    "damage": 44,
+                    "ceramic": 0,
+                    "moab": 0,
+                    "boss": 0,
+                    "elite": 88,
+                    "pierce": 18,
+                    "speed": 0.15,
+                    "cooldown": 0
+                },
+                {
+                    "name": "MOAB Missile Plane",
+                    "isDot": false,
+                    "damage": 200,
+                    "ceramic": 0,
+                    "moab": 0,
+                    "boss": 0,
+                    "elite": 400,
+                    "pierce": 10,
+                    "speed": 1.5,
+                    "cooldown": 0
+                }
+            ]
+        }
+    ]
 }
