@@ -28,7 +28,7 @@ const AVAILABLE_PARAGONS = {
 };
 
 function createAvailableParagonList() {
-    return <select id="paragon">
+    return <select id="paragon" className="m-1">
         <option value="">Please choose an option</option>
         {Object.entries(AVAILABLE_PARAGONS).map(([monkeyType, monkeyEntry], indexOuter) => (
             <optgroup label={capitalise(monkeyType)} key={indexOuter}>
@@ -44,7 +44,7 @@ function createAvailableParagonList() {
 const DIFFICULTUES: GameDifficultyType[] = ["easy", "medium", "hard", "impoppable"]
 
 function createDifficultyList() {
-    return <select id="difficulty">
+    return <select id="difficulty" className="m-1">
         {DIFFICULTUES.map((difficulty, index) => (
             <option value={difficulty} key={index}>{capitalise(difficulty)}</option>
         ))}
@@ -102,21 +102,17 @@ function ParagonSelector() {
         }
     }
 
-    return <div>
-        <form ref={paragonForm} onChange={updateFormAction}>
-            <label>
-            Chooose Paragon:
+    return <div className="m-[5px]">
+        <form ref={paragonForm} onChange={updateFormAction} className="grid grid-cols-[160px_minmax(0,_250px)]">
+            <label htmlFor="paragon" className="m-1">Chooose Paragon:</label>
             {createAvailableParagonList()}
-            </label>
-            <br/>
-            <label>
-            Choose Difficulty:
+            <label htmlFor="difficulty" className="m-1">Choose Difficulty:</label>
             {createDifficultyList()}
-            </label>
+
         </form>
         {paragonName && selectorData.difficulty && (
-            <div>
-                <p><strong>Paragon Wiki Entry:</strong><a href={createParagonWikiLink(paragonName)}>{paragonName}</a></p>
+            <div className="pt-4 pb-2">
+                <p className="my-2"><strong>Paragon Wiki Entry:</strong> <a href={createParagonWikiLink(paragonName)} className="text-blue-600 visited:text-purple-900 underline">{paragonName}</a></p>
             </div>
         )}
     </div>
