@@ -17,7 +17,6 @@ function ParagonLevelCalculator() {
 
     // Calculator States
     const [currentPower, setCurrentPower] = useState(0);
-    const [nextDegree, setNextDegree] = useState(2);
 
     // Form States
     const calculatorRef = useRef<HTMLFormElement>(null);
@@ -38,7 +37,6 @@ function ParagonLevelCalculator() {
 
         // Reset Calculator States
         setCurrentPower(0);
-        setNextDegree(0);
 
         // Reste Form States
         setTier5(0);
@@ -95,61 +93,74 @@ function ParagonLevelCalculator() {
     function calculatePower(e: FormEvent<HTMLFormElement>) {
         e.preventDefault();
         console.log(e);
+
+        // Zero Power Initially
+        let newPower = 0;
+
+        // Tier5s. Max is 50,000 power
+        if(tier5) {
+            newPower += Math.min(tier5*6000, 50000);
+        }
+
+        // Upgrades. Max is 10,000 power
+        if (towerUpgrade) {
+            newPower += Math.min(towerUpgrade*100, 10000)
+        }
+
+        // Money Spent. Max is 60,000 power
+        if (paragonCost) {
+            let costPower = 0;
+
+            // Money Spent
+            if (moneySpent) {
+                let spentRatio = paragonCost/20000;
+                costPower += Math.floor(moneySpent/spentRatio);
+            }
+
+            // Cash Slider
+            if (cashSlider) {
+                let sliderRatio = paragonCost*1.05/20000;
+                costPower += Math.floor(cashSlider/sliderRatio);
+            }
+
+            newPower += Math.min(costPower, 60000);
+        }
+
+        // Pops or Income. Max is 90,000 power
+        let temp = 0;
+        if (popCount) temp += Math.floor(popCount/180);
+        if (incomeGenerated) temp += Math.floor(incomeGenerated/45);
+        newPower += Math.min(temp, 90000);
+
+        // Totems. No Max
+        if (paragonTotems) newPower += paragonTotems*2000;
+
+        // Capping Total Max Power
+        newPower = Math.min(newPower, 200000);
+
+        // Update state
+        setCurrentPower(newPower);
+        calculateDegree();
     }
 
-    // Original form update function
-    //     /**
-    //  * Calculates current power from form values
-    //  * @param {event} event Form event from updating values 
-    //  */
-    // _degreeFormUpdate(e) {
-    //     // Saves Form Element
-    //     let form = e.currentTarget;
-
-    //     // Zero Power Initially
-    //     this.power = 0;
-
-    //     // Tier5s. Max is 50,000 power
-    //     if(form.tier5.value) {
-    //         this.power += Math.min(form.tier5.value*6000, 50000);
-    //     }
-        
-    //     // Upgrades. Max is 10,000 power
-    //     if(form.towerupgrades.value) {
-    //         this.power += Math.min(form.towerupgrades.value*100, 10000);
-    //     }
-
-    //     // Money Spent. Max is 60,000 power
-    //     if(this.paragoncost !== 0) {
-    //         let costpower = 0;
-
-    //         // Money Spent
-    //         if(form.moneyspent.value) {
-    //             let spentratio = this.paragoncost/20000
-    //             costpower += Math.floor(form.moneyspent.value/spentratio);
-    //         }
-
-    //         // Cash Slider
-    //         if(form.cashslider.value) {
-    //             let sliderratio = this.paragoncost*1.05/20000;
-    //             costpower += Math.floor(form.cashslider.value/sliderratio);
-    //         }
-
-    //         this.power += Math.min(costpower, 60000);
-    //     }
-
-    //     // Pops or Income. Max is 90,000 power
-    //     let temp = 0;
-    //     if(form.popcount.value) temp += Math.floor(form.popcount.value/180);
-    //     if(form.incomegenerated.value) temp += Math.floor(form.incomegenerated.value/45);
-    //     this.power += Math.min(temp, 90000);
-
-    //     // Totems. No Max
-    //     if(form.paragontotems.value) this.power += form.paragontotems.value*2000;
-
-    //     // Capping Total Max Power
-    //     this.power = Math.min(this.power, 200000);
-    // }
+    function calculateDegree() {
+        let found = false;
+        let newCurrentDegree = 0;
+        for(let i = 0; i < PARAGON_LEVELS.length; i++) {
+            if(currentPower < PARAGON_LEVELS[i]) {
+                newCurrentDegree = i;
+                found = true;
+                break;
+            }
+        }
+        if (!found) {
+            newCurrentDegree = 100;
+        }
+        setParagonContextData({
+            ...paragonContextData,
+            paragonLevel: newCurrentDegree,
+        })
+    }
 
     return <div>
         <div className="text-center pb-4 leading-normal">
