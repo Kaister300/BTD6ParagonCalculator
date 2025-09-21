@@ -61,13 +61,13 @@ function ParagonSelector() {
     const {paragonContextData, setParagonContextData} = useParagonContext();
     const selectorData = paragonContextData.selectorData;
     const paragonName = paragonContextData.paragonData?.name;
-    const paragonForm = useRef(null);
+    const paragonForm = useRef<HTMLFormElement>(null);
 
     async function updateFormAction() {
         // TODO: Fix this up. Might just use a state setter for monkey name & game difficulty
-        const formRef = paragonForm.current;  // @ts-ignore
-        if (formRef && formRef.difficulty && formRef.paragon) {  // @ts-ignore
-            const newMonkeyName: string | null = formRef?.paragon.value;  // @ts-ignore
+        const formRef = paragonForm.current;
+        if (formRef && formRef.difficulty && formRef.paragon) {
+            const newMonkeyName: string | null = formRef?.paragon.value;
             const newGameDifficulty: GameDifficultyType = formRef?.difficulty?.value;
             if (!newMonkeyName) {
                 const cleanParagonContextData = new ParagonContextData();
