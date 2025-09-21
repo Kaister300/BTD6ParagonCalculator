@@ -54,7 +54,7 @@ jobs:
           EOF
 
       - name: Build static files
-        run: bun run build
+        run: bun run build --base=${{ vars.GH_PAGES_BASE }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
