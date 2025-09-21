@@ -1,0 +1,86 @@
+{
+    "name": "Ascended Shadow",
+    "prices": {
+        "easy": 425000,
+        "medium": 500000,
+        "hard": 540000,
+        "impoppable": 600000
+    },
+    "attackContainer": [
+        {
+            "name": "Shurikens",
+            "attacks" : [
+                {
+                    "name" : "Main Shuriken",
+                    "isDot" : false, 
+                    "damage": 32,
+                    "ceramic": 0,
+                    "moab": 0,
+                    "boss": 0,
+                    "elite": 64,
+                    "pierce": 4,
+                    "speed": 0.217,
+                    "cooldown": 0
+                },
+                {
+                    "name" : "Blue Shuriken",
+                    "isDot" : false, 
+                    "damage": 80,
+                    "ceramic": 0,
+                    "moab": 0,
+                    "boss": 0,
+                    "elite": 160,
+                    "pierce": 20,
+                    "speed": 1.5,
+                    "cooldown": 0
+                }
+            ]
+        },
+        {
+            "name": "Flash Bomb",
+            "attacks": [
+                {
+                    "name" : "Flash Bomb",
+                    "isDot" : false, 
+                    "damage": 96,
+                    "ceramic": 0,
+                    "moab": 0,
+                    "boss": 0,
+                    "elite": 192,
+                    "pierce": 50,
+                    "speed": 1.5,
+                    "cooldown": 0
+                }
+            ]
+        },
+        {
+            "name": "Sticky Bomb",
+            "attacks": [
+                {
+                    "name" : "Sticky Bomb Impact",
+                    "isDot" : false, 
+                    "damage": 16000,
+                    "ceramic": 0,
+                    "moab": 0,
+                    "boss": 16000,
+                    "elite": 96000,
+                    "pierce": 1,
+                    "speed": 5.3,
+                    "cooldown": 0
+                },
+                {
+                    "name" : "Sticky Bomb Explosion",
+                    "isDot" : false, 
+                    "damage": 3500,
+                    "ceramic": 0,
+                    "moab": 0,
+                    "boss": 0,
+                    "elite": 4900,
+                    "pierce": 10,
+                    "speed": 8.5,
+                    "cooldown": 0
+                }
+            ]
+        }
+    ]
+}

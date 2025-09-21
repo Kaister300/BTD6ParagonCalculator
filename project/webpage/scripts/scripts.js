@@ -1,5 +1,0 @@
-import './paragon-common.js'
-import './paragon-selector.js'
-import './paragon-calc.js'
-import './old-paragon-calc.js'
-import './paragon-damage.js'
