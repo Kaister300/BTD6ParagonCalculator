@@ -2,10 +2,11 @@ import { useState } from "react";
 import Collapsible from "./ui/Collapsible";
 import ParagonSelector from "./tools/ParagonSelector";
 import ParagonLevelCalculator from "./tools/ParagonLevelCalculator";
+import ParagonDamageCalculator from "./tools/ParagonDamageCalculator";
+import LegacyParagonDegreeCalculator from "./tools/LegacyParagonDegreeCalculator";
 import { ParagonContext, ParagonContextData } from "../contexts/paragonContext";
 
 function ParagonTools() {
-    // const [paragonContextData, setParagonContextData] = useState(new ParagonContextData());
     const [paragonContextData, setParagonContextData] = useState(new ParagonContextData());
 
     return <div className="grow">
@@ -25,6 +26,14 @@ function ParagonTools() {
 
             <Collapsible title="Paragon Degree Calculator" subtitle="Post Game Version 39.0">
                 <ParagonLevelCalculator/>
+            </Collapsible>
+
+            <Collapsible title="Paragon Damage Calculator" subtitle="WIP - Placeholder for now">
+                <ParagonDamageCalculator/>
+            </Collapsible>
+
+            <Collapsible title="Legacy Paragon Degree Calculator" subtitle="Pre Game Version 39.0">
+                <LegacyParagonDegreeCalculator/>
             </Collapsible>
          </ParagonContext>
     </div>
