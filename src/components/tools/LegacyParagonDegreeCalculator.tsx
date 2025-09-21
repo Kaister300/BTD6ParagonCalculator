@@ -107,7 +107,7 @@ function LegacyParagonDegreeCalculator() {
     }, [currentPower]);
 
     return <div>
-        <form className="grid grid-cols-2 [&>label]:text-right [&>label]:m-1 [&>input]:m-1 [&>*>input]:m-1">
+        <form className="grid grid-cols-2 [&>label]:text-right [&>label]:m-1 [&>input]:m-1 [&>*>input]:m-1 [&>input]:p-1 [&>input]:border [&>input]:rounded-xl [&>input]:border-blue-800 [&>input]:bg-blue-100">
             <label htmlFor="tier5"><Tooltip bodyText="Tier 5 Towers:" tooltipText="Excludes the first 3 Tier 5 towers that were placed down to enable the paragon purchase."/></label>
             <input type="number" id="tier5" min={0}  max={9} value={tier5} onChange={inputValidationWrapper(setTier5)}/>
 

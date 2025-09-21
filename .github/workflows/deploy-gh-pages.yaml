@@ -37,16 +37,13 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v5
 
-      - name: Install Python
-        uses: actions/setup-python@v5
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
         with:
-          python-version: "3.11"
-          cache: "pip"
+          bun-version: latest
 
       - name: Install dependencies
-        run: |
-          npm install
-          pip install -r project/requirements.txt
+        run: bun install
 
       - name: Create .env file
         run: |
@@ -57,12 +54,12 @@ jobs:
           EOF
 
       - name: Build static files
-        run: python3 project/make.py
+        run: bun run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './project/output'
+          path: './dist'
 
       - name: Deploy to GitHub Pages
         id: deployment

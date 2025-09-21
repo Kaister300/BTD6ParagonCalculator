@@ -28,11 +28,11 @@ function ParagonTools() {
                 <ParagonLevelCalculator/>
             </Collapsible>
 
-            <Collapsible title="Paragon Damage Calculator" subtitle="WIP - Placeholder for now">
+            <Collapsible title="Paragon Damage Calculator" subtitle="WIP - Placeholder for now" initialOpen={false}>
                 <ParagonDamageCalculator/>
             </Collapsible>
 
-            <Collapsible title="Legacy Paragon Degree Calculator" subtitle="Pre Game Version 39.0">
+            <Collapsible title="Legacy Paragon Degree Calculator" subtitle="Pre Game Version 39.0" initialOpen={false}>
                 <LegacyParagonDegreeCalculator/>
             </Collapsible>
          </ParagonContext>

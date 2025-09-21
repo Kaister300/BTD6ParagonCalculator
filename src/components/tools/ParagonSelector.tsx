@@ -28,7 +28,7 @@ const AVAILABLE_PARAGONS = {
 };
 
 function createAvailableParagonList() {
-    return <select id="paragon" className="m-1">
+    return <select id="paragon" className="m-1 p-1 border rounded-xl border-blue-800 bg-blue-100">
         <option value="">Please choose an option</option>
         {Object.entries(AVAILABLE_PARAGONS).map(([monkeyType, monkeyEntry], indexOuter) => (
             <optgroup label={capitalise(monkeyType)} key={indexOuter}>
@@ -44,7 +44,7 @@ function createAvailableParagonList() {
 const DIFFICULTUES: GameDifficultyType[] = ["easy", "medium", "hard", "impoppable"]
 
 function createDifficultyList() {
-    return <select id="difficulty" className="m-1">
+    return <select id="difficulty" className="m-1 p-1 border rounded-xl border-blue-800 bg-blue-100">
         {DIFFICULTUES.map((difficulty, index) => (
             <option value={difficulty} key={index}>{capitalise(difficulty)}</option>
         ))}
