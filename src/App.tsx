@@ -1,8 +1,6 @@
-import './App.css'
-
-import TitleHeader from './components/TitleHeader'
-import ParagonTools from './components/ParagonTools'
-import FooterAttribution from './components/FooterAttribution'
+import TitleHeader from './components/TitleHeader';
+import ParagonTools from './components/ParagonTools';
+import FooterAttribution from './components/FooterAttribution';
 
 function App() {
 

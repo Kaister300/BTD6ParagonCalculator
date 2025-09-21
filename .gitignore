@@ -26,3 +26,9 @@ dist-ssr
 # Environment Files
 **/.env*
 !.env.example
+
+# Build Files
+public/sitemap.xml
+public/robots.txt
+public/google*.html
+public/BingSiteAuth.xml
