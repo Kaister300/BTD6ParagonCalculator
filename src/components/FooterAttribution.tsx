@@ -1,5 +1,5 @@
 function FooterAttribution() {
-    return <footer className="w-full mt-6 p-2 bg-[#C9F0FF] leading-[normal] text-center [&>p]:italic [&>*>a]:italic [&>*>a]:underline">
+    return <footer className="w-full leading-[normal] text-center [&>p]:italic [&>*>a]:italic [&>*>a]:underline">
         <h3 className="text-xl font-bold">Created by Kaister300</h3>
         <p className="animate-bounce">Now built with React!</p>
         <p>Paragon Formula & Price Data from <a href="https://www.bloonswiki.com/Paragon">Blooncyclopedia</a></p>

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
+    "antd": "^5.28.0",
     "dotenv": "^17.2.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
