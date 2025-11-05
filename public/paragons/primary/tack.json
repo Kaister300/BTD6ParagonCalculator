@@ -1,5 +1,9 @@
 {
     "name": "Crucible of Steel and Flame",
+    "metadata": {
+        "wikiURL": "https://www.bloonswiki.com/Crucible_of_Steel_and_Flame",
+        "iconSrc": "https://www.bloonswiki.com/images/f/fd/BTD6_Paragon-CycloneOfFireAndMetal.png"
+    },
     "prices": {
         "easy": 170000,
         "medium": 200000,

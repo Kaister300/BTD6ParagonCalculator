@@ -1,14 +1,14 @@
 {
-    "name": "Template",
+    "name": "Ballistic Obliteration Missile Bunker",
     "metadata": {
-        "wikiURL": "https://www.bloonswiki.com/Apex_Plasma_Master",
-        "iconSrc": "https://www.bloonswiki.com/images/5/52/BTD6_Paragon-ApexPlasmaMaster.png"
+        "wikiURL": "https://www.bloonswiki.com/Ballistic_Obliteration_Missile_Bunker",
+        "iconSrc": "https://www.bloonswiki.com/images/d/df/BTD6_Paragon-BallisticObliterationMissileBunker.png"
     },
     "prices": {
-        "easy": 20,
-        "medium": 30,
-        "hard": 40,
-        "impoppable": 50
+        "easy": 510000,
+        "medium": 600000,
+        "hard": 648000,
+        "impoppable": 720000
     },
     "attackContainer": [
         {

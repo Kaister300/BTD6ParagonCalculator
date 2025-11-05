@@ -1,5 +1,9 @@
 {
     "name": "Goliath Doomship",
+    "metadata": {
+        "wikiURL": "https://www.bloonswiki.com/Goliath_Doomship",
+        "iconSrc": "https://www.bloonswiki.com/images/3/30/BTD6_Paragon-GoliathDoomship.png"
+    },
     "prices": {
         "easy": 765000,
         "medium": 900000,

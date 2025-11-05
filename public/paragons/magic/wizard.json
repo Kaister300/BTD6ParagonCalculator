@@ -1,5 +1,9 @@
 {
     "name": "Magus Perfectus",
+    "metadata": {
+        "wikiURL": "https://www.bloonswiki.com/Magus_Perfectus",
+        "iconSrc": "https://www.bloonswiki.com/images/7/7e/BTD6_ParagonMagusPerfectus.png"
+    },
     "prices": {
         "easy": 637500,
         "medium": 750000,
