@@ -1,10 +1,10 @@
 {
     "name": "Magus Perfectus",
     "prices": {
-        "easy": 637500,
-        "medium": 750000,
-        "hard": 810000,
-        "impoppable": 900000
+        "easy": 680000,
+        "medium": 800000,
+        "hard": 864000,
+        "impoppable": 960000
     },
     "attackContainer": [
         {

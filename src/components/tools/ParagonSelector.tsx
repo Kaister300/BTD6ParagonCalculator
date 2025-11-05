@@ -24,6 +24,7 @@ const AVAILABLE_PARAGONS = {
     },
     "support": {
         "engineer": "Engineer Monkey",
+        "spike": "Spike Factory",
     }
 };
 

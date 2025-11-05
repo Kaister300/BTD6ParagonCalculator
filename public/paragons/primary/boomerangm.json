@@ -1,10 +1,10 @@
 {
     "name": "Glaive Dominus",
     "prices": {
-        "easy": 233750,
-        "medium": 275000,
-        "hard": 297000,
-        "impoppable": 330000
+        "easy": 212500,
+        "medium": 250000,
+        "hard": 270000,
+        "impoppable": 300000
     },
     "attackContainer": [
         {
