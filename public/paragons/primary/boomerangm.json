@@ -1,5 +1,9 @@
 {
     "name": "Glaive Dominus",
+    "metadata": {
+        "wikiURL": "https://www.bloonswiki.com/Glaive_Dominus",
+        "iconSrc": "https://www.bloonswiki.com/images/d/d4/BTD6_ParagonGlaiveDominus.png"
+    },
     "prices": {
         "easy": 212500,
         "medium": 250000,

@@ -1,5 +1,9 @@
 {
     "name": "Navarch of the Seas",
+    "metadata": {
+        "wikiURL": "https://www.bloonswiki.com/Navarch_of_the_Seas",
+        "iconSrc": "https://www.bloonswiki.com/images/5/54/BTD6_Paragon-NavarchOfTheSeas.png"
+    },
     "prices": {
         "easy": 467500,
         "medium": 550000,

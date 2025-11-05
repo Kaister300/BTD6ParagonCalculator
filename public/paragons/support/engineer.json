@@ -1,5 +1,9 @@
 {
     "name": "Master Builder",
+    "metadata": {
+        "wikiURL": "https://www.bloonswiki.com/Master_Builder",
+        "iconSrc": "https://www.bloonswiki.com/images/c/c6/BTD6_Paragon_-_MasterBuilder.png"
+    },
     "prices": {
         "easy": 552500,
         "medium": 650000,

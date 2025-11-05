@@ -1,5 +1,9 @@
 {
     "name": "Ascended Shadow",
+    "metadata": {
+        "wikiURL": "https://www.bloonswiki.com/Ascended_Shadow",
+        "iconSrc": "https://www.bloonswiki.com/images/4/44/BTD6_Paragon-AscendedShadow.png"
+    },
     "prices": {
         "easy": 425000,
         "medium": 500000,
