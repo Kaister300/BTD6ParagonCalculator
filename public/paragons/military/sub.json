@@ -1,5 +1,9 @@
 {
     "name": "Nautic Siege Core",
+    "metadata": {
+        "wikiURL": "https://www.bloonswiki.com/Nautic_Siege_Core",
+        "iconSrc": "https://www.bloonswiki.com/images/2/2e/BTD6_Paragon-NauticSeigeCore.png"
+    },
     "prices": {
         "easy": 340000,
         "medium": 400000,

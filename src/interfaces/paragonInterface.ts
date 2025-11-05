@@ -15,6 +15,12 @@ interface IParagonPrices {
     impoppable: number;
 }
 
+
+interface IParagonMetadata {
+    wikiURL: string;
+    iconSrc: string;
+}
+
 // TODO: Define attack types as enum
 // OR, create separate interface for each attack type
 // Could include "explosion", "ability", etc...
@@ -38,6 +44,7 @@ interface IParagonAttackContainer {
 
 interface IParagonData {
     name: string;
+    metadata: IParagonMetadata;
     prices: IParagonPrices;
     attacks: IParagonAttackContainer[]
 }

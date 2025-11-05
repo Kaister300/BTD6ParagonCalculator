@@ -12,6 +12,7 @@ const AVAILABLE_PARAGONS = {
         "dart": "Dart Monkey",
         "boomerangm": "Boomerang Monkey",  // Has to be "boomerangm" to avoid conflict with "boomerang"
         "tack": "Tack Shooter",
+        "bomb": "Bomb Shooter",
     },
     "military": {
         "buccaneer": "Monkey Buccaneer",
@@ -51,22 +52,17 @@ function createDifficultyList() {
     </select>
 }
 
-function createParagonWikiLink(paragonName: string) {
-    const paragonRoute = paragonName.replace(/ /g, "_");
-    const paragonUrl = new URL(paragonRoute, "https://www.bloonswiki.com/");
-    return paragonUrl.href;
-}
-
 function ParagonSelector() {
     const {paragonContextData, setParagonContextData} = useParagonContext();
     const selectorData = paragonContextData.selectorData;
     const paragonName = paragonContextData.paragonData?.name;
+    const paragonMetadata = paragonContextData.paragonData?.metadata;
     const paragonForm = useRef<HTMLFormElement>(null);
 
     async function updateFormAction() {
         // TODO: Fix this up. Might just use a state setter for monkey name & game difficulty
         const formRef = paragonForm.current;
-        if (formRef && formRef.difficulty && formRef.paragon) {
+        if (formRef?.difficulty && formRef.paragon) {
             const newMonkeyName: string | null = formRef?.paragon.value;
             const newGameDifficulty: GameDifficultyType = formRef?.difficulty?.value;
             if (!newMonkeyName) {
@@ -110,9 +106,10 @@ function ParagonSelector() {
             {createDifficultyList()}
 
         </form>
-        {paragonName && selectorData.difficulty && (
-            <div className="pt-4 pb-2">
-                <p className="my-2"><strong>Paragon Wiki Entry:</strong> <a href={createParagonWikiLink(paragonName)} className="text-blue-600 visited:text-purple-900 underline">{paragonName}</a></p>
+        {paragonName && paragonMetadata && selectorData.difficulty && (
+            <div className="pt-4 pb-2 flex items-center">
+                <img src="https://www.bloonswiki.com/images/8/8b/BTD6_tutorial_ParagonIcon.png" alt="BTD6 Paragon Icon" width={"50"} height={"50"}/>
+                <p className="my-2 pl-3"><strong>Paragon Wiki Entry:</strong> <a href={paragonMetadata.wikiURL} className="text-blue-600 visited:text-purple-900 underline">{paragonName}</a></p>
             </div>
         )}
     </div>
