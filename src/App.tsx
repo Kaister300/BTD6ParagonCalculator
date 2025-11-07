@@ -76,8 +76,8 @@ function App() {
           </div>
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} onSelect={(value) => setSelectedNode(value.key)}/>
         </Sider>
-        <Layout>
-          <Header style={{ padding: 0, height: 'auto', background: colorBgContainer }}>
+        <Layout className="paragon-background">
+          <Header style={{ padding: 0, height: 'auto', background: colorBgContainer, opacity: 0.75 }}>
             <TitleHeader/>
           </Header>
           <Content style={{ margin: '0 16px', padding: '24px 0', display: 'flex' }}>
@@ -85,13 +85,16 @@ function App() {
               padding: 24,
               width: '100vw',
               flexGrow: 1,
+              display: 'flex',
+              justifyContent: 'center',
+              opacity: 0.75,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}>
               {currentNode}
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center' }}>
+          <Footer style={{ textAlign: 'center', opacity: 0.75 }}>
             <FooterAttribution/>
           </Footer>
         </Layout>

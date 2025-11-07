@@ -26,9 +26,8 @@ function inputValidationWrapper(stateSetter: React.Dispatch<React.SetStateAction
                     newValue = "";
                 }
             } else if (newValueInt > maxValue) {
-                    newValue = maxValue;
-            }
-            else if (newValueInt < minValue) {
+                newValue = maxValue;
+            } else if (newValueInt < minValue) {
                 newValue = minValue;
             } else {
                 newValue = newValueInt;
@@ -168,11 +167,11 @@ function ParagonLevelCalculator() {
         calculateDegree();
     }, [currentPower]);  // eslint-disable-line
 
-    return <div>
-        <div className="flex items-center justify-center space-x-4 pb-4">
+    return <div className="self-center">
+        <div className="flex items-center justify-center space-x-5 pb-4">
             <img src={paragonPhotoURL} alt="BTD6 Paragon Model" width={"80"} height={"80"}/>
             <div className="text-center leading-normal">
-                <h3 className="font-semibold text-xl">{formActive ? paragonData.name : "Please select a Paragon"}</h3>
+                <h3 className="font-semibold text-xl">{formActive ? paragonData.metadata.paragonName : "Please select a Paragon"}</h3>
                 <h4 className={formActive ? "italic" : ""}>{formActive ? capitalise(gameDifficulty) : "-----"}</h4>
             </div>
         </div>

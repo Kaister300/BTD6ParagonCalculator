@@ -1,11 +1,6 @@
 /**
  * Interface File for Paragon Data
- * Used by data loader to type-cast JSON data files
- * 
- * TODO: Refactor JSON files into TS data files to
- * be pre-loaded into the web app instead of requiring
- * web call on swapping to any paragon.
- * 
+ * Used by Paragon Model files to properly type-cast data
 */
 
 interface IParagonPrices {
@@ -17,6 +12,8 @@ interface IParagonPrices {
 
 
 interface IParagonMetadata {
+    paragonName: string;
+    towerName: string;
     wikiURL: string;
     iconSrc: string;
 }
@@ -39,14 +36,13 @@ interface IParagonAttack {
 
 interface IParagonAttackContainer {
     name: string;
-    attackContainer: IParagonAttack[];
+    attacks: IParagonAttack[];
 }
 
 interface IParagonData {
-    name: string;
     metadata: IParagonMetadata;
     prices: IParagonPrices;
-    attacks: IParagonAttackContainer[]
+    attackContainer: IParagonAttackContainer[]
 }
 
 // TODO: Maybe move into types file

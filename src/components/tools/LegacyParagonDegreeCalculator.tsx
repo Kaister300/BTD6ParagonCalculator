@@ -4,76 +4,73 @@ import { paragonLevelsGenerator } from "../../utils/createParagonLevels";
 
 const PARAGON_LEVELS = paragonLevelsGenerator();
 
+function inputValidationWrapper(stateSetter: React.Dispatch<React.SetStateAction<number | string>>) {
+    const validateInput: ChangeEventHandler<HTMLInputElement> = (e) => {
+        let newValue: string | number = e.target.value;
+        const newValueInt = Number.parseInt(newValue);
+        const minValue = Number.parseInt(e.target.min);
+        const maxValue = Number.parseInt(e.target.max);
+
+        if (newValue.length === 0) {
+            if (e.target.id === "cashslider") {
+                newValue = maxValue/2;
+            }
+            else {
+                newValue = "";
+            }
+        } else if (newValueInt > maxValue) {
+            newValue = maxValue;
+        } else if (newValueInt < minValue) {
+            newValue = minValue;
+        } else {
+            newValue = newValueInt;
+        }
+        stateSetter(newValue);
+    }
+
+    return validateInput;
+}
+
 function LegacyParagonDegreeCalculator() {
     // Calculator States
     const [currentDegree, setCurrentDegree] = useState(1);
     const [currentPower, setCurrentPower] = useState(0);
 
     // Form States
-    const [tier5, setTier5] = useState(0);
-    const [towerUpgrade, setTowerUpgrade] = useState(0);
-    const [moneySpent, setMoneySpent] = useState(0);
-    const [popCount, setPopCount] = useState(0);
-    const [incomeGenerated, setIncomeGenerated] = useState(0);
-    const [paragonTotems, setParagonTotems] = useState(0);
-
-    function inputValidationWrapper(stateSetter: Function) {
-        const validateInput: ChangeEventHandler<HTMLInputElement> = (e) => {
-            let newValue: string | number = e.target.value;
-            const newValueInt = parseInt(newValue);
-            const minValue = parseInt(e.target.min);
-            const maxValue = parseInt(e.target.max);
-
-            if (newValue.length === 0) {
-                if (e.target.id === "cashslider") {
-                    newValue = maxValue/2;
-                }
-                else {
-                    newValue = "";
-                }
-            } else {
-                if (newValueInt > maxValue) {
-                    newValue = maxValue;
-                }
-                else if (newValueInt < minValue) {
-                    newValue = minValue;
-                } else {
-                    newValue = newValueInt;
-                }
-            }
-            stateSetter(newValue);
-        }
-
-        return validateInput;
-    }
+    const [tier5, setTier5] = useState<number | string>(0);
+    const [towerUpgrade, setTowerUpgrade] = useState<number | string>(0);
+    const [moneySpent, setMoneySpent] = useState<number | string>(0);
+    const [popCount, setPopCount] = useState<number | string>(0);
+    const [incomeGenerated, setIncomeGenerated] = useState<number | string>(0);
+    const [paragonTotems, setParagonTotems] = useState<number | string>(0);
 
     function calculatePower() {
         // Zero Power Initially
         let newPower = 0;
 
         // Tier5s. Max is 90,000 power
-        if(tier5) {
+        if(tier5 && typeof tier5 === "number") {
             newPower += Math.min(tier5*10000, 90000);
         }
 
         // Upgrades. Max is 10,000 power
-        if (towerUpgrade) {
+        if (towerUpgrade && typeof towerUpgrade === "number") {
             newPower += Math.min(towerUpgrade*100, 10000);
         }
 
         // Money Spent. Max is 10,000 power
-        if (moneySpent) {
+        if (moneySpent && typeof moneySpent === "number") {
             newPower += Math.min(Math.floor(moneySpent/25), 10000);
         }
 
         // Pops or Income. Max is 90,000 power
         let temp = 0;
-        if (popCount) temp += Math.floor(popCount/180);
-        if (incomeGenerated) temp += Math.floor(incomeGenerated/45);
+        if (popCount && typeof popCount === "number") temp += Math.floor(popCount/180);
+        if (incomeGenerated && typeof incomeGenerated === "number") temp += Math.floor(incomeGenerated/45);
         newPower += Math.min(temp, 90000);
 
         // Totems. No Max
-        if (paragonTotems) newPower += paragonTotems*2000;
+        if (paragonTotems && typeof paragonTotems === "number") newPower += paragonTotems*2000;
 
         // Capping Total Max Power
         newPower = Math.min(newPower, 200000);
@@ -106,7 +103,7 @@ function LegacyParagonDegreeCalculator() {
         calculateDegree();
     }, [currentPower]);
 
-    return <div>
+    return <div className="self-center">
         <form className="grid grid-cols-2 [&>label]:text-right [&>label]:m-1 [&>input]:m-1 [&>*>input]:m-1 [&>input]:p-1 [&>input]:border [&>input]:rounded-xl [&>input]:border-blue-800 [&>input]:bg-blue-100">
             <label htmlFor="tier5"><Tooltip bodyText="Tier 5 Towers:" tooltipText="Excludes the first 3 Tier 5 towers that were placed down to enable the paragon purchase."/></label>
             <input type="number" id="tier5" min={0}  max={9} value={tier5} onChange={inputValidationWrapper(setTier5)}/>

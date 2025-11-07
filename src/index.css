@@ -13,3 +13,27 @@
   margin: 0;
   min-height: 100vh;
 }
+
+@layer components {
+  /** 
+  * Shamelessly stolen from: https://github.com/ctxx3/BTD6ParagonCalculator
+  * FYI: That site looks sooo much better, props to the author
+  */
+  .paragon-background {
+    --s: 37px;
+    /* control the size */
+
+    --c: #0000, #005FBF
+        /* first color */
+        .5deg 119.5deg, #0000 120deg;
+    --g1: conic-gradient(from 60deg at 56.25% calc(425%/6), var(--c));
+    --g2: conic-gradient(from 180deg at 43.75% calc(425%/6), var(--c));
+    --g3: conic-gradient(from -60deg at 50% calc(175%/12), var(--c));
+    background:
+        var(--g1), var(--g1) var(--s) calc(1.73*var(--s)),
+        var(--g2), var(--g2) var(--s) calc(1.73*var(--s)),
+        var(--g3) var(--s) 0, var(--g3) 0 calc(1.73*var(--s)) #006AD4 !important;
+    /* second color */
+    background-size: calc(2*var(--s)) calc(3.46*var(--s)) !important;
+  }
+}

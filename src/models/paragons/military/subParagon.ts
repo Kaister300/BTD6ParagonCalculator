@@ -1,0 +1,37 @@
+import { type IParagonData } from "../../../interfaces/paragonInterface";
+
+const subParagon: IParagonData = {
+    metadata: {
+        paragonName: "Nautic Siege Core",
+        towerName: "Monkey Sub",
+        wikiURL: "https://www.bloonswiki.com/Nautic_Siege_Core",
+        iconSrc: "https://www.bloonswiki.com/images/2/2e/BTD6_Paragon-NauticSeigeCore.png"
+    },
+    prices: {
+        easy: 340000,
+        medium: 400000,
+        hard: 432000,
+        impoppable: 480000,
+    },
+    attackContainer: [
+        {
+            name: "Main",
+            attacks: [
+                {
+                    name: "Attack",
+                    isDot: false,
+                    damage: 20,
+                    ceramic: 30,
+                    moab: 0,
+                    boss: 60,
+                    elite: 200,
+                    pierce: 200,
+                    speed: 0.35,
+                    cooldown: 0
+                }
+            ]
+        }
+    ]
+}
+
+export default subParagon;

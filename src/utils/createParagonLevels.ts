@@ -11,7 +11,7 @@ function paragonFunction(degree: number): number {
         return 200000;
     }
     else {
-        let top = 50*(degree)**3 + 5025*(degree)**2 + 168324*(degree) + 843000;
+        const top = 50*(degree)**3 + 5025*(degree)**2 + 168324*(degree) + 843000;
         return Math.floor(top/600);
     }
 }
@@ -23,8 +23,7 @@ function paragonFunction(degree: number): number {
  * @returns {number[]} Power array that contains what power is needed for each level
  */
 function paragonLevelsGenerator(): number[] {
-    let levels = Array.from({length: 100}, (_, i) => i + 1);
-    // paragonLevels = levels.map(this.paragonFunction);
+    const levels = Array.from({length: 100}, (_, i) => i + 1);
     return levels.map(paragonFunction);
 }
 
