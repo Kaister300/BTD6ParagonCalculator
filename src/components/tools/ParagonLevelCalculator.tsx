@@ -1,42 +1,21 @@
-import { useState, useEffect, type ChangeEventHandler } from "react";
+import { useState, useEffect } from "react";
+import { Form, InputNumber, Slider, Flex, type InputNumberProps } from "antd";
 import { capitalise } from "../../utils/stringUtils";
-import Tooltip from "../ui/Tooltip";
 import useParagonContext from "../../hooks/useParagonContext";
 import { paragonLevelsGenerator } from "../../utils/createParagonLevels";
 
 const PARAGON_LEVELS = paragonLevelsGenerator();
 
 
-/**
- * Validation wrapper to handle inputs for number and number based fields
- * TODO: Maybe add this to the utils folder
- */
-function inputValidationWrapper(stateSetter: React.Dispatch<React.SetStateAction<number | string>>) {
-        const validateInput: ChangeEventHandler<HTMLInputElement> = (e) => {
-            let newValue: string | number = e.target.value;
-            const newValueInt = Number.parseInt(newValue);
-            const minValue = Number.parseInt(e.target.min);
-            const maxValue = Number.parseInt(e.target.max);
-
-            if (newValue.length === 0) {
-                if (e.target.id === "cashslider") {
-                    newValue = maxValue/2;
-                }
-                else {
-                    newValue = "";
-                }
-            } else if (newValueInt > maxValue) {
-                newValue = maxValue;
-            } else if (newValueInt < minValue) {
-                newValue = minValue;
-            } else {
-                newValue = newValueInt;
-            }
-            stateSetter(newValue);
-        }
-
-        return validateInput;
-    }
+type CalculatorFormFieldTypes = {
+    tier5: number | null | undefined,
+    towerUpgrade: number | null | undefined,
+    moneySpent: number | null | undefined,
+    popCount: number | null | undefined,
+    incomeGenerated: number| null | undefined,
+    paragonTotems: number | null | undefined,
+    cashSlider: number | null | undefined,
+};
 
 
 function ParagonLevelCalculator() {
@@ -55,44 +34,33 @@ function ParagonLevelCalculator() {
     const [currentPower, setCurrentPower] = useState(0);
 
     // Form States
-    const [tier5, setTier5] = useState<number | string>(0);
-    const [towerUpgrade, setTowerUpgrade] = useState<number | string>(0);
-    const [moneySpent, setMoneySpent] = useState<number | string>(0);
-    const [popCount, setPopCount] = useState<number | string>(0);
-    const [incomeGenerated, setIncomeGenerated] = useState<number | string>(0);
-    const [paragonTotems, setParagonTotems] = useState<number | string>(0);
-    const [cashSlider, setCashSlider] = useState<number | string>(0);
+    const [cashSliderState, setCashSliderState] = useState<number | string | null>(0);
+    const [form] = Form.useForm();
+    const values = Form.useWatch([], form);
 
-    // Calculations
-    const maxSliderCost = paragonCost ? Math.round(3.15 * paragonCost + 1) : 0;
-
-    function resetCalculationValues() {
-        // Reset Calculator States
-        setCurrentPower(0);
-
-        // Reste Form States
-        setTier5(0);
-        setTowerUpgrade(0);
-        setMoneySpent(0);
-        setPopCount(0);
-        setIncomeGenerated(0);
-        setParagonTotems(0);
-        setCashSlider(0);
-
-        // Reset Context Data
-        setParagonContextData({
-            ...paragonContextData,
-            paragonLevel: 1,
-        });
+    const updateCashSlider: InputNumberProps['onChange'] = (newValue) => {
+        setCashSliderState(newValue as number);
+        form.setFieldValue("cashSlider", newValue as number);
     }
 
     useEffect(() => {
-        if(!formActive) resetCalculationValues();
-    }, [formActive]);  // eslint-disable-line
+        form
+            .validateFields({validateOnly: false})
+            .then(() => calculatePower(values))
+            .catch(() => console.log("Form invalid. Not calculating power."));
+    }, [form, values]);
 
+    function calculatePower(formValues: CalculatorFormFieldTypes) {
+        const {
+            tier5,
+            towerUpgrade,
+            moneySpent,
+            popCount,
+            incomeGenerated,
+            paragonTotems,
+            cashSlider,
+        } = formValues;
 
-    function calculatePower() {
-        // Zero Power Initially
         let newPower = 0;
 
         // Tier5s. Max is 50,000 power
@@ -140,9 +108,27 @@ function ParagonLevelCalculator() {
         setCurrentPower(newPower);
     }
 
+    // Calculations
+    const maxSliderCost = paragonCost ? Math.round(3.15 * paragonCost + 1) : 0;
+
+    function resetCalculationValues() {
+        // Reset Calculator States
+        setCurrentPower(0);
+
+        // Reste Form States
+        setCashSliderState(0);
+
+        // Reset Context Data
+        setParagonContextData({
+            ...paragonContextData,
+            paragonLevel: 1,
+        });
+    }
+
     useEffect(() => {
-        calculatePower();
-    }, [tier5, towerUpgrade, moneySpent, popCount, incomeGenerated, paragonTotems, cashSlider]);  // eslint-disable-line
+        if(!formActive) resetCalculationValues();
+    }, [formActive]);  // eslint-disable-line
+
 
     function calculateDegree() {
         let found = false;
@@ -175,31 +161,75 @@ function ParagonLevelCalculator() {
                 <h4 className={formActive ? "italic" : ""}>{formActive ? capitalise(gameDifficulty) : "-----"}</h4>
             </div>
         </div>
-        <form className="grid grid-cols-2 [&>label]:text-right [&>label]:m-1 [&>input]:m-1 [&>*>input]:m-1 [&>input]:p-1 [&>input]:border [&>input]:rounded-xl [&>input]:border-blue-800 [&>input]:bg-blue-100">
-            <label htmlFor="tier5"><Tooltip bodyText="Tier 5 Towers:" tooltipText="Excludes the first 3 Tier 5 towers that were placed down to enable the paragon purchase."/></label>
-            <input type="number" id="tier5" min={0}  max={9} value={tier5} onChange={inputValidationWrapper(setTier5)}/>
+        <Form<CalculatorFormFieldTypes>
+            className="max-w-160" form={form} disabled={!formActive} labelCol={{ span: 12 }} wrapperCol={{ span: 12 }}
+            initialValues={{tier5: 0, towerUpgrade: 0, moneySpent: 0, popCount: 0, incomeGenerated: 0, paragonTotems: 0, cashSlider: 0}}
+        >
+            <Form.Item
+                name="tier5"
+                label="Tier 5 Towers"
+                tooltip="Excludes the first 3 Tier 5 towers that were placed down to enable the paragon purchase."
+                rules={[
+                    {type: 'number', min: 0, max: 9}
+                ]}
+            >
+                <InputNumber className="w-full!"/>
+            </Form.Item>
 
-            <label htmlFor="towerupgrades"><Tooltip bodyText="Non-Tier 5 Upgrades:" tooltipText="This includes all upgrade tiers spent on towers excluding any Tier 5 upgrades. Max is 100."/></label>
-            <input type="number" id="towerupgrades" min={0} max={100} value={towerUpgrade} step={4} onChange={inputValidationWrapper(setTowerUpgrade)}/>
+            <Form.Item
+                name="towerUpgrade"
+                label="Non-Tier 5 Upgrades"
+                tooltip="This includes all upgrade tiers spent on towers excluding any Tier 5 upgrades. Max is 100."
+                rules={[
+                    {type: 'number', min: 0, max: 100}
+                ]}
+            >
+                <InputNumber step={4} className="w-full!"/>
+            </Form.Item>
 
-            <label htmlFor="moneyspent"><Tooltip bodyText="Money Spent (excluding initial 3):" tooltipText={`Total amount spent on towers excluding T5s. Max is $${paragonCost ? 3*paragonCost : 'N/A'}.`}/></label>
-            <input type="number" id="moneyspent" min={0} max={paragonCost ? 3*paragonCost : 0} value={moneySpent} step={500} onChange={inputValidationWrapper(setMoneySpent)}/>
+            <Form.Item
+                name="moneySpent"
+                label="Money Spent (excluding initial 3)"
+                tooltip={`Total amount spent on towers excluding T5s. Max is $${paragonCost ? 3*paragonCost : 'N/A'}.`}
+            >
+                <InputNumber min={0} max={paragonCost ? 3*paragonCost : 0} step={500} className="w-full!" prefix="$"/>
+            </Form.Item>
 
-            <label htmlFor="popcount"><Tooltip bodyText="Bloons Popped:" tooltipText="Includes Bloons popped from every tower of the paragon type. Max is 16.2M."/></label>
-            <input type="number" id="popcount" min={0} max={16200000} value={popCount} step={5000} onChange={inputValidationWrapper(setPopCount)}/>
+            <Form.Item
+                name="popCount"
+                label="Bloons Popped"
+                tooltip="Includes Bloons popped from every tower of the paragon type. Max is 16.2M."
+            >
+                <InputNumber min={0} max={16200000} step={5000} className="w-full!"/>
+            </Form.Item>
 
-            <label htmlFor="incomegenerated"><Tooltip bodyText="Cash Generated:" tooltipText="Applies to Buccaneer & Engineer. Shares same internal power limit as pops. Max is $4.05M."/></label>
-            <input type="number" id="incomegenerated" min={0} max={4050000} value={incomeGenerated} step={1000} onChange={inputValidationWrapper(setIncomeGenerated)}/>
+            <Form.Item
+                name="incomeGenerated"
+                label="Cash Generated"
+                tooltip="Applies to Buccaneer & Engineer. Shares same internal power limit as pops. Max is $4.05M."
+            >
+                <InputNumber min={0} max={4050000} step={1000} className="w-full!" prefix="$"/>
+            </Form.Item>
 
-            <label htmlFor="paragontotems"><Tooltip bodyText="Geraldo Paragon Power Totems:" tooltipText="Has no max cap to increase paragon power."/></label>
-            <input type="number" id="paragontotems" min={0} value={paragonTotems} onChange={inputValidationWrapper(setParagonTotems)}/>
+            <Form.Item
+                name="paragonTotems"
+                label="Geraldo Paragon Power Totems"
+                tooltip="Has no max cap to increase paragon power."
+            >
+                <InputNumber min={0} className="w-full!"/>
+            </Form.Item>
 
-            <label htmlFor="cashslider"><Tooltip bodyText="Cash Injection:" tooltipText={`This is the cash injection that is allowed to be spent on the paragon. This is 3.15 times the base paragon cost. Max is $${maxSliderCost}.`}/></label>
-            <span id="cashslidercontainer" className="flex">
-                <input type="range" id="cashslider" className="min-w-2" min={0} max={maxSliderCost} value={cashSlider} step={1} onChange={inputValidationWrapper(setCashSlider)}/>
-                <input type="number" className="flex-1 m-1 p-1 border rounded-xl border-blue-800 bg-blue-100" min={0} max={maxSliderCost} value={cashSlider} step={100} onChange={inputValidationWrapper(setCashSlider)}/>
-            </span>
-        </form>
+            <Form.Item
+                name="cashSlider"
+                label="Cash Injection"
+                tooltip={`This is the cash injection that is allowed to be spent on the paragon. This is 3.15 times the base paragon cost. Max is $${maxSliderCost}.`}
+            >
+                <Flex gap="middle">
+                    <Slider min={0} max={maxSliderCost} step={1} className="w-full!" value={typeof cashSliderState === "number" ? cashSliderState : 0} onChange={updateCashSlider}/>
+                    <InputNumber min={0} max={maxSliderCost} step={100} className="w-full!" prefix="$" value={cashSliderState} onChange={updateCashSlider}/>
+                </Flex>
+            </Form.Item>
+        </Form>
         <p className="my-3">Current Degree: {currentDegree}</p>
         <p className="my-3">Current Power: {currentPower}</p>
         <p className="my-3">
