@@ -12,29 +12,24 @@ import spikeParagon from "../models/paragons/support/spikeParagon";
 import type { IParagonData } from "../interfaces/paragonInterface";
 
 
-const AVAILABLE_PARAGONS: Record<string, Record<string, IParagonData>> = {
-    "primary": {
-        "dart": dartParagon,
-        "boomerang": boomerangParagon,
-        "tack": tackParagon,
-        "bomb": bombParagon,
-    },
-    "military": {
-        "buccaneer": buccaneerParagon,
-        "ace": aceParagon,
-        "sub": subParagon,
-    },
-    "magic": {
-        "ninja": ninjaParagon,
-        "wizard": wizardParagon,
-    },
-    "support": {
-        "engineer": engineerParagon,
-        "spike": spikeParagon,
-    }
-};
+/**
+ * TODO: Find automated way to populate this list...
+ */
+const PARAGON_LIST: Map<string, IParagonData> = new Map(Object.entries({
+    dartParagon,
+    boomerangParagon,
+    tackParagon,
+    bombParagon,
+    buccaneerParagon,
+    aceParagon,
+    subParagon,
+    ninjaParagon,
+    wizardParagon,
+    engineerParagon,
+    spikeParagon,
+}));
 
 
 export {
-    AVAILABLE_PARAGONS
+    PARAGON_LIST,
 }

@@ -5,8 +5,8 @@
  * @author Kaister300
  */
 
-import fs from 'fs';
-import path from 'path';
+import fs from 'node:fs';
+import path from 'node:path';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -105,7 +105,7 @@ function buildStaticPages() {
     const targetDir = path.resolve(__dirname, "..", "public");
 
     if (!fs.existsSync(targetDir)) {
-        throw Error("Please fully initalise repository before running pre-build script.");
+        throw new Error("Please fully initalise repository before running pre-build script.");
     }
 
     const WEBSITE = process.env["WEBSITE"];

@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { AVAILABLE_PARAGONS } from "../../utils/paragonDataUtils";
+import { PARAGON_LIST } from "../../utils/paragonDataUtils";
 import useParagonContext from "../../hooks/useParagonContext";
 import { capitalise } from "../../utils/stringUtils";
 import { ParagonContextData } from "../../contexts/paragonContext";
@@ -9,14 +9,9 @@ import type { IParagonData, GameDifficultyType } from "../../interfaces/paragonI
 function createAvailableParagonList(currentMonkeyName: string | null) {
     return <select id="paragon" className="m-1 p-1 border rounded-xl border-blue-800 bg-blue-100" defaultValue={currentMonkeyName || ""}>
         <option value="">Please choose an option</option>
-        {Object.entries(AVAILABLE_PARAGONS).map(([monkeyType, monkeyEntry], indexOuter) => (
-            <optgroup label={capitalise(monkeyType)} key={indexOuter}>
-                {Object.entries(monkeyEntry).map(([monkeyName, paragonObj], indexInner) => {
-                    const optionName = `${monkeyType};${monkeyName}`;
-                    return <option value={optionName} key={indexInner}>{paragonObj.metadata.towerName}</option>
-                })}
-            </optgroup>
-        ))}
+        {[...PARAGON_LIST].map(([paragonName, paragonObj], idx) => {
+            return <option value={paragonName} key={paragonName + idx}>{paragonObj.metadata.towerName}</option>
+        })}
     </select>
 }
 
@@ -25,7 +20,7 @@ const DIFFICULTUES: GameDifficultyType[] = ["easy", "medium", "hard", "impoppabl
 function createDifficultyList(currentGameDifficulty: GameDifficultyType) {
     return <select id="difficulty" className="m-1 p-1 border rounded-xl border-blue-800 bg-blue-100" defaultValue={currentGameDifficulty}>
         {DIFFICULTUES.map((difficulty, index) => (
-            <option value={difficulty} key={index}>{capitalise(difficulty)}</option>
+            <option value={difficulty} key={difficulty + index}>{capitalise(difficulty)}</option>
         ))}
     </select>
 }
@@ -49,9 +44,7 @@ function ParagonSelector() {
                 setParagonContextData(cleanParagonContextData);
             }
             else if (!paragonContextData.paragonData || selectorData.name !== newMonkeyName) {
-                const arr = newMonkeyName.split(";");
-                const selectedParagonObj: IParagonData | undefined = AVAILABLE_PARAGONS[arr[0]][arr[1]];
-                console.log(selectedParagonObj);
+                const selectedParagonObj: IParagonData | undefined = PARAGON_LIST.get(newMonkeyName);
                 if (selectedParagonObj) {
                     setParagonContextData({
                         ...paragonContextData,
