@@ -1,11 +1,12 @@
 import { type IParagonData } from "../../../interfaces/paragonInterface";
+import spikeFactoryIcon from "../../../assets/paragons/spikeFactoryParagon.png";
 
 const spikeParagon: IParagonData = {
     metadata: {
         paragonName: "Mega Massive Munitions Factory",
         towerName: "Spike Factory",
         wikiURL: "https://www.bloonswiki.com/Mega_Massive_Munitions_Factory",
-        iconSrc: "https://www.bloonswiki.com/images/6/6c/BTD6_SpikeFactoryParagon.png"
+        iconSrc: spikeFactoryIcon,
     },
     prices: {
         easy: 637500,

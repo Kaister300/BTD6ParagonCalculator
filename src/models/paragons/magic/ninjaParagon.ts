@@ -1,11 +1,12 @@
 import { type IParagonData } from "../../../interfaces/paragonInterface";
+import ascendedShadowIcon from '../../../assets/paragons/ascendedShadow.png';
 
 const ninjaParagon: IParagonData = {
     metadata: {
         paragonName: "Ascended Shadow",
         towerName: "Ninja Monkey",
         wikiURL: "https://www.bloonswiki.com/Ascended_Shadow",
-        iconSrc: "https://www.bloonswiki.com/images/4/44/BTD6_Paragon-AscendedShadow.png"
+        iconSrc: ascendedShadowIcon,
     },
     prices: {
         easy: 425000,

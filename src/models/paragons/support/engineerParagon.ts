@@ -1,11 +1,12 @@
 import { type IParagonData } from "../../../interfaces/paragonInterface";
+import masterBuilderIcon from "../../../assets/paragons/masterBuilder.png";
 
 const engineerParagon: IParagonData = {
     metadata: {
         paragonName: "Master Builder",
         towerName: "Engineer Monkey",
         wikiURL: "https://www.bloonswiki.com/Master_Builder",
-        iconSrc: "https://www.bloonswiki.com/images/c/c6/BTD6_Paragon_-_MasterBuilder.png"
+        iconSrc: masterBuilderIcon,
     },
     prices: {
         easy: 552500,

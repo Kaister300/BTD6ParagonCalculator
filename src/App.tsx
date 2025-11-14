@@ -14,6 +14,7 @@ import ParagonLevelCalculator from './components/tools/ParagonLevelCalculator';
 import ParagonDamageCalculator from './components/tools/ParagonDamageCalculator';
 import LegacyParagonDegreeCalculator from './components/tools/LegacyParagonDegreeCalculator';
 import FooterAttribution from './components/FooterAttribution';
+import paragonIcon from './assets/paragons/paragonIcon.png';
 
 
 const { Header, Content, Footer, Sider } = Layout;
@@ -72,7 +73,7 @@ function App() {
       <Layout style={{ minHeight: '100vh' }}>
         <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
           <div className="p-6">
-            <img src="https://www.bloonswiki.com/images/8/8b/BTD6_tutorial_ParagonIcon.png" alt="BTD6 Paragon Icon" />
+            <img src={paragonIcon} alt="BTD6 Paragon Icon" />
           </div>
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} onSelect={(value) => setSelectedNode(value.key)}/>
         </Sider>

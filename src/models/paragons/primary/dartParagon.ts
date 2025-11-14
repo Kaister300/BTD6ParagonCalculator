@@ -1,11 +1,12 @@
 import { type IParagonData } from "../../../interfaces/paragonInterface";
+import apexPlasmaIcon from "../../../assets/paragons/apexPlasmaMaster.png";
 
 const dartParagon: IParagonData = {
     metadata: {
         paragonName: "Apex Plasma Master",
         towerName: "Dart Monkey",
         wikiURL: "https://www.bloonswiki.com/Apex_Plasma_Master",
-        iconSrc: "https://www.bloonswiki.com/images/5/52/BTD6_Paragon-ApexPlasmaMaster.png"
+        iconSrc: apexPlasmaIcon,
     },
     prices: {
         easy: 127500,

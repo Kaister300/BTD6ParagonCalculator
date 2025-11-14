@@ -1,91 +1,120 @@
-import { useRef } from "react";
+import { useState, useEffect } from "react";
+import { Card, Divider, Flex } from "antd";
 import { PARAGON_LIST } from "../../utils/paragonDataUtils";
 import useParagonContext from "../../hooks/useParagonContext";
 import { capitalise } from "../../utils/stringUtils";
-import { ParagonContextData } from "../../contexts/paragonContext";
 import type { IParagonData, GameDifficultyType } from "../../interfaces/paragonInterface";
+import { DIFFICULTIES } from "../../models/difficultyData";
 
 
-function createAvailableParagonList(currentMonkeyName: string | null) {
-    return <select id="paragon" className="m-1 p-1 border rounded-xl border-blue-800 bg-blue-100" defaultValue={currentMonkeyName || ""}>
-        <option value="">Please choose an option</option>
-        {[...PARAGON_LIST].map(([paragonName, paragonObj], idx) => {
-            return <option value={paragonName} key={paragonName + idx}>{paragonObj.metadata.towerName}</option>
-        })}
-    </select>
+function createAvailableParagonList(currentMonkeyName: string | null, updateParagon: React.Dispatch<React.SetStateAction<string | null>>) {
+    const paragonCards = [...PARAGON_LIST].map(([monkeyName, paragonObj], idx) => {
+        const paragonMetadata = paragonObj.metadata;
+        const currentlySelected = (monkeyName === currentMonkeyName);
+        return <Card
+            hoverable
+            cover={
+                <img
+                    draggable={false}
+                    alt={paragonMetadata.paragonName + " Cover Art"}
+                    src={paragonMetadata.iconSrc}
+                    className="aspect-square"
+                />
+            }
+            key={monkeyName + idx}
+            className="w-32"
+            onClick={() => updateParagon(monkeyName)}
+        >
+            <Card.Meta title={paragonMetadata.towerName} description={currentlySelected ? "Selected" : ""}/>
+        </Card>
+    });
+
+    return paragonCards;
 }
 
-const DIFFICULTUES: GameDifficultyType[] = ["easy", "medium", "hard", "impoppable"]
 
-function createDifficultyList(currentGameDifficulty: GameDifficultyType) {
-    return <select id="difficulty" className="m-1 p-1 border rounded-xl border-blue-800 bg-blue-100" defaultValue={currentGameDifficulty}>
-        {DIFFICULTUES.map((difficulty, index) => (
-            <option value={difficulty} key={difficulty + index}>{capitalise(difficulty)}</option>
-        ))}
-    </select>
+function createDifficultyList(currentGameDifficulty: GameDifficultyType, updateDifficulty: React.Dispatch<React.SetStateAction<GameDifficultyType>>) {
+    const difficultyCards = DIFFICULTIES.map((difficulty, idx) => {
+        const displayName = capitalise(difficulty.name);
+        const currentlySelected = (difficulty.name === currentGameDifficulty);
+        return <Card
+            hoverable
+            cover={
+                <img
+                    draggable={false}
+                    alt={displayName + " Icon Art"}
+                    src={difficulty.iconSrc}
+                />
+            }
+            key={difficulty.name + idx}
+            className="w-32"
+            onClick={() => updateDifficulty(difficulty.name)}
+        >
+            <Card.Meta title={displayName} description={currentlySelected ? "Selected" : ""}/>
+        </Card>
+    });
+
+    return difficultyCards
 }
 
 function ParagonSelector() {
     const {paragonContextData, setParagonContextData} = useParagonContext();
     const selectorData = paragonContextData.selectorData;
-    const paragonName = paragonContextData.paragonData?.metadata.paragonName;
-    const paragonMetadata = paragonContextData.paragonData?.metadata;
-    const paragonForm = useRef<HTMLFormElement>(null);
 
-    async function updateFormAction() {
-        // TODO: Fix this up. Might just use a state setter for monkey name & game difficulty
-        const formRef = paragonForm.current;
-        if (formRef?.difficulty && formRef.paragon) {
-            const newMonkeyName: string | null = formRef?.paragon.value;
-            const newGameDifficulty: GameDifficultyType = formRef?.difficulty?.value;
-            if (!newMonkeyName) {
-                const cleanParagonContextData = new ParagonContextData();
-                cleanParagonContextData.selectorData.difficulty = newGameDifficulty;
-                setParagonContextData(cleanParagonContextData);
+    // "Form" states
+    const [selectedDifficulty, setSelectedDifficulty] = useState(selectorData.difficulty);
+    const [selectedParagon, setSelectedParagon] = useState(selectorData.name);
+
+    // 
+    useEffect(() => {
+        setParagonContextData({
+            ...paragonContextData,
+            selectorData: {
+                ...paragonContextData.selectorData,
+                difficulty: selectedDifficulty,
             }
-            else if (!paragonContextData.paragonData || selectorData.name !== newMonkeyName) {
-                const selectedParagonObj: IParagonData | undefined = PARAGON_LIST.get(newMonkeyName);
-                if (selectedParagonObj) {
-                    setParagonContextData({
-                        ...paragonContextData,
-                        paragonData: selectedParagonObj,
-                        selectorData: {
-                            ...paragonContextData.selectorData,
-                            name: newMonkeyName,
-                        }
-                    })
-                } else {
-                    // Handle issues better
-                    console.log("Unknown paragon");
-                }
-                
-            }
-            if (paragonContextData.selectorData.difficulty !== newGameDifficulty) {
-                setParagonContextData({
-                    ...paragonContextData,
-                    selectorData: {
-                        ...paragonContextData.selectorData,
-                        difficulty: newGameDifficulty
-                    }
-                })
+        })
+    }, [selectedDifficulty, setParagonContextData]);
+
+    useEffect(() => {
+        let newParagonData: IParagonData | null = paragonContextData.paragonData;
+        let newSelectorName: string | null = paragonContextData.selectorData.name;
+        if (!selectedParagon) {
+            newParagonData = null;
+            newSelectorName = null;
+        } else if (!paragonContextData.paragonData || paragonContextData.selectorData.name !== selectedParagon) {
+            const selectedParagonObj: IParagonData | undefined = PARAGON_LIST.get(selectedParagon);
+            if (selectedParagonObj) {
+                newParagonData = selectedParagonObj;
+                newSelectorName = selectedParagon;
             }
         }
-    }
+        setParagonContextData({
+            paragonLevel: 1,
+            paragonData: newParagonData,
+            selectorData: {
+                ...paragonContextData.selectorData,
+                name: newSelectorName
+            },
+        })
+    }, [selectedParagon, setParagonContextData]);
+
 
     return <div className="m-[5px] self-center">
-        <form ref={paragonForm} onChange={updateFormAction} className="grid grid-cols-[160px_minmax(0,_250px)]">
-            <label htmlFor="paragon" className="m-1">Chooose Paragon:</label>
-            {createAvailableParagonList(selectorData.name)}
-            <label htmlFor="difficulty" className="m-1">Choose Difficulty:</label>
-            {createDifficultyList(selectorData.difficulty)}
-
-        </form>
-        {paragonName && paragonMetadata && selectorData.difficulty && (
-            <div className="pt-4 pb-2 flex items-center">
-                <img src="https://www.bloonswiki.com/images/8/8b/BTD6_tutorial_ParagonIcon.png" alt="BTD6 Paragon Icon" width={"50"} height={"50"}/>
-                <p className="my-2 pl-3"><strong>Paragon Wiki Entry:</strong> <a href={paragonMetadata.wikiURL} className="text-blue-600 visited:text-purple-900 underline">{paragonName}</a></p>
-            </div>
-        )}
+        <Flex vertical>
+            <Divider orientation="left">Difficulty</Divider>
+            <span><span>Selected Difficulty:</span> <span>{capitalise(selectedDifficulty)}</span></span>
+            <Flex wrap gap="small">
+                {createDifficultyList(selectedDifficulty, setSelectedDifficulty)}
+            </Flex>
+            <Divider orientation="left">Paragon</Divider>
+            <span><span>Selected Paragon:</span> <span>{paragonContextData.paragonData?.metadata.towerName || "N/A"}</span></span>
+            <Flex wrap gap="small">
+                {createAvailableParagonList(selectedParagon, setSelectedParagon)}
+            </Flex>
+            <Divider/>
+            {/* Add full paragon card here */}
+        </Flex>
     </div>
 }
 

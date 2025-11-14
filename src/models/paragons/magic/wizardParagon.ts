@@ -1,11 +1,12 @@
 import { type IParagonData } from "../../../interfaces/paragonInterface";
+import magnusPerfectusIcon from "../../../assets/paragons/magusPerfectus.png";
 
 const wizardParagon: IParagonData = {
     metadata: {
         paragonName: "Magus Perfectus",
         towerName: "Wizard Monkey",
         wikiURL: "https://www.bloonswiki.com/Magus_Perfectus",
-        iconSrc: "https://www.bloonswiki.com/images/7/7e/BTD6_ParagonMagusPerfectus.png"
+        iconSrc: magnusPerfectusIcon,
     },
     prices: {
         easy: 680000,

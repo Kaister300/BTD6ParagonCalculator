@@ -1,11 +1,12 @@
 import { type IParagonData } from "../../../interfaces/paragonInterface";
+import goliathDoomshipIcon from "../../../assets/paragons/goliathDoomship.png";
 
 const aceParagon: IParagonData = {
     metadata: {
         paragonName: "Goliath Doomship",
         towerName: "Monkey Ace",
         wikiURL: "https://www.bloonswiki.com/Goliath_Doomship",
-        iconSrc: "https://www.bloonswiki.com/images/3/30/BTD6_Paragon-GoliathDoomship.png"
+        iconSrc: goliathDoomshipIcon,
     },
     prices: {
         easy: 765000,

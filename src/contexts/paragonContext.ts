@@ -15,7 +15,7 @@ class ParagonContextData {
 
 type ParagonContextType = {
     paragonContextData: ParagonContextData,
-    setParagonContextData: Function
+    setParagonContextData: React.Dispatch<React.SetStateAction<ParagonContextData>>
 }
 
 const ParagonContext = createContext<ParagonContextType | null>(null);

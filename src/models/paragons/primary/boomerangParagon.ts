@@ -1,11 +1,12 @@
 import { type IParagonData } from "../../../interfaces/paragonInterface";
+import glaiveDominusIcon from "../../../assets/paragons/glaiveDominus.png";
 
 const boomerangParagon: IParagonData = {
     metadata: {
         paragonName: "Glaive Dominus",
         towerName: "Boomerang Monkey",
         wikiURL: "https://www.bloonswiki.com/Glaive_Dominus",
-        iconSrc: "https://www.bloonswiki.com/images/d/d4/BTD6_ParagonGlaiveDominus.png"
+        iconSrc: glaiveDominusIcon,
     },
     prices: {
         easy: 212500,

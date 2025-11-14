@@ -3,6 +3,7 @@ import { Form, InputNumber, Slider, Flex, type InputNumberProps } from "antd";
 import { capitalise } from "../../utils/stringUtils";
 import useParagonContext from "../../hooks/useParagonContext";
 import { paragonLevelsGenerator } from "../../utils/createParagonLevels";
+import paragonIcon from "../../assets/paragons/paragonIcon.png";
 
 const PARAGON_LEVELS = paragonLevelsGenerator();
 
@@ -28,7 +29,7 @@ function ParagonLevelCalculator() {
     const formActive = paragonData !== null;
 
     // Construct photo
-    const paragonPhotoURL = paragonData ? paragonData.metadata.iconSrc : "https://www.bloonswiki.com/images/8/8b/BTD6_tutorial_ParagonIcon.png";
+    const paragonPhotoURL = paragonData?.metadata.iconSrc || paragonIcon;
 
     // Calculator States
     const [currentPower, setCurrentPower] = useState(0);

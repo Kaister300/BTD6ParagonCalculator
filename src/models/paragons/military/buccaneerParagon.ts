@@ -1,11 +1,12 @@
 import { type IParagonData } from "../../../interfaces/paragonInterface";
+import navarchIcon from "../../../assets/paragons/navarchOfTheSeas.png";
 
 const buccaneerParagon: IParagonData = {
     metadata: {
         paragonName: "Navarch of the Seas",
         towerName: "Monkey Buccaneer",
         wikiURL: "https://www.bloonswiki.com/Navarch_of_the_Seas",
-        iconSrc: "https://www.bloonswiki.com/images/5/54/BTD6_Paragon-NavarchOfTheSeas.png",
+        iconSrc: navarchIcon,
     },
     prices: {
         easy: 467500,

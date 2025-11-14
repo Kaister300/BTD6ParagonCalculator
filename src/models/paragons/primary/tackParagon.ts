@@ -1,11 +1,12 @@
 import { type IParagonData } from "../../../interfaces/paragonInterface";
+import cycloneIcon from "../../../assets/paragons/cycloneOfFireAndMetal.png";
 
 const tackParagon: IParagonData = {
     metadata: {
         paragonName: "Crucible of Steel and Flame",
         towerName: "Tack Shooter",
         wikiURL: "https://www.bloonswiki.com/Crucible_of_Steel_and_Flame",
-        iconSrc: "https://www.bloonswiki.com/images/f/fd/BTD6_Paragon-CycloneOfFireAndMetal.png"
+        iconSrc: cycloneIcon,
     },
     prices: {
         easy: 170000,

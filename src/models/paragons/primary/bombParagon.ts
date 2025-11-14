@@ -1,11 +1,12 @@
 import { type IParagonData } from "../../../interfaces/paragonInterface";
+import ballisitcIcon from "../../../assets/paragons/ballisticObliterationMissileBunker.png";
 
 const bombParagon: IParagonData = {
     metadata: {
         paragonName: "Ballistic Obliteration Missile Bunker",
         towerName: "Bomb Shooter",
         wikiURL: "https://www.bloonswiki.com/Ballistic_Obliteration_Missile_Bunker",
-        iconSrc: "https://www.bloonswiki.com/images/d/df/BTD6_Paragon-BallisticObliterationMissileBunker.png"
+        iconSrc: ballisitcIcon,
     },
     prices: {
         easy: 510000,

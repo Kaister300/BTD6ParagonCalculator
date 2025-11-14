@@ -1,11 +1,12 @@
 import { type IParagonData } from "../../../interfaces/paragonInterface";
+import nauticSeigeIcon from "../../../assets/paragons/nauticSeigeCore.png";
 
 const subParagon: IParagonData = {
     metadata: {
         paragonName: "Nautic Siege Core",
         towerName: "Monkey Sub",
         wikiURL: "https://www.bloonswiki.com/Nautic_Siege_Core",
-        iconSrc: "https://www.bloonswiki.com/images/2/2e/BTD6_Paragon-NauticSeigeCore.png"
+        iconSrc: nauticSeigeIcon,
     },
     prices: {
         easy: 340000,
