@@ -192,6 +192,9 @@ function ParagonLevelCalculator() {
                 name="moneySpent"
                 label="Money Spent (excluding initial 3)"
                 tooltip={`Total amount spent on towers excluding T5s. Max is $${paragonCost ? 3*paragonCost : 'N/A'}.`}
+                rules={[
+                    {type: 'number', min: 0, max: paragonCost ? 3*paragonCost : 0}
+                ]}
             >
                 <InputNumber min={0} max={paragonCost ? 3*paragonCost : 0} step={500} className="w-full!" prefix="$"/>
             </Form.Item>
@@ -200,6 +203,9 @@ function ParagonLevelCalculator() {
                 name="popCount"
                 label="Bloons Popped"
                 tooltip="Includes Bloons popped from every tower of the paragon type. Max is 16.2M."
+                rules={[
+                    {type: 'number', min: 0, max: 16200000}
+                ]}
             >
                 <InputNumber min={0} max={16200000} step={5000} className="w-full!"/>
             </Form.Item>
@@ -208,6 +214,9 @@ function ParagonLevelCalculator() {
                 name="incomeGenerated"
                 label="Cash Generated"
                 tooltip="Applies to Buccaneer & Engineer. Shares same internal power limit as pops. Max is $4.05M."
+                rules={[
+                    {type: 'number', min: 0, max: 4050000}
+                ]}
             >
                 <InputNumber min={0} max={4050000} step={1000} className="w-full!" prefix="$"/>
             </Form.Item>
@@ -216,6 +225,9 @@ function ParagonLevelCalculator() {
                 name="paragonTotems"
                 label="Geraldo Paragon Power Totems"
                 tooltip="Has no max cap to increase paragon power."
+                rules={[
+                    {type: 'number', min: 0}
+                ]}
             >
                 <InputNumber min={0} className="w-full!"/>
             </Form.Item>
@@ -224,6 +236,9 @@ function ParagonLevelCalculator() {
                 name="cashSlider"
                 label="Cash Injection"
                 tooltip={`This is the cash injection that is allowed to be spent on the paragon. This is 3.15 times the base paragon cost. Max is $${maxSliderCost}.`}
+                rules={[
+                    {type: 'number', min: 0, max: maxSliderCost}
+                ]}
             >
                 <Flex gap="middle">
                     <Slider min={0} max={maxSliderCost} step={1} className="w-full!" value={typeof cashSliderState === "number" ? cashSliderState : 0} onChange={updateCashSlider}/>

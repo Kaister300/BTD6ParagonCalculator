@@ -5,6 +5,7 @@ const aceParagon: IParagonData = {
     metadata: {
         paragonName: "Goliath Doomship",
         towerName: "Monkey Ace",
+        towerType: "military",
         wikiURL: "https://www.bloonswiki.com/Goliath_Doomship",
         iconSrc: goliathDoomshipIcon,
     },

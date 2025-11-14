@@ -5,6 +5,7 @@ const dartParagon: IParagonData = {
     metadata: {
         paragonName: "Apex Plasma Master",
         towerName: "Dart Monkey",
+        towerType: "primary",
         wikiURL: "https://www.bloonswiki.com/Apex_Plasma_Master",
         iconSrc: apexPlasmaIcon,
     },

@@ -5,6 +5,7 @@ const subParagon: IParagonData = {
     metadata: {
         paragonName: "Nautic Siege Core",
         towerName: "Monkey Sub",
+        towerType: "military",
         wikiURL: "https://www.bloonswiki.com/Nautic_Siege_Core",
         iconSrc: nauticSeigeIcon,
     },

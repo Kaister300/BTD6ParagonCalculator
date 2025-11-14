@@ -3,6 +3,10 @@
  * Used by Paragon Model files to properly type-cast data
 */
 
+// TODO: Maybe move into types file
+type GameDifficultyType = "easy" | "medium" | "hard" | "impoppable";
+type TowerType = "primary" | "military" | "magic" | "support";
+
 interface IParagonPrices {
     easy: number;
     medium: number;
@@ -14,6 +18,7 @@ interface IParagonPrices {
 interface IParagonMetadata {
     paragonName: string;
     towerName: string;
+    towerType: TowerType;
     wikiURL: string;
     iconSrc: string;
 }
@@ -45,9 +50,6 @@ interface IParagonData {
     attackContainer: IParagonAttackContainer[]
 }
 
-// TODO: Maybe move into types file
-type GameDifficultyType = "easy" | "medium" | "hard" | "impoppable";
-
 interface IParagonSelectorData {
     name: string | null;
     difficulty: GameDifficultyType;
@@ -59,5 +61,6 @@ export type {
     IParagonAttackContainer,
     IParagonData,
     IParagonSelectorData,
-    GameDifficultyType
+    GameDifficultyType,
+    TowerType,
 }

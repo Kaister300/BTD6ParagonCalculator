@@ -5,6 +5,7 @@ const buccaneerParagon: IParagonData = {
     metadata: {
         paragonName: "Navarch of the Seas",
         towerName: "Monkey Buccaneer",
+        towerType: "military",
         wikiURL: "https://www.bloonswiki.com/Navarch_of_the_Seas",
         iconSrc: navarchIcon,
     },

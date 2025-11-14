@@ -5,6 +5,7 @@ const boomerangParagon: IParagonData = {
     metadata: {
         paragonName: "Glaive Dominus",
         towerName: "Boomerang Monkey",
+        towerType: "primary",
         wikiURL: "https://www.bloonswiki.com/Glaive_Dominus",
         iconSrc: glaiveDominusIcon,
     },

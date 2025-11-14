@@ -5,6 +5,7 @@ const ninjaParagon: IParagonData = {
     metadata: {
         paragonName: "Ascended Shadow",
         towerName: "Ninja Monkey",
+        towerType: "magic",
         wikiURL: "https://www.bloonswiki.com/Ascended_Shadow",
         iconSrc: ascendedShadowIcon,
     },

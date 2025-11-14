@@ -4,6 +4,7 @@ const paragon: IParagonData = {
     metadata: {
         paragonName: "Template",
         towerName: "Template Tower",
+        towerType: "primary",
         wikiURL: "https://www.bloonswiki.com/Apex_Plasma_Master",
         iconSrc: "https://www.bloonswiki.com/images/5/52/BTD6_Paragon-ApexPlasmaMaster.png"
     },

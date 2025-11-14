@@ -5,6 +5,7 @@ const bombParagon: IParagonData = {
     metadata: {
         paragonName: "Ballistic Obliteration Missile Bunker",
         towerName: "Bomb Shooter",
+        towerType: "primary",
         wikiURL: "https://www.bloonswiki.com/Ballistic_Obliteration_Missile_Bunker",
         iconSrc: ballisitcIcon,
     },

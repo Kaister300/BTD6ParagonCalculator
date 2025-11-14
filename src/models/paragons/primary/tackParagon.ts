@@ -5,6 +5,7 @@ const tackParagon: IParagonData = {
     metadata: {
         paragonName: "Crucible of Steel and Flame",
         towerName: "Tack Shooter",
+        towerType: "primary",
         wikiURL: "https://www.bloonswiki.com/Crucible_of_Steel_and_Flame",
         iconSrc: cycloneIcon,
     },

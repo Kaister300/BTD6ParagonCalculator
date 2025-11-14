@@ -5,6 +5,7 @@ const wizardParagon: IParagonData = {
     metadata: {
         paragonName: "Magus Perfectus",
         towerName: "Wizard Monkey",
+        towerType: "magic",
         wikiURL: "https://www.bloonswiki.com/Magus_Perfectus",
         iconSrc: magnusPerfectusIcon,
     },

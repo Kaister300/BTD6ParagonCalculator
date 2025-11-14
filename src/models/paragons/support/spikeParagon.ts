@@ -5,6 +5,7 @@ const spikeParagon: IParagonData = {
     metadata: {
         paragonName: "Mega Massive Munitions Factory",
         towerName: "Spike Factory",
+        towerType: "support",
         wikiURL: "https://www.bloonswiki.com/Mega_Massive_Munitions_Factory",
         iconSrc: spikeFactoryIcon,
     },

@@ -5,6 +5,7 @@ const engineerParagon: IParagonData = {
     metadata: {
         paragonName: "Master Builder",
         towerName: "Engineer Monkey",
+        towerType: "support",
         wikiURL: "https://www.bloonswiki.com/Master_Builder",
         iconSrc: masterBuilderIcon,
     },
