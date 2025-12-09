@@ -13,6 +13,7 @@ const AVAILABLE_PARAGONS = {
         "boomerangm": "Boomerang Monkey",  // Has to be "boomerangm" to avoid conflict with "boomerang"
         "tack": "Tack Shooter",
         "bomb": "Bomb Shooter",
+        "ice": "Ice Monkey",
     },
     "military": {
         "buccaneer": "Monkey Buccaneer",

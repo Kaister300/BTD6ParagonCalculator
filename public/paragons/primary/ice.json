@@ -1,0 +1,32 @@
+{
+    "name": "Herald of Everfrost",
+    "metadata": {
+        "wikiURL": "https://www.bloonswiki.com/Herald_of_Everfrost",
+        "iconSrc": "https://www.bloonswiki.com/images/7/77/BTD6_Paragon-HeraldOfEverfrost.png"
+    },
+    "prices": {
+        "easy": 255000,
+        "medium": 300000,
+        "hard": 324000,
+        "impoppable": 360000
+    },
+    "attackContainer": [
+        {
+            "name": "Main",
+            "attacks" : [
+                {
+                    "name": "Attack",
+                    "isDot": false,
+                    "damage": 20,
+                    "ceramic": 30,
+                    "moab": 0,
+                    "boss": 60,
+                    "elite": 200,
+                    "pierce": 200,
+                    "speed": 0.35,
+                    "cooldown": 0
+                }
+            ]
+        }
+    ]
+}
