@@ -5,9 +5,29 @@ import useParagonContext from "../../hooks/useParagonContext";
 import { capitalise } from "../../utils/stringUtils";
 import type { IParagonData, GameDifficultyType, TowerType } from "../../interfaces/paragonInterface";
 import { DIFFICULTIES } from "../../models/difficultyData";
+import { renderToString } from "react-dom/server";
 
 
-const TOWER_TYPE_STYLES: Record<TowerType, {imageBackground: string, cardBackground: string, borderColor: string}> = {
+/**
+ * Generates inline-URL for svg required for card backgrounds
+ * @param fillColor 
+ * @returns URL + base64 encoded svg string
+ */
+function generateCardBackground(fillColor: string) {
+    const baseSvg = <svg xmlns="http://www.w3.org/2000/svg" width="50" height="40" fill={fillColor}>
+        <path d='M 0 0 L 25 9 L 50 0 V 40 H 0 Z'></path>
+    </svg>
+    return "data:image/svg+xml;base64," + encodeURIComponent(btoa(renderToString(baseSvg)));
+}
+
+// TOOD: Potentially move this into separate file
+type CustomCardTheme = {
+    imageBackground: string,
+    cardBackground: string,
+    borderColor: string
+}
+
+const TOWER_TYPE_STYLES: Record<TowerType, CustomCardTheme> = {
     primary: {
         imageBackground: "#91d1ef",
         cardBackground: "#24abe7",
@@ -38,7 +58,8 @@ function ParagonSelection(props: Readonly<{
         const paragonMetadata = paragonObj.metadata;
         const currentlySelected = (monkeyName === props.currentMonkeyName);
         const towerStyle = TOWER_TYPE_STYLES[paragonMetadata.towerType] || TOWER_TYPE_STYLES["primary"];
-        const cardBorderClass = currentlySelected ? `border-5!` : ""
+        const cardBorderClass = currentlySelected ? "border-5!" : "border-0!"
+        const generatedCardBackground = generateCardBackground(towerStyle.cardBackground);
         return <Card
             hoverable
             cover={
@@ -47,39 +68,58 @@ function ParagonSelection(props: Readonly<{
                     alt={paragonMetadata.paragonName + " Cover Art"}
                     src={paragonMetadata.iconSrc}
                     className="aspect-square"
-                    style={{backgroundColor: towerStyle.imageBackground}}
                 />
             }
             key={monkeyName + idx}
-            className={`min-w-32 max-w-48  ${cardBorderClass}`}
-            style={
-                {
-                    backgroundColor: towerStyle.cardBackground,
-                    ...(currentlySelected ? {borderColor: towerStyle.borderColor} : {}),
-                }
-            }
+            className={`min-w-32 max-w-48 ${cardBorderClass}`}
+            style={{
+                overflow: "hidden",
+                background: `no-repeat bottom/100% 40% url("${generatedCardBackground}") ${towerStyle.imageBackground}`,
+                ...(currentlySelected ? {borderColor: towerStyle.borderColor} : {}),
+            }}
             onClick={() => props.updateParagon(monkeyName)}
         >
-            <Card.Meta title={paragonMetadata.towerName} description={currentlySelected ? "Selected" : ""} className="[&>*>.ant-card-meta-title]:text-wrap!"/>
+            <Card.Meta title={paragonMetadata.towerName} className="[&>*>.ant-card-meta-title]:text-wrap!"/>
         </Card>
     });
 
     return paragonCards;
 }
 
-// const DIFFICULTY_STYLES = {
-//     easy: {
-
-//     }
-// }
+const DIFFICULTY_STYLES: Record<GameDifficultyType, CustomCardTheme> = {
+    easy: {
+        imageBackground: "#96d4ef",
+        cardBackground: "#52bddc",
+        borderColor: "#c82eb5"
+    },
+    medium: {
+        imageBackground: "#68ae4b",
+        cardBackground: "#3f9236",
+        borderColor: "#bec32f"
+    },
+    hard: {
+        imageBackground: "#779bbd",
+        cardBackground: "#5f7c98",
+        borderColor: "#bf172f",
+    },
+    impoppable: {
+        imageBackground: "#00b58c",
+        cardBackground: "#008e7f",
+        borderColor: "#005f61"
+    },
+}
 
 function DifficultySelection(props: Readonly<{
     currentGameDifficulty: GameDifficultyType,
     updateDifficulty: React.Dispatch<React.SetStateAction<GameDifficultyType>>
 }>) {
     const difficultyCards = DIFFICULTIES.map((difficulty, idx) => {
+        
         const displayName = capitalise(difficulty.name);
+        const difficultyStyle = DIFFICULTY_STYLES[difficulty.name] || DIFFICULTY_STYLES["easy"]
         const currentlySelected = (difficulty.name === props.currentGameDifficulty);
+        const cardBorderClass = currentlySelected ? "border-5!" : "border-0!"
+        const generatedCardBackground = generateCardBackground(difficultyStyle.cardBackground);
         return <Card
             hoverable
             cover={
@@ -87,13 +127,19 @@ function DifficultySelection(props: Readonly<{
                     draggable={false}
                     alt={displayName + " Icon Art"}
                     src={difficulty.iconSrc}
+                    className="aspect-square"
                 />
             }
             key={difficulty.name + idx}
-            className="w-40"
+            className={`w-40 ${cardBorderClass}`}
+            style={{
+                overflow: "hidden",
+                background: `no-repeat bottom/100% 40% url("${generatedCardBackground}") ${difficultyStyle.imageBackground}`,
+                ...(currentlySelected ? {borderColor: difficultyStyle.borderColor} : {}),
+            }}
             onClick={() => props.updateDifficulty(difficulty.name)}
         >
-            <Card.Meta title={displayName} description={currentlySelected ? "Selected" : ""}/>
+            <Card.Meta title={displayName}/>
         </Card>
     });
 
@@ -117,6 +163,7 @@ function ParagonSelector() {
                 difficulty: selectedDifficulty,
             }
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedDifficulty, setParagonContextData]);
 
     // Update Paragon Data Hook
@@ -141,6 +188,7 @@ function ParagonSelector() {
                 name: newSelectorName
             },
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedParagon, setParagonContextData]);
 
     return <div className="m-[5px] self-center">
@@ -159,8 +207,6 @@ function ParagonSelector() {
                     updateParagon={setSelectedParagon}
                 />
             </Flex>
-            <Divider/>
-            {/* Add full paragon card here */}
         </Flex>
     </div>
 }

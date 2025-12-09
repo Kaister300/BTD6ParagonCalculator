@@ -6,7 +6,7 @@ import {
   PushpinOutlined,
 } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Layout, Menu, theme } from 'antd';
+import { Layout, Menu } from 'antd';
 import TitleHeader from './components/TitleHeader';
 import {ParagonContext, ParagonContextData} from "./contexts/paragonContext";
 import ParagonSelector from './components/tools/ParagonSelector';
@@ -59,9 +59,8 @@ function App() {
   const [collapsed, setCollapsed] = useState(false);
   const [selectedNode, setSelectedNode] = useState('1');
   const [paragonContextData, setParagonContextData] = useState(new ParagonContextData());
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
+  const colorBgContainer = "rgb(255, 255, 255, 0.80)";
+  const borderRadiusLG = "8px";
 
   const currentNode = toolNodes[selectedNode];
 
@@ -71,14 +70,14 @@ function App() {
             setParagonContextData,
     }}>
       <Layout style={{ minHeight: '100vh' }}>
-        <Sider collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
+        <Sider breakpoint='sm' collapsedWidth={0} style={{position: "sticky"}} zeroWidthTriggerStyle={{top: "70px"}} collapsible collapsed={collapsed} onCollapse={(value) => setCollapsed(value)}>
           <div className="p-6">
             <img src={paragonIcon} alt="BTD6 Paragon Icon" />
           </div>
           <Menu theme="dark" defaultSelectedKeys={['1']} mode="inline" items={items} onSelect={(value) => setSelectedNode(value.key)}/>
         </Sider>
         <Layout className="paragon-background">
-          <Header style={{ padding: 0, height: 'auto', background: colorBgContainer, opacity: 0.75 }}>
+          <Header style={{ padding: 0, height: 'auto', background: colorBgContainer }}>
             <TitleHeader/>
           </Header>
           <Content style={{ margin: '0 16px', padding: '24px 0', display: 'flex' }}>
@@ -88,14 +87,13 @@ function App() {
               flexGrow: 1,
               display: 'flex',
               justifyContent: 'center',
-              opacity: 0.75,
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}>
               {currentNode}
             </div>
           </Content>
-          <Footer style={{ textAlign: 'center', opacity: 0.75 }}>
+          <Footer style={{ textAlign: 'center', background: colorBgContainer }}>
             <FooterAttribution/>
           </Footer>
         </Layout>

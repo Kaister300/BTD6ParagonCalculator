@@ -1,10 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,300;0,400;1,300;1,400&display=swap');
 @import "tailwindcss";
-/* font-family: 'Mulish', sans-serif; */
+
+.luckiest-guy-font {
+  font-family: 'Luckiest Guy', cursive;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.mulish-font {
+  font-family: 'Mulish', sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
 
 :root {
-  font-family: 'Luckiest Guy', 'Mulish', sans-serif;
+  font-family: sans-serif;
 }
 
 #root {

@@ -49,6 +49,7 @@ function ParagonLevelCalculator() {
             .validateFields({validateOnly: false})
             .then(() => calculatePower(values))
             .catch(() => console.log("Form invalid. Not calculating power."));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [form, values]);
 
     function calculatePower(formValues: CalculatorFormFieldTypes) {
@@ -190,8 +191,8 @@ function ParagonLevelCalculator() {
 
             <Form.Item
                 name="moneySpent"
-                label="Money Spent (excluding initial 3)"
-                tooltip={`Total amount spent on towers excluding T5s. Max is $${paragonCost ? 3*paragonCost : 'N/A'}.`}
+                label="Money Spent"
+                tooltip={`Total amount spent on towers excluding any upgraded to T5. Max is ${paragonCost ? "$" + 3*paragonCost : 'N/A'}.`}
                 rules={[
                     {type: 'number', min: 0, max: paragonCost ? 3*paragonCost : 0}
                 ]}
@@ -223,7 +224,7 @@ function ParagonLevelCalculator() {
 
             <Form.Item
                 name="paragonTotems"
-                label="Geraldo Paragon Power Totems"
+                label="Geraldo Totems"
                 tooltip="Has no max cap to increase paragon power."
                 rules={[
                     {type: 'number', min: 0}
@@ -235,7 +236,7 @@ function ParagonLevelCalculator() {
             <Form.Item
                 name="cashSlider"
                 label="Cash Injection"
-                tooltip={`This is the cash injection that is allowed to be spent on the paragon. This is 3.15 times the base paragon cost. Max is $${maxSliderCost}.`}
+                tooltip={`This is the cash injection that is allowed to be spent on the paragon. This is 3.15 times the base paragon cost. Max is ${maxSliderCost ? "$" + maxSliderCost : "N/A"}.`}
                 rules={[
                     {type: 'number', min: 0, max: maxSliderCost}
                 ]}
