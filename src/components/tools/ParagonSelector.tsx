@@ -23,6 +23,7 @@ const AVAILABLE_PARAGONS = {
     "magic": {
         "ninja": "Ninja Monkey",
         "wizard": "Wizard Monkey",
+        "druid": "Druid"
     },
     "support": {
         "engineer": "Engineer Monkey",
