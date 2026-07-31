@@ -5,10 +5,10 @@
         "iconSrc": "https://www.bloonswiki.com/images/d/d4/BTD6_ParagonGlaiveDominus.png"
     },
     "prices": {
-        "easy": 212500,
-        "medium": 250000,
-        "hard": 270000,
-        "impoppable": 300000
+        "easy": 318750,
+        "medium": 375000,
+        "hard": 405000,
+        "impoppable": 450000
     },
     "attackContainer": [
         {

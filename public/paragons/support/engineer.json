@@ -5,10 +5,10 @@
         "iconSrc": "https://www.bloonswiki.com/images/c/c6/BTD6_Paragon_-_MasterBuilder.png"
     },
     "prices": {
-        "easy": 552500,
-        "medium": 650000,
-        "hard": 702000,
-        "impoppable": 780000
+        "easy": 510000,
+        "medium": 600000,
+        "hard": 648000,
+        "impoppable": 720000
     },
     "attackContainer": [
         {

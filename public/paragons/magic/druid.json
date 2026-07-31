@@ -1,14 +1,14 @@
 {
-    "name": "Ballistic Obliteration Missile Bunker",
+    "name": "Root of all Nature",
     "metadata": {
-        "wikiURL": "https://www.bloonswiki.com/Ballistic_Obliteration_Missile_Bunker",
-        "iconSrc": "https://www.bloonswiki.com/images/d/df/BTD6_Paragon-BallisticObliterationMissileBunker.png"
+        "wikiURL": "https://www.bloonswiki.com/Root_of_all_Nature",
+        "iconSrc": "https://www.bloonswiki.com/images/b/b1/BTD6_Paragon-RootOfAllNature.png"
     },
     "prices": {
-        "easy": 552500,
-        "medium": 650000,
-        "hard": 702000,
-        "impoppable": 780000
+        "easy": 403750,
+        "medium": 475000,
+        "hard": 513000,
+        "impoppable": 570000
     },
     "attackContainer": [
         {
