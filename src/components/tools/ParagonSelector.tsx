@@ -18,12 +18,12 @@ const AVAILABLE_PARAGONS = {
     "military": {
         "buccaneer": "Monkey Buccaneer",
         "ace": "Monkey Ace",
-        "sub": "Monkey Sub"
+        "sub": "Monkey Sub",
     },
     "magic": {
         "ninja": "Ninja Monkey",
         "wizard": "Wizard Monkey",
-        "druid": "Druid"
+        "druid": "Druid Monkey",
     },
     "support": {
         "engineer": "Engineer Monkey",
