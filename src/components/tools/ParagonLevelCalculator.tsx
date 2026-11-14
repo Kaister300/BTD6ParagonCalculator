@@ -57,7 +57,6 @@ function ParagonLevelCalculator() {
 
     // Form States
     const [tier5, setTier5] = useState<number | string>(0);
-    const [towerUpgrade, setTowerUpgrade] = useState<number | string>(0);
     const [moneySpent, setMoneySpent] = useState<number | string>(0);
     const [popCount, setPopCount] = useState<number | string>(0);
     const [incomeGenerated, setIncomeGenerated] = useState<number | string>(0);
@@ -65,15 +64,14 @@ function ParagonLevelCalculator() {
     const [cashSlider, setCashSlider] = useState<number | string>(0);
 
     // Calculations
-    const maxSliderCost = paragonCost ? Math.round(3.15 * paragonCost + 1) : 0;
+    const maxSliderCost = paragonCost ? Math.round(4.2 * paragonCost + 1) : 0;
 
     function resetCalculationValues() {
         // Reset Calculator States
         setCurrentPower(0);
 
-        // Reste Form States
+        // Reset Form States
         setTier5(0);
-        setTowerUpgrade(0);
         setMoneySpent(0);
         setPopCount(0);
         setIncomeGenerated(0);
@@ -96,17 +94,12 @@ function ParagonLevelCalculator() {
         // Zero Power Initially
         let newPower = 0;
 
-        // Tier5s. Max is 50,000 power
+        // Tier 5s. Max is 50,000 power
         if(tier5 && typeof tier5 === "number") {
             newPower += Math.min(tier5*6000, 50000);
         }
 
-        // Upgrades. Max is 10,000 power
-        if (towerUpgrade && typeof towerUpgrade === "number") {
-            newPower += Math.min(towerUpgrade*100, 10000)
-        }
-
-        // Money Spent. Max is 60,000 power
+        // Money Spent. Max is 80,000 power as of version 57.0
         if (paragonCost) {
             let costPower = 0;
 
@@ -122,14 +115,14 @@ function ParagonLevelCalculator() {
                 costPower += Math.floor(cashSlider/sliderRatio);
             }
 
-            newPower += Math.min(costPower, 60000);
+            newPower += Math.min(costPower, 80000);
         }
 
-        // Pops or Income. Max is 90,000 power
+        // Pops or Income. Max is 125,000 power as of version 57.0
         let temp = 0;
         if (popCount && typeof popCount === "number") temp += Math.floor(popCount/180);
         if (incomeGenerated && typeof incomeGenerated === "number") temp += Math.floor(incomeGenerated/45);
-        newPower += Math.min(temp, 90000);
+        newPower += Math.min(temp, 125000);
 
         // Totems. No Max
         if (paragonTotems && typeof paragonTotems === "number") newPower += paragonTotems*2000;
@@ -143,7 +136,7 @@ function ParagonLevelCalculator() {
 
     useEffect(() => {
         calculatePower();
-    }, [tier5, towerUpgrade, moneySpent, popCount, incomeGenerated, paragonTotems, cashSlider]);  // eslint-disable-line
+    }, [tier5, moneySpent, popCount, incomeGenerated, paragonTotems, cashSlider]);  // eslint-disable-line
 
     function calculateDegree() {
         let found = false;
@@ -172,30 +165,27 @@ function ParagonLevelCalculator() {
         <div className="flex items-center justify-center space-x-4 pb-4">
             <img src={paragonPhotoURL} alt="BTD6 Paragon Model" width={"80"} height={"80"}/>
             <div className="text-center leading-normal">
-                <h3 className="font-semibold text-xl">{formActive ? paragonData.name : "Please select a Paragon"}</h3>
-                <h4 className={formActive ? "italic" : ""}>{formActive ? capitalise(gameDifficulty) : "-----"}</h4>
+                <h3 className="font-semibold text-xl">{formActive ? paragonData.name : "Select a Paragon"}</h3>
+                <h4 className={formActive ? "italic" : ""}>{formActive ? `${capitalise(gameDifficulty)} ($${paragonCost})` : "-----"}</h4>
             </div>
         </div>
         <form className="grid grid-cols-2 [&>label]:text-right [&>label]:m-1 [&>input]:m-1 [&>*>input]:m-1 [&>input]:p-1 [&>input]:border [&>input]:rounded-xl [&>input]:border-blue-800 [&>input]:bg-blue-100">
             <label htmlFor="tier5"><Tooltip bodyText="Tier 5 Towers:" tooltipText="Excludes the first 3 Tier 5 towers that were placed down to enable the paragon purchase."/></label>
             <input type="number" id="tier5" min={0}  max={9} value={tier5} onChange={inputValidationWrapper(setTier5)}/>
 
-            <label htmlFor="towerupgrades"><Tooltip bodyText="Non-Tier 5 Upgrades:" tooltipText="This includes all upgrade tiers spent on towers excluding any Tier 5 upgrades. Max is 100."/></label>
-            <input type="number" id="towerupgrades" min={0} max={100} value={towerUpgrade} step={4} onChange={inputValidationWrapper(setTowerUpgrade)}/>
+            <label htmlFor="moneyspent"><Tooltip bodyText="Money Spent (excluding initial 3):" tooltipText={`Total amount spent on towers excluding T5s. Max is $${paragonCost ? 4*paragonCost : 'N/A'}.`}/></label>
+            <input type="number" id="moneyspent" min={0} max={paragonCost ? 4*paragonCost : 0} value={moneySpent} step={500} onChange={inputValidationWrapper(setMoneySpent)}/>
 
-            <label htmlFor="moneyspent"><Tooltip bodyText="Money Spent (excluding initial 3):" tooltipText={`Total amount spent on towers excluding T5s. Max is $${paragonCost ? 3*paragonCost : 'N/A'}.`}/></label>
-            <input type="number" id="moneyspent" min={0} max={paragonCost ? 3*paragonCost : 0} value={moneySpent} step={500} onChange={inputValidationWrapper(setMoneySpent)}/>
+            <label htmlFor="popcount"><Tooltip bodyText="Bloons Popped:" tooltipText="Includes Bloons popped from every tower of the paragon type. Max is 22.5M."/></label>
+            <input type="number" id="popcount" min={0} max={22500000} value={popCount} step={5000} onChange={inputValidationWrapper(setPopCount)}/>
 
-            <label htmlFor="popcount"><Tooltip bodyText="Bloons Popped:" tooltipText="Includes Bloons popped from every tower of the paragon type. Max is 16.2M."/></label>
-            <input type="number" id="popcount" min={0} max={16200000} value={popCount} step={5000} onChange={inputValidationWrapper(setPopCount)}/>
-
-            <label htmlFor="incomegenerated"><Tooltip bodyText="Cash Generated:" tooltipText="Applies to Buccaneer & Engineer. Shares same internal power limit as pops. Max is $4.05M."/></label>
-            <input type="number" id="incomegenerated" min={0} max={4050000} value={incomeGenerated} step={1000} onChange={inputValidationWrapper(setIncomeGenerated)}/>
+            <label htmlFor="incomegenerated"><Tooltip bodyText="Cash Generated:" tooltipText="Applies to cash generating towers. Shares same internal power limit as pops. Max is $5.625M."/></label>
+            <input type="number" id="incomegenerated" min={0} max={5625000} value={incomeGenerated} step={1000} onChange={inputValidationWrapper(setIncomeGenerated)}/>
 
             <label htmlFor="paragontotems"><Tooltip bodyText="Geraldo Paragon Power Totems:" tooltipText="Has no max cap to increase paragon power."/></label>
             <input type="number" id="paragontotems" min={0} value={paragonTotems} onChange={inputValidationWrapper(setParagonTotems)}/>
 
-            <label htmlFor="cashslider"><Tooltip bodyText="Cash Injection:" tooltipText={`This is the cash injection that is allowed to be spent on the paragon. This is 3.15 times the base paragon cost. Max is $${maxSliderCost}.`}/></label>
+            <label htmlFor="cashslider"><Tooltip bodyText="Cash Injection:" tooltipText={`This is the cash injection that is allowed to be spent on the paragon. This is 4.2 times the base paragon cost. Max is $${maxSliderCost}.`}/></label>
             <span id="cashslidercontainer" className="flex">
                 <input type="range" id="cashslider" className="min-w-2" min={0} max={maxSliderCost} value={cashSlider} step={1} onChange={inputValidationWrapper(setCashSlider)}/>
                 <input type="number" className="flex-1 m-1 p-1 border rounded-xl border-blue-800 bg-blue-100" min={0} max={maxSliderCost} value={cashSlider} step={100} onChange={inputValidationWrapper(setCashSlider)}/>
@@ -213,7 +203,7 @@ function ParagonLevelCalculator() {
         <span className="my-3 text-red-500">
             <strong>NOTE:</strong> {
                 paragonCost ?
-                    `The cash injection is 3.15 times the base paragon cost. This would mean that the total cost would be $${maxSliderCost}`
+                    `The cash injection is 4.2 times the base paragon cost. This would mean that the total cost would be $${maxSliderCost}`
                     : "Please choose the Paragon and Difficulty first."
             }
         </span>

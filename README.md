@@ -3,7 +3,7 @@
 [![Deploy static content to GH Pages](https://github.com/Kaister300/BTD6ParagonCalculator/actions/workflows/deploy-gh-pages.yaml/badge.svg)](https://github.com/Kaister300/BTD6ParagonCalculator/actions/workflows/deploy-gh-pages.yaml)
 
 ## Overview
-A simple web application to caclulate the approximate power of a BTD6 paragon based on in game factors.
+A simple web application to calculate the approximate power of a BTD6 paragon based on in game factors.
 This uses bun at the development runtime along with the React front-end framework to render and run the main calculation logic. 
 
 ## Webpage Location

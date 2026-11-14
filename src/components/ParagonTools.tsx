@@ -24,7 +24,7 @@ function ParagonTools() {
                 <ParagonSelector/>
             </Collapsible>
 
-            <Collapsible title="Paragon Degree Calculator" subtitle="Post Game Version 39.0">
+            <Collapsible title="Paragon Degree Calculator" subtitle="Post Game Version 57.0">
                 <ParagonLevelCalculator/>
             </Collapsible>
 
