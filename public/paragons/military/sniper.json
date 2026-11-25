@@ -1,0 +1,73 @@
+{
+    "name": "S.P.I.D.E.R. Monkey",
+    "metadata": {
+        "wikiURL": "https://www.bloonswiki.com/S.P.I.D.E.R._Monkey",
+        "iconSrc": "https://www.bloonswiki.com/images/2/26/BTD6_Paragon-SniperMonkey.png"
+    },
+    "prices": {
+        "easy": 680000,
+        "medium": 800000,
+        "hard": 864000,
+        "impoppable": 960000
+    },
+    "attackContainer": [
+        {
+            "name": "Rifle",
+            "attacks" : [
+                {
+                    "name": "Rifle Bullet",
+                    "isDot": false,
+                    "damage": 500,
+                    "ceramic": 0,
+                    "moab": 24000,
+                    "boss": 500,
+                    "elite": 0,
+                    "pierce": 2,
+                    "speed": 7.5,
+                    "cooldown": 0
+                },
+                {
+                    "name": "Rifle Shrapnel",
+                    "isDot": false,
+                    "damage": 5,
+                    "ceramic": 0,
+                    "moab": 135,
+                    "boss": 0,
+                    "elite": 0,
+                    "pierce": 1,
+                    "speed": 0,
+                    "cooldown": 0
+                },
+                {
+                    "name": "Rifle Explosion",
+                    "isDot": false,
+                    "damage": 500,
+                    "ceramic": 0,
+                    "moab": 0,
+                    "boss": 0,
+                    "elite": 200,
+                    "pierce": 10,
+                    "speed": 0,
+                    "cooldown": 0
+                }
+            ]
+        },
+        {
+            "name": "Single Out",
+            "attacks" : [
+                {
+                    "name": "Single Out Projectile",
+                    "isDot": false,
+                    "damage": 150000,
+                    "ceramic": 0,
+                    "moab": 0,
+                    "boss": 0,
+                    "elite": 0,
+                    "pierce": 9999999,
+                    "speed": 0,
+                    "cooldown": 180
+                }
+            ]
+        }
+    ]
+}
