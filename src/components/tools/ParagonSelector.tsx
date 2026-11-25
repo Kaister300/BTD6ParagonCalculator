@@ -16,6 +16,7 @@ const AVAILABLE_PARAGONS = {
         "ice": "Ice Monkey",
     },
     "military": {
+        "sniper" : "Sniper Monkey",
         "buccaneer": "Monkey Buccaneer",
         "ace": "Monkey Ace",
         "sub": "Monkey Sub",
